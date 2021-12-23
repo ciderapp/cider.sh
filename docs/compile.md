@@ -13,6 +13,7 @@ Run the command associated with your platform below to compile but if that doesn
 * [windows-build-tools](https://github.com/nodejs/node-gyp#on-windows) (_If on Windows. Should be installed with Node.js install but install this if you are having errors saying you do not have Visual Studio or VS19_)
 * Simple Command Line Knowledge
 * Code Editor/IDE (_optional but recommended if you intend on editing files_)
+* [RPM tools](https://github.com/csdms/rpm_tools) ( for building on arch)
 
 Once you have those items on your machine, enter the command below. If you run into any compilation issues, please create an [issue](https://github.com/ciderapp/Apple-Music-Electron/issues/new?assignees=&labels=compiling+bug&template=bug_report.md&title=[BUG]+).
 <br />
@@ -45,12 +46,12 @@ After you compile your app, it should be in the source directory inside the `dis
 Please run the command below via Powershell:
 
 ```
-git clone https://github.com/ciderapp/cider.git; cd Cider; yarn; yarn dist;
+git clone https://github.com/ciderapp/cider.git; && cd cider; && yarn; && yarn dist;
 ```
 
 Some users may have their ExecutionPolicy blocking the previous command. In which case run the following:
 ```
-git clone https://github.com/ciderapp/cider.git; cd Cider; npx yarn; npx yarn dist;
+git clone https://github.com/ciderapp/cider.git; cd cider; npx yarn; npx yarn dist;
 ```
 
 After you compile your app, it should be in the source directory inside the `dist` folder.
