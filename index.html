@@ -98,6 +98,34 @@
     </section>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/Animated-Type-Heading.js"></script>
+    <script>
+        const setThemeColor = (color) => {
+        const meta = document.querySelector('meta[name="theme-color"]')
+        if (meta) {
+            meta.setAttribute('content', color)
+        }
+        }
+
+        if ("IntersectionObserver" in window) {
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                const { isIntersecting, target } = entry
+                if (isIntersecting) {
+                const color = window.getComputedStyle(target).getPropertyValue("background-color");
+                setThemeColor(color)
+                }
+            })
+        }, {
+            root: document.getElementById('viewport'),
+            rootMargin: "1px 0px -100% 0px",
+            treshold: 0.1
+        })
+        
+        document.querySelectorAll('.section').forEach(section => {
+            observer.observe(section)
+        })
+        }
+    </script>
 </body>
 
 </html>
