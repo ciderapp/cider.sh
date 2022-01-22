@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" style="background: url(&quot;assets/img/Server%20Background.png&quot;) no-repeat;background-size: fill;">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Cider - An open-source Apple Music client</title>
+    <meta name="twitter:description" content="Cider is an open-source Apple Music client for multiple operating systems including Windows, macOS, and Linux.">
+    <meta name="twitter:card" content="summary">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://cider.sh/assets/img/Cider.png">
+    <meta name="description" content="Cider is an open-source Apple Music client for multiple operating systems including Windows, macOS, and Linux.">
+    <meta name="twitter:image" content="https://cider.sh/assets/img/Cider.png">
+    <meta name="twitter:title" content="Cider - An open-source Apple Music client">
+    <meta name="theme-color" content="#ff938c">
+    <!-- Make it reflect top of page-->
+    <link rel="icon" type="image/png" sizes="1002x1000" href="assets/img/Cider.png">
+    <link rel="icon" type="image/png" sizes="1002x1000" href="assets/img/Cider.png">
+    <link rel="icon" type="image/png" sizes="1002x1000" href="assets/img/Cider.png">
+    <link rel="icon" type="image/png" sizes="1002x1000" href="assets/img/Cider.png">
+    <link rel="icon" type="image/png" sizes="1002x1000" href="assets/img/Cider.png">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/css/Animated-CSS-Waves-Background-SVG.css">
+    <link rel="stylesheet" href="assets/css/animated-services.css">
+    <link rel="stylesheet" href="assets/css/Animated-Type-Heading.css">
+    <link rel="stylesheet" href="assets/css/Single-Price-Plan.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/Team-Grid.css">
+</head>
+
+<body style="background: transparent;">
+    <div class="container position-absolute top-50 start-50 translate-middle">
+        <div class="card mb-3" style="margin-top: 38px;margin-bottom: 38px;border-radius: 8px;">
+            <div class="row g-0">
+                <div class="col-md-4 p-2 text-center">
+                    <img src="" class="img-fluid rounded-start" id="qr" alt="QR code here">
+                </div>
+                <div class="col-md-7">
+                    <div class="card-body">
+                        <h1 class="card-title"><strong>Cider Remote</strong></h1>
+                        <h6 class="text-muted card-subtitle mb-2">Scan the QR code to pair your phone up with this Cider instance</h6>
+                        <p class="card-text"><a class="text-muted small text-decoration-none" id="url">Last updated 3 mins ago</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!--
+        <div class="card p-5" style="margin-top: 38px;margin-bottom: 38px;border-radius: 8px;">
+            <div class="card-body">
+                <div class="grid">
+                    <div class="g-col-2">
+                        
+                    </div>
+                    <div class="g-col-2">
+                        <p class="card-img-top"> <img id="qr" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fle-cdn.hibuwebsites.com%2F18751313d14e4b6286d1a1024195b6d0%2Fdms3rep%2Fmulti%2Fopt%2FTourism%2BQR%2BCode-400w.png&f=1&nofb=1"></p>
+                    </div>
+                </div>
+
+            </div>
+-->
+    </div>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/Animated-Type-Heading.js"></script>
+    <script>
+        const QueryString = window.location.search;
+        const urlParams = new URLSearchParams(QueryString);
+        document.getElementById('url').innerHTML = `
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/>
+  <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/>
+</svg> ${urlParams.get('url')}
+`
+        document.getElementById('url').href = urlParams.get('url')
+        var url = "https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=" + urlParams.get('url');
+        document.getElementById('qr').src = url
+    </script>
+</body>
+
+</html>
