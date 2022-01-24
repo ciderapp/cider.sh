@@ -61,7 +61,7 @@
 </svg> ${url}
 `
             // I know, this is cancer
-        document.getElementById('url').href = urlParams.get('url')
+        document.getElementById('url').href = url
         document.getElementById('qr').src = "https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=" + url;
     </script>
 </body>
