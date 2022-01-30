@@ -28,7 +28,6 @@
         }
         else if(QueryString.includes("album"))
         {
-            console.log("album");
             if(String(window.location.search).split("?")[2]) 
                 { window.location.href = "cider://play/s/" +  String(window.location.search).split("?")[2].slice(2, 12);} // Song
             else {
