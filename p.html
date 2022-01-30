@@ -26,7 +26,7 @@
         if (urlParams.has('id')) {
             if (urlParams.has('s')) window.location.href = `cider://play/s/${urlParams.get('id')}`; //Song
         }
-        else if(urlParams.has('album'))
+        else if(QueryString.includes("album"))
         {
             console.log("album");
             if(String(window.location.search).split("?")[2]) 
@@ -36,7 +36,7 @@
                 window.location.href = "cider://play/a/" + urlArray[urlArray.length - 1]; // Album
             }
         }
-        else if(urlParams.has('playlist'))
+        else if(QueryString.includes("playlist"))
         {    console.log("playlist");
             window.location.href = "cider://play/p/" + urlArray[urlArray.length - 1]; } // Playlist
 
