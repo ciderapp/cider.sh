@@ -28,6 +28,7 @@
         }
         else if(urlParams.has('album'))
         {
+            console.log("album");
             if(String(window.location.search).split("?")[2]) 
                 { window.location.href = "cider://play/s/" +  String(window.location.search).split("?")[2].slice(2);} // Song
             else {
@@ -36,7 +37,8 @@
             }
         }
         else if(urlParams.has('playlist'))
-        { window.location.href = "cider://play/p/" + urlArray[urlArray.length - 1]; } // Playlist
+        {    console.log("playlist");
+            window.location.href = "cider://play/p/" + urlArray[urlArray.length - 1]; } // Playlist
 
         // setTimeout(() => {
         //     window.location.href = 'https://cider.sh';
