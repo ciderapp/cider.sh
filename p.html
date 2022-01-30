@@ -24,7 +24,7 @@
         if (urlParams.has('id')) {
             if (urlParams.has('s')) window.location.href = `cider://play/s/${urlParams.get('id')}`; //Song
         } else {
-            window.location.href = "cider://" + String(window.location.search).split("?")[1]
+            window.location.href = `cider://play/s/$(urlParams.get('i')}`;
         }
 
 
