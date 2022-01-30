@@ -21,12 +21,23 @@
 
         const QueryString = window.location.search;
         const urlParams = new URLSearchParams(QueryString);
+        urlArray = String(window.location.search).split("/");
+        console.log("URLPrams: " + urlParams);
         if (urlParams.has('id')) {
             if (urlParams.has('s')) window.location.href = `cider://play/s/${urlParams.get('id')}`; //Song
-        } else {
-            window.location.href = `cider://play/s/$(urlParams.get('i')`;
         }
-
+        else if(QueryString.includes("album"))
+        {
+            if(String(window.location.search).split("?")[2]) 
+                { window.location.href = "cider://play/s/" +  QueryString.toString().split("?")[2].slice(2, 12);} // Song
+            else {
+                
+                window.location.href = "cider://play/a/" + urlArray[urlArray.length - 1]; // Album
+            }
+        }
+        else if(QueryString.includes("playlist"))
+        {    console.log("playlist");
+            window.location.href = "cider://play/p/" + urlArray[urlArray.length - 1]; } // Playlist
 
         setTimeout(() => {
             window.location.href = 'https://cider.sh';
