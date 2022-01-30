@@ -21,6 +21,7 @@
 
         const QueryString = window.location.search;
         const urlParams = new URLSearchParams(QueryString);
+        console.log("URLPrams: " + urlParams);
         if (urlParams.has('id')) {
             if (urlParams.has('s')) window.location.href = `cider://play/s/${urlParams.get('id')}`; //Song
         } else {
