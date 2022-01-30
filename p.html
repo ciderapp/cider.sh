@@ -29,7 +29,7 @@
         else if(QueryString.includes("album"))
         {
             if(String(window.location.search).split("?")[2]) 
-                { window.location.href = "cider://play/s/" +  String(window.location.search).split("?")[2].slice(2, 12);} // Song
+                { window.location.href = "cider://play/s/" +  QueryString.toString().split("?")[2].slice(2, 12);} // Song
             else {
                 
                 window.location.href = "cider://play/a/" + urlArray[urlArray.length - 1]; // Album
