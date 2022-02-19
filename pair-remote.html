@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" style="background: url(&quot;assets/img/Server%20Background.png&quot;) no-repeat;background-size: cover;">
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -27,9 +27,38 @@
     <link rel="stylesheet" href="assets/css/Single-Price-Plan.css">
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" href="assets/css/Team-Grid.css">
+
+    <script>
+        function isElectron() {
+            // Renderer process
+            if (typeof window !== 'undefined' && typeof window.process === 'object' && window.process.type === 'renderer') {
+                return true;
+            }
+
+            // Main process
+            if (typeof process !== 'undefined' && typeof process.versions === 'object' && !!process.versions.electron) {
+                return true;
+            }
+
+            // Detect the user agent when the `nodeIntegration` option is set to true
+            if (typeof navigator === 'object' && typeof navigator.userAgent === 'string' && navigator.userAgent.indexOf('Electron') >= 0) {
+                return true;
+            }
+
+            return false;
+        }
+
+
+        if (!isElectron()) { // Detect when running inapp so that we can theme the page with the user's chosen theme -q
+            document.getElementsByTagName('html')[0].style = `background: url("assets/img/Server%20Background.png") no-repeat;background-size:auto`
+        } else {
+            document.getElementsByTagName('html')[0].style = `background: transparent;`
+        }
+    </script>
+
 </head>
 
-<body style="background: transparent;">
+<body style="background: transparent; background-size:cover">
     <div class="container position-absolute top-50 start-50 translate-middle">
         <div class="card mb-3" style="margin-top: 38px;margin-bottom: 38px;border-radius: 8px;">
             <div class="row g-0">
@@ -51,7 +80,6 @@
     <script>
         const QueryString = window.location.search;
         const urlParams = new URLSearchParams(QueryString);
-
         if (!urlParams.has('url')) document.location.href = '/'
         let url = decodeURI(atob(urlParams.get('url')))
         document.getElementById('url').innerHTML = `
@@ -61,7 +89,15 @@
 </svg> ${url}
 `
             // I know, this is cancer
+            //if (isElectron()) { // Detect when running inapp so that we can open in browser instead -q
+            //    const shell = require('electron').shell
+            //    document.getElementById('url').addEventListener('click', () => {
+            //        shell.openExternal(url)
+            //    })
+            //    document.getElementById('url').href = '#'
+            //} else {
         document.getElementById('url').href = url
+            //}
         document.getElementById('qr').src = "https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=" + url;
     </script>
 </body>
