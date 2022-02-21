@@ -49,8 +49,8 @@
             <p class="ui-text-intro">An open source and community oriented Apple Music client for Windows, Linux, macOS, and more.</p>
             <!-- CTA -->
             <div class="ui-component-cta ui-layout-flex">
-              <a href="https://www.microsoft.com/en-us/p/cider-alpha/9p21xj9d9g66" role="link" aria-label="Microsoft Store" class="ui-component-button ui-component-button-normal ui-component-button-primary">Microsoft Store</a>
-              <a href="https://github.com/ciderapp/Cider" class="ui-text-note"><small>Or check out the GitHub</small></a>
+              <a href="https://www.microsoft.com/en-us/p/cider-alpha/9p21xj9d9g66" id="main-button" role="link" aria-label="Microsoft Store" class="ui-component-button ui-component-button-normal ui-component-button-primary">Microsoft Store</a>
+              <a href="https://github.com/ciderapp/Cider" class="ui-text-note" id="main-button-comment"><small>Or check out the GitHub</small></a>
             </div>
           </div>
           <!-- IMAGE -->
@@ -110,5 +110,19 @@
         </div>
       </div>
     </footer>
+    <script>
+      if (navigator.userAgent.indexOf("Win") != -1) {} else {
+        document.getElementById('main-button').href = "https://github.com/ciderapp/Cider"
+        document.getElementById('main-button').innerText = "GitHub"
+        document.getElementById('main-button-comment').innerText = "Also available on the Microsoft Store"
+        document.getElementById('main-button-comment').href = "https://www.microsoft.com/en-us/p/cider-alpha/9p21xj9d9g66"
+
+      }
+      if (isElectron()) {
+
+      }
+
+  </script>
+    <script src="in-app-bg-change.js"></script>
   </body>
 </html>
