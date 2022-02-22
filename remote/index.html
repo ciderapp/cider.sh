@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap">
     <link rel="preload" as="style" href="style.css">
     <link rel="stylesheet" href="style.css">
-    <script src="in-app-bg-change.js"></script>
+    <script src="/in-app-bg-change.js"></script>
     <!-- TITLE -->
     <title>Cider Remote</title>
   </head>
@@ -52,12 +52,12 @@
               <p class="ui-text-intro">Avoid disruptions and enjoy the tranquility of switching music straight from your phone.</p>
               <!-- CTA -->
               <div class="ui-component-cta ui-layout-flex">
-                <a href="https://discord.gg/applemusic" role="link" aria-label="Discord" class="ui-component-button ui-component-button-normal ui-component-button-primary">Coming Soon</a>
-                <p class="ui-text-note"><small>Available on iOS (Testflight for Supporters), Android users need to manually install the APK.</small></p>
+                <a id="button" href="https://discord.gg/applemusic" role="link" aria-label="Discord" class="ui-component-button ui-component-button-normal ui-component-button-primary">Coming Soon</a>
+                <p id="button-caption" class="ui-text-note"><small>Available on iOS (Testflight for Supporters), Android users need to manually install the APK.</small></p>
               </div>
             </div>
             <!-- IMAGE -->
-            <img src="https://github.com/ciderapp/cider.sh/blob/main/assets/img/remote-phone.png?raw=true" loading="lazy" alt="supposed to be a phone.">
+            <img id="app-image" src="https://github.com/ciderapp/cider.sh/blob/main/assets/img/remote-phone.png?raw=true" loading="lazy" alt="supposed to be a phone.">
           </div>
         </div>
       </section>
