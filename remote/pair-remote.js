@@ -1,6 +1,6 @@
 const QueryString = window.location.search;
 const urlParams = new URLSearchParams(QueryString);
-//if (!urlParams.has('url')) document.location.href = '/remote'
+if (!urlParams.has('url')) document.location.href = '/remote'
 let url = decodeURI(atob(urlParams.get('url')))
 
 document.getElementById('qr-code-link').href = url;
