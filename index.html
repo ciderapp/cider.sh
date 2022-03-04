@@ -117,7 +117,7 @@
     <script>
       document.getElementById('releases').style.display = 'none';
       document.getElementById('releases1').style.display = 'none';
-      if (navigator.userAgent.indexOf("Win") != -1) {
+      if (navigator.userAgent.indexOf("Win") === -1) {
         document.getElementById("ms-badge").remove();
         document.getElementById('releases').style.display = 'block';
         document.getElementById("ms-badge1").remove();
