@@ -25,6 +25,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap">
     <link rel="preload" as="style" href="style.css">
     <link rel="stylesheet" href="style.css">
+    <!-- STORE BADGES -->
+    <script type="module" src="https://getbadgecdn.azureedge.net/ms-store-badge.bundled.js"></script>
     <!-- TITLE -->
     <title>Cider</title>
   </head>
@@ -46,11 +48,12 @@
           <div class="ui-layout-column-6 ui-layout-column-center">
             <img src="https://github.com/ciderapp/cider.sh/blob/main/assets/img/Cider-Logo.png?raw=true" width="150" height="150" style="margin-bottom: 10px;">
             <h1>Cider</h1>
-            <p class="ui-text-intro">An open-source and community-oriented Apple Music client for Windows, Linux, macOS, and more.</p>
+            <p class="ui-text-intro">An open source and community oriented Apple Music client for Windows, Linux, macOS, and more.</p>
             <!-- CTA -->
-            <div class="ui-component-cta ui-layout-flex">
-              <a href="https://www.microsoft.com/en-us/p/cider-alpha/9p21xj9d9g66" id="main-button" role="link" aria-label="Microsoft Store" class="ui-component-button ui-component-button-normal ui-component-button-primary">Microsoft Store</a>
-              <a href="https://github.com/ciderapp/Cider" class="ui-text-note" id="main-button-comment"><small>Or check out the GitHub</small></a>
+            <div class="ui-component-cta ui-layout-flex" id="cta">
+              <ms-store-badge id="ms-badge" productid="9p21xj9d9g66" size="small"></ms-store-badge>
+              <a href="https://download.cider.sh?utm_source=homepage&utm_medium=cta" id="releases" role="link" aria-label="releases" class="ui-component-button ui-component-button-normal ui-component-button-primary">See our releases</a>
+              <a href="https://download.cider.sh?utm_source=homepage&utm_medium=cta" class="ui-text-note" id="main-button-comment"><small>See other platforms</small></a>
             </div>
           </div>
           <!-- IMAGE -->
@@ -60,7 +63,7 @@
       <section class="ui-section-feature">
         <div class="ui-layout-container">
           <h2>Features</h2>
-          <p class="ui-text-intro">Whether it be Discord, Last.fm, or even equalizers, we've got you covered.</p>
+          <p class="ui-text-intro">Whenever it be Discord, LastFM, or even Equalizers we've got you covered.</p>
           <!-- FEATURE -->
           <div class="ui-section-feature__layout ui-layout-grid ui-layout-grid-3">
             <div class="ui-component-card ui-layout-column-4">
@@ -71,7 +74,7 @@
             <div class="ui-component-card ui-layout-column-4">
               <img src="https://raw.githubusercontent.com/ciderapp/cider.sh/26ba1f521d550f4bf8803bf0a6d9017b4e85c922/assets/img/audioenhance.svg" loading="lazy" alt="Headphone Icon" class="ui-component-card--image">
               <h4 class="ui-component-card--title">Audio Enhancements</h4>
-              <p>Spatial Audio, Adrenaline Processor™, and equalizers are all available and actively developed.</p>
+              <p>Spaital Audio, Adrenaline Processor™, and Equalizers are all available and actively developed.</p>
             </div>
             <div onclick="location.href='/remote'" class="ui-component-card ui-layout-column-4">
               <img src="https://raw.githubusercontent.com/ciderapp/cider.sh/26ba1f521d550f4bf8803bf0a6d9017b4e85c922/assets/img/remote.svg" loading="lazy" alt="Phone Icon" class="ui-component-card--image">
@@ -88,11 +91,12 @@
             <img src="https://github.com/ciderapp/cider.sh/blob/main/assets/img/Cider-Logo.png?raw=true" width="100" height="100" style="margin-bottom: 10px;">
             <!-- LOVE MAKING -->
             <h2>Drink up.</h2>
-            <p class="ui-text-intro">Cider is currently available in the Microsoft Store, WinGet, AUR, and more.</p>
+            <p class="ui-text-intro">Cider is currently available on the Microsoft Store, WinGet, AUR, and more.</p>
             <!-- CTA -->
-            <div class="ui-component-cta ui-layout-flex">
-              <a href="https://www.microsoft.com/en-us/p/cider-alpha/9p21xj9d9g66" role="link" aria-label="Microsoft Store" class="ui-component-button ui-component-button-normal ui-component-button-primary">Microsoft Store</a>
-              <a href="https://app.circleci.com/pipelines/github/ciderapp/Cider?branch=develop&filter=all" class="ui-text-note"><small>View our compilation workflows</small></a>
+            <div class="ui-component-cta ui-layout-flex" id="cta1">
+              <ms-store-badge id="ms-badge1" productid="9p21xj9d9g66" size="small"></ms-store-badge>
+              <a href="https://download.cider.sh?utm_source=homepage&utm_medium=cta" id="releases1" role="link" aria-label="releases" class="ui-component-button ui-component-button-normal ui-component-button-primary">See our releases</a>
+              <a href="https://download.cider.sh?utm_source=homepage&utm_medium=cta" class="ui-text-note" id="main-button-comment1"><small>See other platforms</small></a>
             </div>
           </div>
         </div>
@@ -111,11 +115,13 @@
       </div>
     </footer>
     <script>
-      if (navigator.userAgent.indexOf("Win") != -1) {} else {
-        document.getElementById('main-button').href = "https://github.com/ciderapp/Cider"
-        document.getElementById('main-button').innerText = "GitHub"
-        document.getElementById('main-button-comment').innerText = "Also available on the Microsoft Store"
-        document.getElementById('main-button-comment').href = "https://www.microsoft.com/en-us/p/cider-alpha/9p21xj9d9g66"
+      document.getElementById('releases').style.display = 'none';
+      document.getElementById('releases1').style.display = 'none';
+      if (navigator.userAgent.indexOf("Win") != -1) {
+        document.getElementById("ms-badge").remove();
+        document.getElementById('releases').style.display = 'block';
+        document.getElementById("ms-badge1").remove();
+        document.getElementById('releases1').style.display = 'block';
       }
       if (isElectron()) {
 
