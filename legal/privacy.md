@@ -7,6 +7,8 @@ Cider Collective
 
 Owner contact email: development@cider.sh
 
+**NOTE: This document does not contain the data collected by music providers ex. Apple, Spotify, YouTube(Google) you should look up those privacy holders in regards to their policys.**
+
 ## Types of Data collected
 Among the types of Personal Data that this Application collects, by itself or through third parties, there are: app information.
 
