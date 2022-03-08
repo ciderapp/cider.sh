@@ -10,7 +10,7 @@ Owner contact email: development@cider.sh
 **NOTE: This document does not contain the data collected by music providers ex. Apple, Spotify, YouTube(Google) you should look up those privacy holders in regards to their policys.**
 
 ## Types of Data collected
-Among the types of Personal Data that this Application collects, by itself or through third parties, there are: app information.
+Among the types of Personal Data that this Application collects, by itself or through third parties, there are: App Diagnostics/Crash Logs.
 
 Complete details on each type of Personal Data collected are provided in the dedicated sections of this privacy policy or by specific explanation texts displayed prior to the Data collection.
 Personal Data may be freely provided by the User, or, in case of Usage Data, collected automatically when using this Application.
