@@ -7,7 +7,8 @@ document.getElementById('qr-code-link').href = url;
 document.getElementById('qr-code').src = "https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=" + url + '&bgcolor=255-33-86&color=0-0-0&margin=10';
 document.getElementById('button').addEventListener('click', function () {
     //Clipboard.writeText(url);
-    Clipboard.writeText = url
+    let clip = new Clipboard() 
+    clip.writeText(url)
     document.getElementById('button').innerHTML = "Copied!";
 });
 
