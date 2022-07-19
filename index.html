@@ -68,13 +68,11 @@
             <p class="ui-text-intro">An open-source, community-oriented Apple Music client for Windows, Linux, macOS, and more.</p>
             <!-- CTA -->
             <div class="ui-component-cta ui-layout-flex" id="cta">
-              <ms-store-badge id="ms-badge" productid="9p21xj9d9g66" size="small"></ms-store-badge>
-              <a href="https://download.cider.sh?utm_source=homepage&utm_medium=cta" id="releases" role="link" aria-label="releases" class="ui-component-button ui-component-button-normal ui-component-button-primary">See Our Releases</a>
-              <a href="https://download.cider.sh?utm_source=homepage&utm_medium=cta" class="ui-text-note" id="main-button-comment"><small>See Other Platforms</small></a>
+              <a href="https://download.cider.sh?utm_source=homepage&utm_medium=cta" id="releases" role="link" aria-label="releases" class="ui-component-button ui-component-button-normal ui-component-button-primary"></a>
             </div>
           </div>
           <!-- IMAGE -->
-          <img style="border-radius: 8px;" src="https://github.com/ciderapp/cider.sh/blob/main/assets/img/frontpage-scn.png?raw=true" loading="lazy" alt="Cider Image" class="ui-section-hero--image">
+          <img src="assets/img/frontpage-scn.png" loading="lazy" alt="Cider Image" class="ui-section-hero--image">
         </div>
       </section>
       <section class="ui-section-feature">
@@ -91,12 +89,12 @@
             <div class="ui-component-card ui-layout-column-4">
               <img src="https://raw.githubusercontent.com/ciderapp/cider.sh/26ba1f521d550f4bf8803bf0a6d9017b4e85c922/assets/img/audioenhance.svg" loading="lazy" alt="Headphone Icon" class="ui-component-card--image">
               <h4 class="ui-component-card--title">Audio Enhancements</h4>
-              <p>Audio Spatialization, Adrenaline Processor™, and Equalizers are all available and actively developed.</p>
+              <p>Audio Spatialization, Adrenaline Processor™, and Equalizers are all available and actively engineered by our Audio Engineer, Maikiwi.</p>
             </div>
             <div onclick="location.href='/remote'" class="ui-component-card ui-layout-column-4">
               <img src="https://raw.githubusercontent.com/ciderapp/cider.sh/26ba1f521d550f4bf8803bf0a6d9017b4e85c922/assets/img/remote.svg" loading="lazy" alt="Phone Icon" class="ui-component-card--image">
               <h4 class="ui-component-card--title">Remote Controllable</h4>
-              <p>We know how irritating it is to Alt+Tab constantly during a game, and we have a remote app just for that.</p>
+              <p>We know how irritating it is to Alt+Tab constantly while working or gaming, and we have a remote app just for that.</p>
             </div>
           </div>
         </div>
@@ -108,12 +106,10 @@
             <img src="https://github.com/ciderapp/cider.sh/blob/main/assets/img/Cider-Logo.png?raw=true" width="100" height="100" style="margin-bottom: 10px;">
             <!-- LOVE MAKING -->
             <h2>Drink up.</h2>
-            <p class="ui-text-intro">Cider is available on a range of platforms, including Microsoft Store, Winget, Flatpak and the AUR.</p>
+            <p class="ui-text-intro">Cider is available on a range of platforms, view our downloads page to find out if your device is supported!</p>
             <!-- CTA -->
             <div class="ui-component-cta ui-layout-flex" id="cta1">
-              <ms-store-badge id="ms-badge1" productid="9p21xj9d9g66" size="small"></ms-store-badge>
-              <a href="https://download.cider.sh?utm_source=homepage&utm_medium=cta" id="releases1" role="link" aria-label="releases" class="ui-component-button ui-component-button-normal ui-component-button-primary">See Our Releases</a>
-              <a href="https://download.cider.sh?utm_source=homepage&utm_medium=cta" class="ui-text-note" id="main-button-comment1"><small>See Other Platforms</small></a>
+              <a href="https://download.cider.sh?utm_source=homepage&utm_medium=cta" id="releases1" role="link" aria-label="releases" class="ui-component-button ui-component-button-normal ui-component-button-primary">Downloads</a>
             </div>
           </div>
         </div>
@@ -133,16 +129,27 @@
       </div>
     </footer>
     <script>
-      document.getElementById('releases').style.display = 'none';
-      document.getElementById('releases1').style.display = 'none';
-      if (navigator.userAgent.indexOf("Win") === -1) {
-        document.getElementById("ms-badge").remove();
-        document.getElementById('releases').style.display = 'block';
-        document.getElementById("ms-badge1").remove();
-        document.getElementById('releases1').style.display = 'block';
-        document.getElementById('main-button-comment1').remove()
-        document.getElementById('main-button-comment').remove()
+      // shit code enjoy :) - cryptofyre
+      var os = "Unknown";
+      var href = "https://download.cider.sh"
+      if (navigator.appVersion.indexOf("Win") != -1) os = 
+        "Download it for Windows";
+      if (navigator.appVersion.indexOf("Mac") != -1) os = 
+        "Download it for macOS";
+      if (navigator.appVersion.indexOf("X11") != -1) os = 
+        "Download it for Unix";
+      if (navigator.appVersion.indexOf("Linux") != -1) os = 
+        "Download it for Linux";
+      if (navigator.appVersion.indexOf("iPhone OS") != -1) {
+        os = "Download the Remote app"
+        href = "https://cider.sh/remote"
       }
+      if (navigator.appVersion.indexOf("Android") != -1) {
+        os = "Download the Remote app"
+        href = "https://cider.sh/remote"
+      }
+      document.getElementById("releases").textContent = os;
+      document.getElementById("releases").href = href;
   </script>
     <script src="in-app-bg-change.js"></script>
   </body>
