@@ -130,27 +130,28 @@
       </div>
     </footer>
     <script>
-      // shit code enjoy :) - cryptofyre
-      var os = "Unknown";
-      var href = "https://download.cider.sh"
-      if (navigator.appVersion.indexOf("Win") != -1) os = 
-        "Download it for Windows";
-      if (navigator.appVersion.indexOf("Mac") != -1) os = 
-        "Download it for macOS";
-      if (navigator.appVersion.indexOf("X11") != -1) os = 
-        "Download it for Unix";
-      if (navigator.appVersion.indexOf("Linux") != -1) os = 
-        "Download it for Linux";
-      if (navigator.appVersion.indexOf("iPhone OS") != -1) {
-        os = "Download the Remote app"
-        href = "https://cider.sh/remote"
+      // slightly better code enjoy :) - cryptofyre
+      releaseBox = document.getElementById("releases")
+
+      // Set placeholder.
+      releaseBox.textContent = "Download for your OS"
+
+      // Change depending on operating system / platform.
+      if (navigator.appVersion.includes('Win')) {
+        releaseBox.textContent = "Download it for Windows"
+      } else if (navigator.appVersion.includes('Mac')) {
+        releaseBox.textContent = "Download it for macOS"
+      } else if (navigator.appVersion.includes('Linux')) {
+        releaseBox.textContent = "Download it for Linux"
+      } else if (navigator.appVersion.includes("X11")) {
+        releaseBox.textContent = "Download it for Unix"
+      } else if (navigator.appVersion.includes("iPhone OS")) {
+        releaseBox.textContent = "Download the Remote app"
+        releaseBox.href = "https://cider.sh/remote"
+      } else if (navigator.appVersion.includes("Android")) {
+        releaseBox.textContent = "Download the Remote app"
+        releaseBox.href = "https://cider.sh/remote"
       }
-      if (navigator.appVersion.indexOf("Android") != -1) {
-        os = "Download the Remote app"
-        href = "https://cider.sh/remote"
-      }
-      document.getElementById("releases").textContent = os;
-      document.getElementById("releases").href = href;
   </script>
     <script src="in-app-bg-change.js"></script>
   </body>
