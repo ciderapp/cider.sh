@@ -137,18 +137,18 @@
       releaseBox.textContent = "Download for your OS"
 
       // Change depending on operating system / platform.
-      if (navigator.appVersion.includes('Win')) {
+      if (navigator.platform.includes('Win')) {
         releaseBox.textContent = "Download it for Windows"
-      } else if (navigator.appVersion.includes('Mac')) {
+      } else if (navigator.platform.includes('Mac')) {
         releaseBox.textContent = "Download it for macOS"
-      } else if (navigator.appVersion.includes('Linux')) {
+      } else if (navigator.platform.includes('Linux')) {
         releaseBox.textContent = "Download it for Linux"
-      } else if (navigator.appVersion.includes("X11")) {
+      } else if (navigator.platform.includes("X11")) {
         releaseBox.textContent = "Download it for Unix"
-      } else if (navigator.appVersion.includes("iPhone OS")) {
+      } else if (navigator.platform.includes("iPhone")) {
         releaseBox.textContent = "Download the Remote app"
         releaseBox.href = "https://cider.sh/remote"
-      } else if (navigator.appVersion.includes("Android")) {
+      } else if (navigator.platform.includes("Android")) {
         releaseBox.textContent = "Download the Remote app"
         releaseBox.href = "https://cider.sh/remote"
       }
