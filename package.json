@@ -9,6 +9,9 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "nuxt": "3.0.0-rc.13"
-  }
+    "nuxt": "3.0.0-rc.13",
+    "sass": "^1.56.1",
+    "scss": "^0.2.4"
+  },
+  "dependencies": {}
 }
