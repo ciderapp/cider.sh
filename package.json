@@ -1,5 +1,6 @@
 {
   "private": true,
+  "author": "Swiftzerr",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
