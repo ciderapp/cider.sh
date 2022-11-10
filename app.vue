@@ -5,8 +5,8 @@
     </NuxtLink>
     <div class="navlinks">
       <NuxtLink to="/cider">Cider</NuxtLink>
-      <a to="/connect">Connect</a>
-      <a to="/cider2">Cider 2</a>
+      <NuxtLink to="/connect">Connect</NuxtLink>
+      <NuxtLink to="/cider2">Cider 2</NuxtLink>
     </div>
   </div>
   <div class="page">
@@ -33,7 +33,7 @@ $footer-text-color: rgb(174, 174, 174);
 
 .navbar {
   height: 60px;
-  width: calc(100vw - 120px);
+  width: 100vw;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -71,14 +71,18 @@ body {
   color: $text-color;
 }
 
+div {
+  box-sizing: border-box;
+}
+
 a {
   text-decoration: none;
   color: $footer-text-color;
 }
 
 .page {
-  min-height: 100vh;
-  padding-top: 70px;
+  min-height: calc(100vh - 60px);
+  height: calc(100vh - 60px);
 }
 
 .footer {
@@ -98,7 +102,8 @@ a {
 }
 
 .fullheight {
-  height: calc(100vh - (70px + 60px + 100px));
+  height: 100%;
+  min-height: 100%;
 }
 
 .gap {
@@ -110,17 +115,24 @@ a {
 }
 
 .center {
-  justify-content: center;
   align-items: center;
+}
+
+.middle {
+  justify-content: center;
 }
 
 .column {
   flex-direction: column;
 }
 
+.padding {
+  padding: 120px 0;
+}
+
 .page-enter-active,
 .page-leave-active {
-  transition: all 0.4s;
+  transition: all 0.3s;
 }
 .page-enter-from,
 .page-leave-to {
