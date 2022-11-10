@@ -13,5 +13,7 @@
     "sass": "^1.56.1",
     "scss": "^0.2.4"
   },
-  "dependencies": {}
+  "dependencies": {
+    "vue-animate-onscroll": "^1.0.8"
+  }
 }
