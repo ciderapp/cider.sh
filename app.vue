@@ -27,8 +27,8 @@
 
 <style lang="scss">
 $primary-color: #161616;
-$secondary-color: #FF2654;
-$text-color: #DCDCDC;
+$secondary-color: #ff2654;
+$text-color: #dcdcdc;
 $footer-text-color: rgb(174, 174, 174);
 
 .navbar {
@@ -55,7 +55,7 @@ $footer-text-color: rgb(174, 174, 174);
       &:hover {
         cursor: pointer;
         color: #fff;
-        text-decoration: underline #FF2654;
+        text-decoration: underline #ff2654;
         text-decoration-style: wavy;
         text-underline-offset: 10px;
       }
@@ -82,7 +82,6 @@ a {
 
 .page {
   min-height: calc(100vh - 60px);
-  height: calc(100vh - 60px);
 }
 
 .footer {
@@ -143,8 +142,8 @@ a {
   padding: 1rem;
   width: fit-content;
   border-radius: 5rem;
-  border:  .0625rem solid #fff;
-  transition: all .2s ease-in-out;
+  border: 0.0625rem solid #fff;
+  transition: all 0.2s ease-in-out;
   font-weight: 700;
   text-align: center;
   font-size: 1.125rem;
@@ -171,5 +170,4 @@ a {
   text-align: center;
   margin-bottom: 1.75rem;
 }
-
 </style>
