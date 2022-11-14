@@ -12,9 +12,8 @@
     "nuxt": "3.0.0-rc.13",
     "prettier": "^2.7.1",
     "sass": "^1.56.1",
-    "scss": "^0.2.4"
+    "scss": "^0.2.4",
+    "vue3-animate-onscroll": "^1.0.6"
   },
-  "dependencies": {
-    "vue-animate-onscroll": "^1.0.8"
-  }
+  "dependencies": {}
 }
