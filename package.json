@@ -15,7 +15,5 @@
     "sass": "^1.56.1",
     "scss": "^0.2.4"
   },
-  "dependencies": {
-    "aos": "^2.3.4"
-  }
+  "dependencies": {}
 }
