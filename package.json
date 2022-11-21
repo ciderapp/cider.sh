@@ -9,11 +9,13 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "nuxt": "3.0.0-rc.13",
+    "animate.css": "^4.1.1",
+    "nuxt": "3.0.0",
     "prettier": "^2.7.1",
     "sass": "^1.56.1",
-    "scss": "^0.2.4",
-    "vue3-animate-onscroll": "^1.0.6"
+    "scss": "^0.2.4"
   },
-  "dependencies": {}
+  "dependencies": {
+    "aos": "^2.3.4"
+  }
 }
