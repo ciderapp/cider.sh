@@ -11,7 +11,7 @@
       <div class="showcase-section left">
         <img src="~/assets/showcase/cider-1.png" />
         <div class="showcase-text">
-          <h1>Usability</h1>
+          <h1>User Experience</h1>
           <p>Cider is built from the ground up using technologies like Vue 3 and 
             Electron to provide you with the best possible User Experience.
             With the help of our wonderful community, we have listened to the
@@ -19,9 +19,24 @@
         </div>
       </div>
       <div class="showcase-section right">
-        <img src="~/assets/showcase/cider-1.png" />
+        <img src="~/assets/showcase/cider-2.png" />
         <div class="showcase-text">
-          <p>HI</p>
+          <h1>Plugin and Theme System</h1>
+          <p></p>
+        </div>
+      </div>
+      <div class="showcase-section left">
+        <img src="~/assets/showcase/cider-3.png" />
+        <div class="showcase-text">
+          <h1>Cider Audio Lab</h1>
+          <p></p>
+        </div>
+      </div>
+      <div class="showcase-section right">
+        <img src="~/assets/showcase/cider-4.png" />
+        <div class="showcase-text">
+          <h1>Completely Open Sourced</h1>
+          <p></p>
         </div>
       </div>
     </div>
