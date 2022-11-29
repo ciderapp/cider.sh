@@ -25,6 +25,7 @@
   </div>
 </template>
 
+
 <style lang="scss">
 $primary-color: #161616;
 $secondary-color: #ff2654;
