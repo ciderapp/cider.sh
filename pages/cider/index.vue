@@ -90,4 +90,18 @@
     text-align: right;
   }
 }
+
+@media (max-width: 1000px) {
+  .showcase-section {
+    flex-direction: column;
+    img {
+      width: 100%;
+      margin: 0;
+    }
+    .showcase-text {
+      width: 100%;
+      text-align: center;
+    }
+  }
+}
 </style>
