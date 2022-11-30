@@ -27,6 +27,8 @@
 
 
 <style lang="scss">
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
 $primary-color: #161616;
 $secondary-color: #ff2654;
 $text-color: #dcdcdc;
@@ -67,7 +69,7 @@ $footer-text-color: rgb(174, 174, 174);
 body {
   background-color: $primary-color;
   margin: 0;
-  font-family: "Inter", sans-serif;
+  font-family: 'Lato', sans-serif;
   text-rendering: optimizeLegibility;
   color: $text-color;
 }
