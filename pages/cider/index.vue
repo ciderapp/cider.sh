@@ -91,15 +91,18 @@
   }
 }
 
-@media (max-width: 1000px) {
-  .description {
-    width: 90%;
+@media only screen and (max-width: 768px) {
+  .ui-button:hover {
+    transform: none;
   }
   .showcase-section {
     flex-direction: column;
     img {
       width: 100%;
       margin: 0;
+      &:hover {
+        transform: none;
+      }
     }
     .showcase-text {
       width: 100%;

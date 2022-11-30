@@ -66,13 +66,17 @@ $footer-text-color: rgb(174, 174, 174);
   }
 }
 
+body, html {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 body {
   background-color: $primary-color;
   margin: 0;
   font-family: 'Lato', sans-serif;
   text-rendering: optimizeLegibility;
   color: $text-color;
-  overflow-x: hidden;
 }
 
 div {
@@ -96,8 +100,9 @@ a {
 }
 
 .footer-cont {
-  width: 70rem;
-  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 60px;
   display: flex;
   text-align: center;
   flex-wrap: nowrap;
@@ -173,5 +178,23 @@ a {
   width: calc((4rem * 6) + (2rem * 5));
   text-align: center;
   margin-bottom: 1.75rem;
+}
+
+@media only screen and (max-width: 768px) {
+  .description {
+    width: 90%;
+  }
+
+  .navbar {
+    padding: 0 20px;
+  }
+
+  .footer-cont {
+    flex-wrap: wrap;
+    justify-content: center;
+    div {
+      padding: 0.5rem 0;
+    }
+  }
 }
 </style>
