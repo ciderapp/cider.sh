@@ -92,6 +92,9 @@
 }
 
 @media (max-width: 1000px) {
+  .description {
+    width: 90%;
+  }
   .showcase-section {
     flex-direction: column;
     img {

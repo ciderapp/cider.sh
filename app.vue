@@ -72,6 +72,7 @@ body {
   font-family: 'Lato', sans-serif;
   text-rendering: optimizeLegibility;
   color: $text-color;
+  overflow-x: hidden;
 }
 
 div {
