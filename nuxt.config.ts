@@ -11,6 +11,9 @@ export default defineNuxtConfig({
     },
     head: { 
       title: "Cider Collective",
+      link: [
+        { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+      ]
     } 
   },
 });
