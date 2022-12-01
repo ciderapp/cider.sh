@@ -10,10 +10,10 @@
 
 <script setup>
 useHead({
-  meta: {
-    property: 'og:title', content: 'Cider Collective',
-    property: 'og:description', content: 'A development collective working to make your life and user experience more flavorful starting with a glass of Cider.',
-    property: 'og:image', content: 'https://cider.sh/cider.png',
-  },
+  meta: [
+    {property: 'og:title', content: 'Cider Collective'},
+    {property: 'og:description', content: 'A development collective working to make your life and user experience more flavorful starting with a glass of Cider.'},
+    {property: 'og:image', content: 'https://cider.sh/cider.png',}
+  ],
 })
 </script>
