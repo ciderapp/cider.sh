@@ -46,11 +46,11 @@
 <script setup>
 useHead({
   title: 'Cider',
-  meta: {
-    property: 'og:title', content: 'Cider',
-    property: 'og:description', content: 'An open-source, community-oriented Apple Music client for Windows, Linux, macOS, and more.',
-    property: 'og:image', content: 'https://cider.sh/cider.png',
-  },
+  meta: [
+    {property: 'og:title', content: 'Cider'},
+    {property: 'og:description', content: 'An open-source, community-oriented Apple Music client for Windows, Linux, macOS, and more.'},
+    {property: 'og:image', content: 'https://cider.sh/cider.png',}
+  ],
 })
 </script>
 
