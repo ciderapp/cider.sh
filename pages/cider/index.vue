@@ -43,6 +43,16 @@
   </div>
 </template>
 
+<script setup>
+useHead({
+  meta: {
+    property: 'og:title', content: 'Cider',
+    property: 'og:description', content: 'An open-source, community-oriented Apple Music client for Windows, Linux, macOS, and more.',
+    property: 'og:image', content: 'https://cider.sh/cider.png',
+  },
+})
+</script>
+
 <style lang="scss">
 .logo {
   width: 150px;
@@ -69,13 +79,18 @@
     }
   }
   .showcase-text {
-    display: inline;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     width: 33%;
+    height: 350px;
     p {
       font-size: 1.1rem;
       line-height: 1.1;
     }
     h1 {
+      justify-self: flex-start;
       text-align: center;
     }
   }
@@ -91,7 +106,7 @@
   }
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 1000px) {
   .ui-button:hover {
     transform: none;
   }

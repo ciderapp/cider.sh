@@ -16,7 +16,7 @@
     <div class="footer-cont">
       <div>Made with 💖 by Cider Collective</div>
       <div class="flex gap">
-        <a href="https://github.com/ciderapp/Cider">Github</a>
+        <a href="https://github.com/ciderapp/">Github</a>
         <a href="https://docs.cider.sh/">Docs</a>
         <a href="https://opencollective.com/ciderapp">Donate</a>
         <NuxtLink to="/cider/faq">FAQ</NuxtLink>
@@ -24,6 +24,16 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  head: {
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+    ]
+  }
+}
+</script>
 
 
 <style lang="scss">
