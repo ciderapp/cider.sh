@@ -4,9 +4,9 @@
       <img class="mainlogo" src="~/assets/cider.png" />
     </NuxtLink>
     <div class="navlinks">
-      <NuxtLink to="/cider">Cider</NuxtLink>
-      <NuxtLink to="/connect">Connect</NuxtLink>
-      <NuxtLink to="/cider2">Cider 2</NuxtLink>
+      <NuxtLink to="/cider" :class="{active: $route.path === '/cider'}">Cider</NuxtLink>
+      <NuxtLink to="/connect" :class="{active: $route.path === '/connect'}">Connect</NuxtLink>
+      <NuxtLink to="/cider2" :class="{active: $route.path === '/cider2'}">Cider 2</NuxtLink>
     </div>
   </div>
   <div class="page">
@@ -43,6 +43,10 @@ $primary-color: #161616;
 $secondary-color: #ff2654;
 $text-color: #dcdcdc;
 $footer-text-color: rgb(174, 174, 174);
+
+.active {
+  color: white;
+}
 
 .navbar {
   height: 60px;

@@ -8,35 +8,11 @@
         Linux, macOS, and more.
       </div>
       <button class="ui-button download">Download Now</button>
-      <div class="showcase-section left">
-        <img src="~/assets/showcase/cider-1.png" />
+      <div class="showcase-section" v-for="showcase in showcases" v-bind:key="showcase.title" :class="{right: showcase.right}">
+        <img :src="showcase.image" />
         <div class="showcase-text">
-          <h1>User Experience</h1>
-          <p>Cider is built from the ground up using technologies like Vue 3 and 
-            Electron to provide you with the best possible User Experience.
-            With the help of our wonderful community, we have listened to the
-            problems you have and the features you want from your streaming client.</p>
-        </div>
-      </div>
-      <div class="showcase-section right">
-        <img src="~/assets/showcase/cider-2.png" />
-        <div class="showcase-text">
-          <h1>Plugin and Theme System</h1>
-          <p></p>
-        </div>
-      </div>
-      <div class="showcase-section left">
-        <img src="~/assets/showcase/cider-3.png" />
-        <div class="showcase-text">
-          <h1>Cider Audio Lab</h1>
-          <p></p>
-        </div>
-      </div>
-      <div class="showcase-section right">
-        <img src="~/assets/showcase/cider-4.png" />
-        <div class="showcase-text">
-          <h1>Completely Open Sourced</h1>
-          <p></p>
+          <h1>{{ showcase.title }}</h1>
+          <p>{{ showcase.description }}</p>
         </div>
       </div>
     </div>
@@ -54,7 +30,43 @@ useHead({
 })
 </script>
 
+<script>
+export default {
+  data() {
+    return {
+      showcases: [
+        {
+          title: "User Experience", 
+          description: "Cider is built from the ground up using technologies like Vue 3 and Electron to provide you with the best possible User Experience. With the help of our wonderful community, we have listened to the problems you have and the features you want from your streaming client.", 
+          image: "/showcase/cider-1.png", 
+          right: false
+        },
+        {
+          title: "Plugin and Theme System", 
+          description: "Cider is built from the ground up using technologies like Vue 3 and Electron to provide you with the best possible User Experience. With the help of our wonderful community, we have listened to the problems you have and the features you want from your streaming client.", 
+          image: "/showcase/cider-2.png", 
+          right: true
+        },
+        {
+          title: "Cider Audio Lab", 
+          description: "Cider is built from the ground up using technologies like Vue 3 and Electron to provide you with the best possible User Experience. With the help of our wonderful community, we have listened to the problems you have and the features you want from your streaming client.", 
+          image: "/showcase/cider-3.png", 
+          right: false
+        },
+        {
+          title: "Completely Open Sourced", 
+          description: "Cider is built from the ground up using technologies like Vue 3 and Electron to provide you with the best possible User Experience. With the help of our wonderful community, we have listened to the problems you have and the features you want from your streaming client.", 
+          image: "/showcase/cider-4.png", 
+          right: true
+        },
+      ]
+    }
+  },
+}
+</script>
+
 <style lang="scss">
+
 .logo {
   width: 150px;
   height: 150px;
