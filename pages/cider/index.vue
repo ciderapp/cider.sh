@@ -7,7 +7,7 @@
         An open-source, community-oriented Apple Music client for Windows,
         Linux, macOS, and more.
       </div>
-      <button class="ui-button download">Download Now</button>
+      <button class="ui-button download" @click="navigateTo('/cider/download')">Download Now</button>
       <div class="showcase-section" v-for="showcase in showcases" v-bind:key="showcase.title" :class="{right: showcase.right}">
         <img :src="showcase.image" />
         <div class="showcase-text">
