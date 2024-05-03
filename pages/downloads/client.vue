@@ -152,8 +152,8 @@
         "Cider Remote Support",
         "Blazingly Fast",
         "Tons of Customization Options",
-        "Community Plugins",
-        "Community Themes",
+        // "Community Plugins",
+        // "Community Themes",
       ],
       download: {
         html: '<ms-store-badge productid="9PL8WPH0QK9M" window-mode="popup" theme="auto" language="en-us" animation="on" class="w-full"> </ms-store-badge>',
@@ -173,8 +173,8 @@
         "Cider Remote Support",
         "Blazingly Fast",
         "Tons of Customization Options",
-        "Community Plugins",
-        "Community Themes",
+        // "Community Plugins",
+        // "Community Themes",
       ],
       download: {
         url: "https://cidercollective.itch.io/cider",
