@@ -16,6 +16,7 @@ export default defineNuxtConfig({
     "@nuxt/content",
     "nuxt-swiper",
     "@nuxt/image",
+    "@nuxtjs/seo",
   ],
   content: {
     ignores: ["/1.client-releases/images", "\\.html$", "CNAME"],
@@ -67,6 +68,17 @@ export default defineNuxtConfig({
         dir: "/",
       },
     },
+  },
+  site: {
+    url: "https://cider.sh",
+    name: "Cider Collective",
+    description:
+      "A community-ran and maintained software company focused on creating the best experience for end users. Home of Cider, Connect, Remote.",
+    defaultLocale: "en",
+  },
+  sitemap: {
+    strictNuxtContentPaths: true,
+    sources: ["/api/__sitemap__/urls"],
   },
   routeRules: {
     "/": { prerender: true },

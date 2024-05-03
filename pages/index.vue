@@ -104,9 +104,6 @@
 <script lang="ts" setup>
   definePageMeta({
     title: "Home",
-    documentDriven: {
-      page: "/home",
-    },
   });
 
   const { data } = await useAsyncData("latest-release", async () =>
