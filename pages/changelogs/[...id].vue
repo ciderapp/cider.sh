@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col">
+  <div class="flex flex-col items-center">
     <div v-if="embedded" class="prose prose-lg prose-rose dark:prose-invert">
       <div v-if="page?.image">
         <NuxtImg
