@@ -12,7 +12,7 @@
           >{{ data[0]?.navigation.headline }} <Icon class="ml-3 h-4 w-4" name="lucide:arrow-right"
         /></UiBadge>
       </div>
-      <div class="flex">
+      <div class="flex flex-col md:flex-row">
         <div :class="[isUwu ? 'w-full max-w-[760px] max-w-xl justify-between !text-left' : '']">
           <h1
             class="mb-4 mt-7 text-4xl font-extrabold lg:mb-6 lg:mt-5 lg:text-center lg:text-5xl xl:text-6xl"
