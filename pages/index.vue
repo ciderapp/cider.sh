@@ -12,7 +12,7 @@
           >{{ data[0]?.navigation.headline }} <Icon class="ml-3 h-4 w-4" name="lucide:arrow-right"
         /></UiBadge>
       </div>
-      <div class="flex flex-col md:flex-row">
+      <div class="flex flex-col-reverse md:flex-row">
         <div :class="[isUwu ? 'w-full max-w-[760px] max-w-xl justify-between !text-left' : '']">
           <h1
             class="mb-4 mt-7 text-4xl font-extrabold lg:mb-6 lg:mt-5 lg:text-center lg:text-5xl xl:text-6xl"
@@ -29,8 +29,8 @@
           </p>
 
           <div
-            class="mt-8 grid w-full grid-cols-1 items-center gap-3 sm:flex sm:justify-center lg:mt-10"
-            :class="[isUwu ? '!justify-start !text-left' : '']"
+            class="mt-8 flex w-full items-center justify-center gap-3 lg:mt-10"
+            :class="[isUwu ? 'md:justify-start md:text-left' : '']"
           >
             <NuxtLink to="/downloads">
               <UiButton size="lg">Download</UiButton>
@@ -46,7 +46,7 @@
             </NuxtLink>
           </div>
         </div>
-        <div v-if="isUwu" class="max-w-xl pl-20">
+        <div v-if="isUwu" class="max-w-xl md:pl-20">
           <NuxtImg src="/uwu-logo.png" alt="Cider Logo" class="mx-auto" />
         </div>
       </div>
