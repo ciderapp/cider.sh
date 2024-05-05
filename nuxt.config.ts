@@ -89,6 +89,7 @@ export default defineNuxtConfig({
     "/docs": { redirect: "/docs/other/rpc" },
     "/docs/**": { isr: 60 },
     "/downloads/remote": { prerender: true },
+    "/remote": { redirect: "/downloads/remote" },
     "/marketplace": { redirect: "https://marketplace.cider.sh" },
     "/o": { redirect: "/api/v1/open" },
     "/p": { redirect: "/api/v1/play" },
