@@ -30,7 +30,7 @@
     { text: "Quasar", icon: "vscode-icons:file-type-quasar", link: "https://quasar.dev" },
     { text: "Vue", icon: "logos:vue", link: "https://vuejs.org" },
     { text: "Socket.io", icon: "logos:socket-io", link: "https://socket.io" },
-    { text: "Tauri (for Windows Builds)", icon: "logos:tauri", link: "https://tauri.studio" },
+    { text: "Tauri (for Windows Builds)", icon: "logos:tauri", link: "https://tauri.app" },
     {
       text: "Electron (for MacOS and Linux)",
       icon: "logos:electron",
