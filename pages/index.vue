@@ -1,8 +1,23 @@
 <template>
   <div>
     <div
-      class="absolute inset-0 -z-10 h-full w-full items-center px-5 py-24 [background:radial-gradient(150%_125%_at_50%_-10%,#f32c56_0%,transparent_50%)]"
-    ></div>
+      class="spin relative mx-auto flex h-max w-max items-center justify-center opacity-50 blur-[120px] filter"
+    >
+      <div class="absolute inset-0 flex items-center justify-center">
+        <div
+          class="absolute h-[40rem] w-[40rem] rounded-full bg-rose-600"
+          style="transform: translate(-20%, 0)"
+        ></div>
+        <div
+          class="bg-cider absolute h-[40rem] w-[40rem] rounded-full"
+          style="transform: translate(10%, -35%)"
+        ></div>
+        <div
+          class="absolute h-[40rem] w-[40rem] rounded-full bg-rose-800"
+          style="transform: translate(10%, 35%)"
+        ></div>
+      </div>
+    </div>
     <UiContainer class="relative flex flex-col items-center py-10 text-center lg:py-20">
       <div v-if="data">
         <UiBadge
@@ -98,6 +113,14 @@
     color: var(--color-primary);
     border-color: var(--color-primary);
     transition: gap 0.2s ease-in-out;
+  }
+  .spin {
+    animation: spin 20s linear infinite;
+  }
+  @keyframes spin {
+    100% {
+      transform: rotate(1turn);
+    }
   }
 </style>
 
