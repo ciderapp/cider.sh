@@ -252,7 +252,7 @@
       avatar: "https://avatars.githubusercontent.com/u/67812203?v=4",
       twitter: "https://twitter.com/swiftzerr",
       email: "swiftzerr@cider.sh",
-      quote: `Fix one thing, to break 3 more`,
+      quote: `Fix 1 thing, break 3 more`,
       color: "rgb(200, 162, 200)",
       songId: "693388969",
     },
