@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="overflow-hidden">
     <div
       class="spin relative mx-auto flex h-max w-max items-center justify-center opacity-50 blur-[120px] filter"
     >
@@ -9,7 +9,7 @@
           style="transform: translate(-20%, 0)"
         ></div>
         <div
-          class="bg-cider absolute h-[40rem] w-[40rem] rounded-full"
+          class="absolute h-[40rem] w-[40rem] rounded-full bg-cider"
           style="transform: translate(10%, -35%)"
         ></div>
         <div
