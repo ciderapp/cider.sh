@@ -86,7 +86,7 @@ export default defineNuxtConfig({
     "/downloads/client": { prerender: true },
     "/changelogs": { prerender: true },
     "/changelogs/**": { isr: 60 },
-    "/docs": { redirect: "/docs/other/rpc" },
+    "/docs": { redirect: "/docs/client/rpc" },
     "/docs/**": { isr: 60 },
     "/downloads/remote": { prerender: true },
     "/remote": { redirect: "/downloads/remote" },

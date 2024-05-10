@@ -41,5 +41,12 @@
         href: "/logo.png",
       },
     ],
+    script: [
+      {
+        defer: true,
+        src: "https://static.cloudflareinsights.com/beacon.min.js",
+        "data-cf-beacon": '{"token": "3b01b333ebe84443a628f1605bb45cea"}',
+      },
+    ],
   });
 </script>

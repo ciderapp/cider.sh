@@ -153,7 +153,7 @@
 
     { url: "https://discord.gg/applemusic", icon: "simple-icons:discord" },
     {
-      url: "https://opencollective.com/cider",
+      url: "https://opencollective.com/ciderapp",
       icon: "simple-icons:opencollective",
     },
   ];
