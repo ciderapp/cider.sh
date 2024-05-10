@@ -61,6 +61,7 @@ module.exports = {
         "collapse-up": "collapse-up 0.2s ease-out",
       },
       colors: {
+        cider: "#F32C56",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
