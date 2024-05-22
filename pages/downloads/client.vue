@@ -161,7 +161,7 @@
     },
     {
       title: "Itch.io",
-      description: "Cider is available on Itch.io for ALL users on Windows, macOS, and Linux",
+      description: "Distributions of Cider available for all users on Windows, macOS, and Linux. A full list of available distributions can be found on the itch.io page.",
       price: 20,
       isRecommended: true,
       perks: [

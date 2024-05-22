@@ -43,6 +43,5 @@
     "esbuild",
     "sharp",
     "vue-demi"
-  ],
-  "packageManager": "pnpm@9.1.2"
+  ]
 }
