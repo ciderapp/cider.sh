@@ -166,8 +166,9 @@
     },
     {
       title: "Cider Remote",
+      badgeText: "Coming Soon",
       description: "Easily control your music from your phone or tablet.",
-      link: "/downloads/remote",
+      link: "#", // TODO: Update link when Remote is re-alived
     },
     {
       title: "Cider Connect",

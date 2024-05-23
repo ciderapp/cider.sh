@@ -195,7 +195,7 @@
       musicWin: false,
     },
     {
-      name: "Listen Together",
+      name: "Listen Together (Coming Soon)",
       cider1: false,
       cider2: true,
       musicWeb: false,
