@@ -1,5 +1,6 @@
 {
   "name": "cider-sh",
+  "private"
   "type": "module",
   "scripts": {
     "build": "nuxt build",
@@ -14,10 +15,10 @@
     "@nuxt/image": "^1.7.0",
     "@nuxtjs/seo": "2.0.0-rc.10",
     "@tailwindcss/typography": "^0.5.13",
-    "@vee-validate/nuxt": "^4.13.0",
+    "@vee-validate/nuxt": "4.12.8",
     "nuxt": "^3.11.2",
     "nuxt-swiper": "^1.2.2",
-    "radix-vue": "^1.8.3",
+    "radix-vue": "1.8.1",
     "tailwind-variants": "^0.2.1",
     "vue": "^3.4.27",
     "vue-router": "^4.3.2",
