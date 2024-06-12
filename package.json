@@ -1,6 +1,6 @@
 {
   "name": "cider-sh",
-  "private"
+  "private": false,
   "type": "module",
   "scripts": {
     "build": "nuxt build",
