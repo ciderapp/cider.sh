@@ -22,7 +22,10 @@
     </nav>
     <div class="flex flex-col">
       <!-- <p class="mb-3 font-semibold text-primary">Legal</p> -->
-      <ContentDoc class="prose prose-rose max-w-screen-md dark:prose-invert lg:max-w-screen-lg" />
+      <ContentRenderer
+        class="prose prose-rose max-w-screen-md dark:prose-invert lg:max-w-screen-lg"
+        :value="page"
+      />
     </div>
     <ContentNavigation v-slot="{ navigation }">
       <ul>
@@ -33,4 +36,14 @@
     </ContentNavigation>
   </main>
 </template>
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+  const $route = useRoute();
+  const { data: page } = await useAsyncData($route.path + "-data", () =>
+    queryContent($route.path).findOne()
+  );
+  useSeoMeta({
+    title: page.value?.title,
+    ogTitle: page.value?.title,
+    ogDescription: page.value?.description,
+  });
+</script>

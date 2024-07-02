@@ -19,10 +19,8 @@
         </p>
       </div>
     </div>
-    <div
-      class="flex h-[350px] w-full shrink-0 items-end p-2 md:w-[700px] lg:h-full lg:w-1/2 lg:p-8"
-    >
-      <Swiper
+    <div class="flex h-[350px] w-full shrink-0 items-end p-2 md:w-[700px] lg:h-full lg:p-8">
+      <LazySwiper
         :autoplay="{ delay: 4000 }"
         :modules="[SwiperAutoplay]"
         :speed="800"
@@ -38,6 +36,7 @@
             },
           },
         }"
+        style="overflow: hidden"
       >
         <SwiperSlide v-for="t in testimonies" :key="t.author">
           <div
@@ -50,7 +49,7 @@
             </div>
           </div>
         </SwiperSlide>
-      </Swiper>
+      </LazySwiper>
     </div>
   </UiContainer>
 </template>

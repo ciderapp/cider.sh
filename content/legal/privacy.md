@@ -1,6 +1,6 @@
 ---
 title: "Privacy Policy"
-description: "meta description of the page"
+description: "Know which data we collect"
 draft: false
 ---
 

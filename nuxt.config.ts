@@ -5,6 +5,9 @@ export default defineNuxtConfig({
       autoSubfolderIndex: false,
     },
   },
+  experimental: {
+    treeshakeClientOnly: true,
+  },
   devtools: { enabled: true, timeline: { enabled: true } },
   modules: [
     "@nuxtjs/tailwindcss",

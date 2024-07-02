@@ -20,7 +20,7 @@
             Get from TestFlight
           </UiButton>
         </NuxtLink>
-        <NuxtLink to="https://cdn.cider.sh/cider-remote-0.3.0-b2.apk">
+        <NuxtLink to="https://cdn.cider.sh/cider-remote-0.3.1.apk">
           <UiButton variant="outline">
             <Icon name="logos:android-icon" />
             Download APK

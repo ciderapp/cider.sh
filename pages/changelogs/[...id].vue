@@ -99,7 +99,9 @@
 
   const $route = useRoute();
   const embedded = $route.query.embedded == "true";
-  const { data: page } = await useAsyncData("page-data", () => queryContent($route.path).findOne());
+  const { data: page } = await useAsyncData($route.path + "-data", () =>
+    queryContent($route.path).findOne()
+  );
 
   const { data } = await useAsyncData<any>("changelogs", () =>
     queryContent("/changelogs/client-releases").sort({ releaseNo: -1, $numeric: true }).find()
