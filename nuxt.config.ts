@@ -3,15 +3,14 @@ export default defineNuxtConfig({
   future: {
     compatibilityVersion: 4,
   },
+  experimental: {
+    viewTransition: true,
+  },
 
   nitro: {
     prerender: {
       autoSubfolderIndex: false,
     },
-  },
-
-  experimental: {
-    treeshakeClientOnly: true,
   },
 
   devtools: { enabled: true, timeline: { enabled: true } },
