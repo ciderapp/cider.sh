@@ -84,7 +84,7 @@
         Everything you need to know about the product and billing.
       </p>
     </UiContainer>
-    <section class="mx-auto max-w-[768px]">
+    <section class="mx-auto max-w-full">
       <UiAccordion :default-value="['item-4']" type="multiple">
         <template v-for="i in items" :key="i.value">
           <UiAccordionItem :value="i.value">
