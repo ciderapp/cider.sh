@@ -1,14 +1,21 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  future: {
+    compatibilityVersion: 4,
+  },
+
   nitro: {
     prerender: {
       autoSubfolderIndex: false,
     },
   },
+
   experimental: {
     treeshakeClientOnly: true,
   },
+
   devtools: { enabled: true, timeline: { enabled: true } },
+
   modules: [
     "@nuxtjs/tailwindcss",
     "@nuxtjs/color-mode",
@@ -21,6 +28,7 @@ export default defineNuxtConfig({
     "@nuxt/image",
     "@nuxtjs/seo",
   ],
+
   content: {
     ignores: ["/1.client-releases/images", "\\.html$", "CNAME"],
     highlight: {
@@ -72,6 +80,7 @@ export default defineNuxtConfig({
       },
     },
   },
+
   site: {
     url: "https://cider.sh",
     name: "Cider Collective",
@@ -79,10 +88,16 @@ export default defineNuxtConfig({
       "A community-ran and maintained software company focused on creating the best experience for end users. Home of Cider, Connect, Remote.",
     defaultLocale: "en",
   },
+
+  seo: {
+    fallbackTitle: true,
+  },
+
   sitemap: {
     strictNuxtContentPaths: true,
     sources: ["/api/__sitemap__/urls"],
   },
+
   routeRules: {
     "/": { prerender: true },
     "/downloads": { redirect: "/downloads/client" },
@@ -97,6 +112,7 @@ export default defineNuxtConfig({
     "/o": { redirect: "/api/v1/open" },
     "/p": { redirect: "/api/v1/play" },
   },
+
   css: ["~/assets/css/styles.scss"],
 
   tailwindcss: {
@@ -130,4 +146,6 @@ export default defineNuxtConfig({
       },
     ],
   },
+
+  compatibilityDate: "2024-07-03",
 });
