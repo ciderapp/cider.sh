@@ -53,6 +53,9 @@
     title: computed(() => page.value?.title),
     description: computed(() => page.value?.description),
   });
+  useHead({
+    titleTemplate: "%s | Cider Docs",
+  });
 
   const { data: page, pending: pagePending } = await useAsyncData($route.path + "-data", async () =>
     queryContent($route.path).findOne()
