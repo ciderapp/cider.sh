@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@morev/vue-transitions": "^3.0.2",
-    "@nuxt/content": "^2.13.0",
+    "@nuxt/content": "^2.13.1",
     "@nuxt/image": "^1.7.0",
     "@nuxtjs/seo": "2.0.0-rc.10",
     "@tailwindcss/typography": "^0.5.13",
