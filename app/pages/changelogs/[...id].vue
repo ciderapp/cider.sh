@@ -1,5 +1,6 @@
 <template>
   <div class="flex flex-col items-center">
+    <!-- Embedded Content -->
     <div v-if="embedded" class="prose prose-lg prose-rose dark:prose-invert">
       <div v-if="page?.image">
         <NuxtImg
@@ -88,15 +89,6 @@
 <script lang="ts" setup>
   import { useActiveScroll } from "vue-use-active-scroll";
 
-  useHead({
-    script: [
-      {
-        type: "module",
-        src: "https://get.microsoft.com/badge/ms-store-badge.bundled.js",
-      },
-    ],
-  });
-
   const $route = useRoute();
   const embedded = $route.query.embedded == "true";
   const { data: page } = await useAsyncData($route.path + "-data", () =>
@@ -117,5 +109,9 @@
   const { activeId, setActive } = useActiveScroll(targets, {
     replaceHash: true,
     overlayHeight: 80,
+  });
+
+  useSeoMeta({
+    ogImage: `https://github.com/ciderapp/changes/blob/main/1.client-releases/images/${page.image || "undefined"}?raw=true`,
   });
 </script>

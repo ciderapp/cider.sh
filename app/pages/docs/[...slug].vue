@@ -49,10 +49,10 @@
 
   const $route = useRoute();
 
-  definePageMeta({
-    title: computed(() => page.value?.title),
-    description: computed(() => page.value?.description),
-  });
+  // definePageMeta({
+  //   title: computed(() => page.value?.title),
+  //   description: computed(() => page.value?.description),
+  // });
   useHead({
     titleTemplate: "%s | Cider Docs",
   });
