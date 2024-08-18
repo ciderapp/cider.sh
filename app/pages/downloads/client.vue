@@ -84,10 +84,12 @@
               </ul>
             </UiCardContent>
             <UiCardFooter class="border-t !pt-6 dark:border-muted/50">
-              <UiButton class="w-full py-7 text-lg">
-                <Icon :name="p.download.icon" class="mr-2 h-10 w-10 shrink-0" />
-                {{ p.download.text }}
-              </UiButton>
+              <NuxtLink class="w-full" :to="p.download.url">
+                <UiButton class="w-full py-7 text-lg">
+                  <Icon :name="p.download.icon" class="mr-2 h-10 w-10 shrink-0" />
+                  {{ p.download.text }}
+                </UiButton>
+              </NuxtLink>
             </UiCardFooter>
           </UiCard>
         </template>
