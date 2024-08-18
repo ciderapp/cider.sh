@@ -30,7 +30,7 @@ const companies = [
   { text: "Quasar", icon: "vscode-icons:file-type-quasar", link: "https://quasar.dev" },
   { text: "Vue", icon: "logos:vue", link: "https://vuejs.org" },
   { text: "Socket.io", icon: "logos:socket-io", link: "https://socket.io" },
-  { text: ".NET (for Windows Builds", icon: "logos:dotnet", link: "https://dotnet.microsoft.com" },
+  { text: ".NET (for Windows Builds)", icon: "logos:dotnet", link: "https://dotnet.microsoft.com" },
   {
     text: "Electron (for MacOS and Linux)",
     icon: "logos:electron",
