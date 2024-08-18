@@ -95,8 +95,8 @@ const { activeId, setActive } = useActiveScroll(targets, {
 });
 
 useSeoMeta({
-  title: () => page?.title,
-  description: () => page?.description,
-  ogImage: () => `https://github.com/ciderapp/changes/blob/main/1.client-releases/images/${page.image || "undefined"}?raw=true`,
+  title: () => page.value?.title,
+  description: () => page.value?.description,
+  ogImage: () => `https://github.com/ciderapp/changes/blob/main/1.client-releases/images/${page.value.image || "undefined"}?raw=true`,
 });
 </script>
