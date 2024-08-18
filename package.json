@@ -16,7 +16,7 @@
     "@nuxtjs/seo": "2.0.0-rc.10",
     "@tailwindcss/typography": "^0.5.14",
     "@vee-validate/nuxt": "4.12.8",
-    "nuxt": "3.12.3",
+    "nuxt": "3.12.4",
     "nuxt-swiper": "^1.2.2",
     "radix-vue": "1.8.1",
     "tailwind-variants": "^0.2.1",
