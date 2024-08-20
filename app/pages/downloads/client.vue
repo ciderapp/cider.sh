@@ -141,46 +141,45 @@
   };
   const downloads = [
     {
-      title: "Microsoft Store",
-      description: "Cider is available on the Microsoft Store for Windows 10 and 11 users",
-      isRecommended: false,
-      price: 20,
-      perks: [
-        "Windows 10 and 11 Support",
-        "Windows specific features",
-        "Automatic Updates",
-        "Discord, Spotify, Last.FM Integrations",
-        "Audio Enhancement (Cider Audio)",
-        "Cider Remote Support",
-        "Blazingly Fast",
-        "Tons of Customization Options",
-        // "Community Plugins",
-        // "Community Themes",
-      ],
-      download: {
-        html: '<ms-store-badge productid="9PL8WPH0QK9M" window-mode="popup" theme="auto" language="en-us" animation="on" class="w-full"> </ms-store-badge>',
-      },
-    },
-    {
       title: "Itch.io",
-      description: "Distributions of Cider available for all users on Windows, macOS, and Linux. A full list of available distributions can be found on the itch.io page.",
+      description:
+        "Available for all users on Windows, macOS, and Linux. A full list of supported platforms can be found on the Itch.io page.",
       price: 20,
       isRecommended: true,
       perks: [
-        "One download for all platforms",
-        "Multi-platform support",
-        "More frequent updates",
-        "Discord, Spotify, Last.FM Integrations",
-        "Audio Enhancement (Cider Audio)",
-        "Cider Remote Support",
+        "All Platforms",
+        "Multi-platform Support",
+        "Faster Updates",
+        "Discord and Last.fm Integrations",
+        "Audio Enhancements (through our Audio Lab)",
         "Blazingly Fast",
         "Tons of Customization Options",
-        // "Community Plugins",
-        // "Community Themes",
+        "Community Themes verified by the Collective",
+        "Community Plugins verified by the Collective",
       ],
       download: {
         url: "https://cidercollective.itch.io/cider",
         image: "/itchio-color.svg",
+      },
+    },
+    {
+      title: "Microsoft Store",
+      description: "Available on the Microsoft Store for Windows 10 and 11 users.",
+      isRecommended: false,
+      price: 20,
+      perks: [
+        "Windows 10 and 11 support",
+        "Store specific features",
+        "Automatic Updates",
+        "Discord and Last.fm Integrations",
+        "Audio Enhancements (through our Audio Lab)",
+        "Blazingly Fast",
+        "Tons of Customization Options",
+        "Community Themes verified by the Collective",
+        "Community Plugins verified by the Collective",
+      ],
+      download: {
+        html: '<ms-store-badge productid="9PL8WPH0QK9M" window-mode="popup" theme="auto" language="en-us" animation="on" class="w-full"> </ms-store-badge>',
       },
     },
   ];
@@ -189,13 +188,12 @@
       icon: "heroicons:bolt",
       title: "Cider Nightly",
       subtitle:
-        "For those daring to live on the edge. Includes early access to new features (Donation Required)",
+        "For those daring to live on the edge. Includes early access to new features.",
       price: 40,
       perks: [
         "All features in Cider",
         "Early access to new features",
         "Beta testing",
-        "Priority support",
       ],
       download: {
         url: "https://discord.gg/applemusic",

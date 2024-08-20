@@ -32,7 +32,7 @@ const companies = [
   { text: "Socket.io", icon: "logos:socket-io", link: "https://socket.io" },
   { text: ".NET (for Windows Builds)", icon: "logos:dotnet", link: "https://dotnet.microsoft.com" },
   {
-    text: "Electron (for MacOS and Linux)",
+    text: "Electron (for macOS and Linux)",
     icon: "logos:electron",
     link: "https://electronjs.org",
   },

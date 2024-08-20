@@ -2,13 +2,13 @@
   <UiContainer class="py-16">
     <p class="mb-3 text-center font-semibold text-primary lg:text-left">Learn More</p>
     <h3 class="mb-4 text-center text-3xl font-semibold lg:mb-5 lg:text-left lg:text-4xl">
-      The perfect Client for Apple Music users
+      The perfect client for Apple Music users
     </h3>
     <p
       class="mb-10 max-w-[760px] text-center text-lg text-muted-foreground lg:mb-16 lg:text-left lg:text-xl"
     >
-      Not only does Cider offer a refreshing alternative to Apple's native music client, it
-      completely changes the way you experience music. With a focus on design and user experience.
+      Cider not only provides a refreshing alternative to Apple's official music client, but it also
+      transforms your entire music experience with its emphasis on design and user experience.
     </p>
     <div class="grid grid-cols-1 lg:grid-cols-2 lg:py-16">
       <div
@@ -41,7 +41,7 @@
         Feature Comparison
       </h2>
       <p class="mx-auto max-w-[800px] text-lg text-muted-foreground lg:text-xl">
-        Check how Cider Stacks up against the competition.
+        Check how Cider stacks up against the competition.
       </p>
       <div class="my-10 w-full overflow-x-auto rounded-md border">
         <UiTable>
@@ -49,9 +49,9 @@
             <UiTableRow>
               <UiTableHead>Feature</UiTableHead>
               <UiTableHead>Cider</UiTableHead>
-              <UiTableHead>Cider Legacy</UiTableHead>
+              <UiTableHead>Cider Classic</UiTableHead>
               <UiTableHead>AM Web</UiTableHead>
-              <UiTableHead>MacOS AM App</UiTableHead>
+              <UiTableHead>macOS AM App</UiTableHead>
               <UiTableHead>Windows AM App</UiTableHead>
             </UiTableRow>
           </UiTableHeader>
@@ -77,11 +77,11 @@
 
     <UiContainer class="py-16 text-center lg:py-24">
       <h2 class="mb-4 mt-2 text-4xl font-bold lg:mb-6 lg:mt-3 lg:text-5xl">
-        Frequently asked questions
+        Frequently Asked Questions
       </h2>
 
       <p class="mx-auto max-w-[800px] text-lg text-muted-foreground lg:text-xl">
-        Everything you need to know about the product and billing.
+        Everything you need to know about the product.
       </p>
     </UiContainer>
     <section class="mx-auto max-w-full">
@@ -104,7 +104,7 @@
     >
       <p class="text-lg font-semibold">Still have questions?</p>
       <p class="text-muted-foreground">
-        Can't find the answer you're looking for? Please chat to our friendly team.
+        Can't find the answer you're looking for? Feel free to contact our Support Team.
       </p>
       <UiButton to="https://discord.gg/applemusic"
         ><Icon name="simple-icons:discord" size="20px" /> Get in touch on Discord</UiButton
@@ -219,39 +219,38 @@
   const items = [
     {
       value: "item-1",
-      title: "Is it free to use?",
+      title: "Do you collect my data?",
       content:
-        "Cider Legacy is free to use, with Cider 2 being closed beta which you will have to pay for (It won't cost more than a cup of coffee).",
+        "No! We have a strict no data collection policy. We do not collect any personal data.",
     },
     {
       value: "item-2",
-      title: "What happens after the beta?",
+      title: "Is it free to use?",
       content:
-        "After the beta, Cider-2's frontend source will be on a public repo. We will also have a free version available (Not final). Some features will be locked behind a paywall thru Cider Connect,  but the core experience will remain free",
+        "Cider is a paid application, available for $3.49 on Itch.io. This purchase grants you access to release builds across all platforms, including Windows, macOS, and Linux.",
     },
     {
       value: "item-3",
       title: "Can I customize with my own theme?",
       content:
-        "Yes! You can customize Cider with your own theme, or choose from a selection of themes. Cider 2 will have a more robust theming engine.",
+        "Absolutely! We provide a powerful theming system that lets you create your own custom theme or choose from a selection of approved community themes available on the Cider Marketplace.",
     },
     {
       value: "item-4",
-      title: "Is there a free trial available?",
-      content: "Unfortunately, we do not offer a free trial.",
+      title: "Is signing into Cider safe?",
+      content: "Yes. We only use the Apple Music API to access your library.",
     },
     {
       value: "item-5",
-      title: "Is it safe to use?",
-      content:
-        "Cider is safe to use, we do not collect any personal data. We do not have access to your Apple Music account, we only use the Apple Music API to access your library.",
+      title: "Is there a free trial available?",
+      content: "Unfortunately, we do not offer a free trial.",
     },
   ];
   const stats = [
     {
-      text: "Github Stars",
-      value: "6.9K+",
-      description: "Cider is a cummunity-lead project. We rely on donations.",
+      text: "GitHub Stars",
+      value: "7.1K+",
+      description: "Cider Classic has earned over 7.1K stars on GitHub. We know our stuff.",
     },
     {
       text: "Enjoyment Factor",
@@ -262,13 +261,13 @@
       text: "Open-Source Integrations",
       value: "10+",
       description:
-        "Cider includes integration like Discord and Last.FM, with the community we have more plugins like Raycast and Nanoleaf. See more in Cider Marketplace",
+        "We offer integrations with Discord, Last.fm officially and much more with tools made by the community.",
     },
     {
-      text: "Client Styles",
+      text: "Customization",
       value: "Unlimited",
       description:
-        "Your client, Your style. Dont get limited on large companies dictating how you want your apps to look and feel.",
+        "Your Client, Your Style. Don't let large companies dictate how your apps should look and feel.",
     },
   ];
 </script>
