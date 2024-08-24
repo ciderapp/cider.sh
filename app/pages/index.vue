@@ -149,13 +149,13 @@
       icon: "heroicons:link",
       title: "Seamless Integrations",
       description:
-        "Cider comes with out-of-the-box integration with services like Discord, Last.FM, Spotify, and many more",
+        "Cider comes with out-of-the-box integration with services like Discord, Last.fm, Spotify, and many more.",
     },
     {
       icon: "material-symbols:spatial-tracking-rounded",
       title: "Audio Enhancements",
       description:
-        "Audio spatialization, Adrenaline Processor™, and equalizers are actively developed by our local audio engineer, Maikiwi.",
+        "Audio Spatialization, Adrenaline Processor™, and equalizers are actively developed by our local audio engineer, Maikiwi.",
     },
     {
       icon: "material-symbols:nest-remote",
@@ -173,7 +173,7 @@
       icon: "material-symbols:dashboard-customize",
       title: "Customize however you like",
       description:
-        "Cider is built with customization in mind, you can customize your client from top to bottom! Cider also includes plugin support for those who want to go the extra mile.",
+        "Built with customization in mind, you can customize your client from top to bottom! Cider also includes a robust plugin system for those who want to go the extra mile.",
     },
     {
       icon: "heroicons:heart",

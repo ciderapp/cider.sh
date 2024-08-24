@@ -138,7 +138,7 @@ export const defineShortcuts = (config: ShortcutsConfig, options: ShortcutsOptio
       }
       shortcut.chained = chained;
 
-      // Convert Meta to Ctrl for non-MacOS
+      // Convert Meta to Ctrl for non-macOS
       if (!macOS.value && shortcut.metaKey && !shortcut.ctrlKey) {
         shortcut.metaKey = false;
         shortcut.ctrlKey = true;

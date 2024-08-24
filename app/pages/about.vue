@@ -60,7 +60,7 @@
     </section>
     <section class="pt-20">
       <p class="mb-8 text-center text-lg text-muted-foreground">
-        We also want to give special thanks to our contributors in Github.
+        We also want to give special thanks to our contributors in GitHub.
       </p>
       <NuxtLink to="https://github.com/ciderapp/cider/graphs/contributors" target="_blank">
         <img src="https://contrib.rocks/image?repo=ciderapp/cider&columns=20" />
@@ -73,10 +73,10 @@
   const headline = "About Us";
   const title = "Meet the Team";
   const description =
-    "The Cider team is a group of passionate developers who are dedicated to making the best experience for Apple Music on every platform";
+    "The Cider team is a group of passionate developers who are dedicated to making the best experience for Apple Music on every platform.";
 
   const sponsors = [
-    { text: "Jetbrains", icon: "logos:jetbrains" },
+    { text: "JetBrains", icon: "logos:jetbrains" },
     {
       text: "MacStadium",
       icon: "MacStadiumLogo",
