@@ -25,6 +25,7 @@
     "vue-use-active-scroll": "^1.1.1"
   },
   "devDependencies": {
+    "@css-inline/css-inline": "^0.14.1",
     "@ianvs/prettier-plugin-sort-imports": "^4.3.1",
     "@nuxtjs/color-mode": "^3.4.4",
     "@nuxtjs/tailwindcss": "^6.12.1",
