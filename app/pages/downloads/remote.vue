@@ -10,22 +10,22 @@
         Take full control, right from your phone
       </h2>
       <p class="mx-auto max-w-[760px] text-center text-lg text-muted-foreground lg:text-xl">
-        Native UI for iOS & Android. Seamlessly control your Cider Instances without interruptions
+        Native UI for iOS. Seamlessly control your Cider Instances without interruptions
         or delays.
       </p>
       <div class="mt-8 flex justify-center gap-8">
-        <NuxtLink to="https://testflight.apple.com/join/bI48Y8FL">
+        <NuxtLink to="https://testflight.apple.com/join/qTeV2T2w">
           <UiButton variant="outline">
             <Icon name="logos:apple-app-store" />
             Get from TestFlight
           </UiButton>
         </NuxtLink>
-        <NuxtLink to="https://cdn.cider.sh/cider-remote-0.3.1.apk">
+        <!-- <NuxtLink to="https://cdn.cider.sh/cider-remote-0.3.1.apk">
           <UiButton variant="outline">
             <Icon name="logos:android-icon" />
             Download APK
           </UiButton>
-        </NuxtLink>
+        </NuxtLink> -->
       </div>
     </div>
 
@@ -50,7 +50,7 @@
       <div class="order-last col-span-full lg:order-none lg:col-span-1">
         <!-- eslint-disable-next-line vue/html-self-closing -->
         <img
-          src="/remote.png"
+          src="/remote_player.png"
           alt="Features section nine image"
           class="mx-auto h-[360px] w-[400px] object-cover object-top lg:h-[640px] lg:w-full lg:object-contain"
         />
@@ -75,8 +75,8 @@
     </div>
     <div>
       <p class="text-center text-sm text-gray-500">
-        * Requires Cider v2.2.0 or later, and a device running iOS 14.0 or later, or Android 5.0 or
-        later.
+        * Requires Cider v2.5.0 or later, and a device running iOS 14.0 or later 
+        <!-- , or Android 5.0 or later. -->
       </p>
       <p class="text-center text-sm text-gray-500">
         * Cider Remote is currently in beta, and may contain bugs or issues. Please report any
@@ -91,9 +91,9 @@
   useSeoMeta({
     title: "Remote",
     description:
-      "Take full control of your Cider instance with Remote, a native iOS & Android app.",
+      "Take full control of your Cider instance with Remote, a native iOS app.",
     ogDescription:
-      "Take full control of your Cider instance with Remote, a native iOS & Android app.",
+      "Take full control of your Cider instance with Remote, a native iOS app.",
     ogImage: "/client-images/remote.png",
     ogUrl: "https://cider.sh/remote",
   });
@@ -102,7 +102,7 @@
       icon: "heroicons:puzzle-piece-solid",
       title: "Native UI",
       description:
-        "Leverage the power and performance of native UI for iOS and Android. Writing natively allows for a more seamless experience and a cohesive design language.",
+        "Leverage the power and performance of native UI for iOS. Writing natively allows for a more seamless experience and a cohesive design language.",
     },
     {
       icon: "heroicons:rectangle-group-solid",

@@ -166,17 +166,17 @@
     },
     {
       title: "Cider Remote",
-      badgeText: "Coming Soon",
+      badgeText: "Alpha",
       description: "Easily control your music from your phone or tablet.",
-      link: "#", // TODO: Update link when Remote is re-alived
+      link: "remote"
     },
-    {
-      title: "Cider Connect",
-      badgeText: "Coming Soon",
-      description:
-        "Get a Cider account to sync your client settings, host and join listening parties and more.",
-      link: "#", // TODO: Update link when Connect is live
-    },
+    // {
+    //   title: "Cider Connect",
+    //   badgeText: "Coming Soon",
+    //   description:
+    //     "Get a Cider account to sync your client settings, host and join listening parties and more.",
+    //   link: "#", // TODO: Update link when Connect is live
+    // },
   ];
 
   const modes = [

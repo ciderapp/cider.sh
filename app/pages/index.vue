@@ -161,7 +161,7 @@
       icon: "material-symbols:nest-remote",
       title: "Remote Controllable (Soon!)",
       subtitle: "balls",
-      description: `We know how annoying it is to keep hitting <kbd>Alt+Tab</kbd> while working or gaming, so we're creating a <a href="#">remote app</a> just for that.`,
+      description: `We know how annoying it is to keep hitting <kbd>Alt+Tab</kbd> while working or gaming, so we're creating a <a href="remote">remote app</a> just for that.`,
     },
     {
       icon: "heroicons:bolt",
