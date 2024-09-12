@@ -10,7 +10,7 @@
         ></div>
       </div>
     </div>
-    <UiContainer class="pb-10">
+    <UiContainer class="relative pb-10">
       <UiContainer class="py-16 text-center lg:py-24">
         <slot name="headline">
           <p v-if="headline" class="font-semibold text-primary">{{ headline }}</p>
