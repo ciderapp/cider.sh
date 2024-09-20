@@ -3,13 +3,10 @@
 }
 
 .carousel {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
   position: relative;
   width: 100%;
   aspect-ratio: 21 / 9;
+  overflow: hidden;
 
   > .images {
     display: flex;
@@ -19,36 +16,97 @@
     height: 100%;
     position: relative;
   }
-}
 
-.carousel-image {
-  position: absolute;
-  width: 40%;
-  transition: all 0.5s ease;
-  opacity: 0;
+  .carousel-image {
+    position: absolute;
+    width: 40%;
+    transition: all 0.5s ease;
+    opacity: 0;
 
-  &.carousel-image--center {
-    z-index: 2;
-    width: 70%;
-    opacity: 1;
-    transform: translateX(0%);
+    &--center {
+      z-index: 2;
+      width: 70%;
+      opacity: 1;
+      transform: translateX(0%);
+    }
+
+    &--left {
+      opacity: 0.5;
+      filter: blur(4px);
+      width: 40%;
+      z-index: 1;
+      transform: translateX(-60%);
+    }
+
+    &--right {
+      opacity: 0.5;
+      filter: blur(4px);
+      width: 40%;
+      z-index: 1;
+      transform: translateX(60%);
+    }
+
+    &--hidden {
+      display: none;
+    }
+
+    &--mobile {
+      display: block;
+    }
   }
-  &.carousel-image--left {
-    opacity: 0.5;
-    filter: blur(4px);
-    width: 40%;
-    z-index: 1;
-    transform: translateX(-60%);
+
+  .carousel-indicators {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+
+    .indicator {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.5);
+
+      &.active {
+        background-color: white;
+      }
+    }
   }
-  &.carousel-image--right {
-    opacity: 0.5;
-    filter: blur(4px);
-    width: 40%;
-    z-index: 1;
-    transform: translateX(60%);
-  }
-  &.carousel-image--hidden {
-    display: none;
+
+  @media (max-width: 768px) {
+    aspect-ratio: auto;
+    height: 300px;
+
+    > .images {
+      display: flex;
+      justify-content: flex-start;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+
+    .carousel-image {
+      position: relative;
+      width: 80%;
+      flex: 0 0 80%;
+      scroll-snap-align: center;
+      opacity: 1;
+      filter: none;
+      transform: none;
+      margin-right: 10px;
+    }
+
+    .carousel-image--hidden {
+      display: block;
+    }
   }
 }
 
