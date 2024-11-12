@@ -175,11 +175,6 @@
     },
     {
       name: "Visual Customization",
-      superscript: {
-        text: "2",
-        footnote:
-          "These features can range from Adaptive Colors, to setting the player position to enabling/disabling various UI elements.",
-      },
       cider1: true,
       cider2: true,
       musicWeb: false,
@@ -195,19 +190,7 @@
       musicWin: false,
     },
     {
-      name: "Listen Together (Coming Soon)",
-      cider1: false,
-      cider2: true,
-      musicWeb: false,
-      musicMac: false,
-      musicWin: false,
-    },
-    {
       name: "Custom Themes and Plugins",
-      superscript: {
-        text: "3",
-        footnote: "Cider 2 is currently in beta, and is pending this feature.",
-      },
       cider1: true,
       cider2: true,
       musicWeb: false,
@@ -227,7 +210,7 @@
       value: "item-2",
       title: "Is it free to use?",
       content:
-        "Cider is a paid application, available for $3.49 on Itch.io. This purchase grants you access to release builds across all platforms, including Windows, macOS, and Linux.",
+        "Cider is a paid application, available on Itch.io. This purchase grants you access to release builds across all platforms, including Windows, macOS, and Linux.",
     },
     {
       value: "item-3",
@@ -246,6 +229,7 @@
       content: "Unfortunately, we do not offer a free trial.",
     },
   ];
+  
   const stats = [
     {
       text: "GitHub Stars",
