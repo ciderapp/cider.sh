@@ -48,7 +48,7 @@
             :class="[isUwu ? 'md:justify-start md:text-left' : '']"
           >
             <NuxtLink to="/downloads">
-              <UiButton size="lg">Download</UiButton>
+              <UiButton size="lg">Get Cider</UiButton>
             </NuxtLink>
             <NuxtLink to="/learn-more">
               <UiButton

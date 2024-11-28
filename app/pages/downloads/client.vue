@@ -1,4 +1,38 @@
 <template>
+  <DownloadItem.define v-slot="{ download }">
+
+    <div v-if="download.type == 'html'" class="" v-html="download.html" />
+
+    <NuxtLink v-else-if="download.type == 'image'" :to="download.url">
+      <NuxtImg :src="download.image" :alt="download.alt"
+        class="transition-[duration]-[1000ms] max-w-xs transform-gpu transition-all hover:-translate-y-1" />
+    </NuxtLink>
+
+    <NuxtLink v-else-if="download.type == 'icon'" class="w-full" :to="download.url">
+      <UiButton class="w-full py-7 text-lg">
+        <Icon :name="download.icon" class="mr-2 h-10 w-10 shrink-0" />
+        {{ download.text }}
+      </UiButton>
+    </NuxtLink>
+
+    <template v-else-if="download.type == 'multiple'" v-for="dl in download.downloads">
+
+      <NuxtLink v-if="dl.type == 'image'" :to="dl.url">
+        <NuxtImg :src="dl.image" alt="itch.io"
+          class="transition-[duration]-[1000ms] max-w-xs transform-gpu transition-all hover:-translate-y-1" />
+      </NuxtLink>
+
+      <NuxtLink v-else-if="dl.type == 'icon'" class="w-full" :to="dl.url">
+        <UiButton class="w-full py-7 text-lg">
+          <Icon :name="dl.icon" class="mr-2 h-10 w-10 shrink-0" />
+          {{ dl.text }}
+        </UiButton>
+      </NuxtLink>
+
+    </template>
+
+  </DownloadItem.define>
+
   <UiContainer class="relative py-16 lg:py-24">
     <div class="mx-auto max-w-[760px] text-center">
       <p class="font-semibold text-primary">Download Cider Client</p>
@@ -9,88 +43,38 @@
       </p>
     </div>
 
-    <UiTabs class="mx-auto mt-5 flex flex-col items-center lg:mt-7" default-value="latest">
+    <UiTabs class="mx-auto mt-5 flex flex-col items-center lg:mt-7" default-value="version-2">
       <UiTabsList class="mb-10 grid h-auto w-auto grid-cols-2 md:w-[450px]">
-        <UiTabsTrigger class="h-10" value="latest">
-          Latest<UiBadge class="ml-2 hidden lg:block" variant="outline">Recommended</UiBadge>
+
+        <UiTabsTrigger class="h-10" :value="source.value" v-for="source in sources">
+          {{ source.name }}
+          <UiBadge class="ml-2 hidden lg:block" variant="outline" v-if="source.isRecommended">Recommended</UiBadge>
         </UiTabsTrigger>
-        <UiTabsTrigger class="h-10" value="other">Other Downloads</UiTabsTrigger>
       </UiTabsList>
-      <UiTabsContent
-        value="latest"
-        class="grid w-full grid-cols-1 gap-y-10 lg:grid-cols-2 lg:gap-8 lg:gap-y-12 lg:py-0"
-      >
-        <template v-for="p in downloads">
+      <UiTabsContent v-for="source in sources" :key="source.value" :value="source.value"
+        class="grid w-full grid-cols-1 gap-y-10 lg:grid-cols-2 lg:gap-8 lg:gap-y-12 lg:py-0">
+        <template v-for="p in source.downloads">
           <UiCard class="overflow-hidden">
             <UiCardContent class="w-full px-0">
-              <div
-                class="flex flex-col-reverse gap-4 border-b px-6 pb-6 lg:flex-row lg:justify-between"
-              >
-                <div>
-                  <p class="text-xl font-semibold lg:text-2xl">
-                    {{ p.title }}
-                    <UiBadge
-                      v-if="p.isRecommended"
-                      class="ml-2 border-primary/50 text-primary"
-                      variant="outline"
-                      >Popular</UiBadge
-                    >
-                  </p>
-                  <p class="mt-1 text-muted-foreground">{{ p.description }}</p>
-                </div>
-                <div>
-                  <div v-if="p.download.html" class="" v-html="p.download.html" />
-                  <NuxtLink v-else :to="p.download.url">
-                    <NuxtImg
-                      :src="p.download.image"
-                      alt="itch.io"
-                      class="transition-[duration]-[1000ms] max-w-xs transform-gpu transition-all hover:-translate-y-1"
-                    />
-                  </NuxtLink>
-                </div>
+              <div class="flex flex-col-reverse gap-4 border-b px-6 pb-6 lg:flex-row lg:justify-between">
+                <p class="text-xl font-semibold lg:text-2xl">
+                  {{ p.title }}
+                  <UiBadge v-if="p.isRecommended" class="ml-2 border-primary/50 text-primary" variant="outline">
+                    Popular</UiBadge>
+                </p>
+                <p class="mt-1 text-muted-foreground">{{ p.description }}</p>
+                <DownloadItem :download="p.download" v-if="p.download.type != 'multiple'" />
+
               </div>
               <ul class="grid w-full grid-cols-1 gap-4 px-5 pt-8 md:grid-cols-2 lg:py-8">
-                <li v-for="(perk, k) in p.perks" :key="k" class="flex items-center gap-3">
+                <li v-for="(perk, k) in p.features" :key="k" class="flex items-center gap-3">
                   <Icon name="heroicons:check-circle" class="h-6 w-6 shrink-0 text-primary" />
                   <span class="opacity-80">{{ perk }}</span>
                 </li>
               </ul>
             </UiCardContent>
-          </UiCard>
-        </template>
-      </UiTabsContent>
-      <UiTabsContent
-        value="other"
-        class="grid w-full grid-cols-1 gap-y-10 lg:grid-cols-2 lg:gap-8 lg:gap-y-12 lg:py-0"
-      >
-        <template v-for="(p, i) in otherDownloads" :key="i">
-          <UiCard class="overflow-hidden">
-            <UiCardContent class="w-full px-0">
-              <div
-                class="flex flex-col-reverse gap-4 border-b px-6 pb-6 lg:flex-row lg:justify-between"
-              >
-                <div>
-                  <p class="text-xl font-semibold lg:text-2xl">
-                    {{ p.title }}
-                  </p>
-                  <p class="mt-1 text-muted-foreground">{{ p.subtitle }}</p>
-                </div>
-              </div>
-              <ul class="grid w-full grid-cols-1 gap-4 px-5 pt-8 md:grid-cols-2 lg:py-8">
-                <li v-for="(perk, k) in p.perks" :key="k" class="flex items-center gap-3">
-                  <Icon name="heroicons:check-circle" class="h-6 w-6 shrink-0 text-primary" />
-                  <span class="opacity-80">{{ perk }}</span>
-                </li>
-              </ul>
-            </UiCardContent>
-            <UiCardFooter class="border-t !pt-6 dark:border-muted/50">
-              <NuxtLink class="w-full" :to="p.download.url">
-                <UiButton class="w-full py-7 text-lg">
-                  <Icon :name="p.download.icon" class="mr-2 h-10 w-10 shrink-0" />
-                  {{ p.download.text }}
-                </UiButton>
-              </NuxtLink>
-            </UiCardFooter>
+
+            <DownloadItem :download="p.download" v-if="p.download.type == 'multiple'" />
           </UiCard>
         </template>
       </UiTabsContent>
@@ -99,120 +83,154 @@
 </template>
 
 <script lang="ts" setup>
-  definePageMeta({
-    title: "Downloads",
-    documentDriven: {
-      page: {
-        _path: "/downloads",
-      },
-    },
-  });
-  useSeoMeta({
-    description: "Download Cider for Windows, macOS, and Linux",
-    ogDescription: "Download Cider for Windows, macOS, and Linux",
-    ogImage: "/client-images/immersive.png",
-    ogUrl: "https://cider.sh/downloads",
-  });
 
-  useHead({
-    script: [
+definePageMeta({
+  title: "Downloads",
+  documentDriven: {
+    page: {
+      _path: "/downloads",
+    },
+  },
+});
+useSeoMeta({
+  description: "Download Cider for Windows, macOS, and Linux",
+  ogDescription: "Download Cider for Windows, macOS, and Linux",
+  ogImage: "/client-images/immersive.png",
+  ogUrl: "https://cider.sh/downloads",
+});
+
+useHead({
+  script: [
+    {
+      type: "module",
+      src: "https://get.microsoft.com/badge/ms-store-badge.bundled.js",
+    },
+  ],
+});
+
+type HTMLDownload = {
+  type: "html";
+  html: string
+};
+
+type ImageDownload = {
+  type: "image";
+  url: string;
+  image: string;
+  alt: string;
+};
+
+type IconDownload = {
+  type: "icon";
+  icon: string;
+  text: string;
+  url: string;
+}
+
+type Multiple = {
+  type: "multiple";
+  downloads: ImageDownload[] | IconDownload[]
+}
+
+type Download = {
+  icon?: string;
+  title: string;
+  description: string;
+  isRecommended?: boolean;
+  features: string[];
+  download: HTMLDownload | ImageDownload | IconDownload | Multiple
+  downloads?: ImageDownload[] | IconDownload[]
+}
+
+interface Tab {
+  name: string;
+  value: string;
+  isRecommended: boolean;
+  downloads: Download[]
+}
+
+const DownloadItem = createReusableTemplate<{
+  download: Download["download"]
+}>();
+
+const sources: Tab[] = [
+  {
+    name: "Version 2",
+    value: "version-2",
+    isRecommended: true,
+    downloads: [
       {
-        type: "module",
-        src: "https://get.microsoft.com/badge/ms-store-badge.bundled.js",
+        title: "Itch.io",
+        description:
+          "Available for all users on Windows, macOS, and Linux. A full list of supported platforms can be found on the Itch.io page.",
+        isRecommended: true,
+        features: [
+          "Access to Windows, macOS, and Linux releases",
+          "Faster Updates",
+        ],
+        download: {
+          type: "image",
+          url: "https://cidercollective.itch.io/cider",
+          image: "/itchio-color.svg",
+        } as ImageDownload,
       },
+      {
+        title: "Microsoft Store",
+        description: "Available on the Microsoft Store for Windows 10 and 11 users.",
+        isRecommended: false,
+        features: [
+          "Windows 10 and 11 support",
+          "Store specific features",
+          "Automatic Updates",
+          "Discord and Last.fm Integrations",
+          "Audio Enhancements (through our Audio Lab)",
+          "Blazingly Fast",
+          "Tons of Customization Options",
+          "Community Themes verified by the Collective",
+          "Community Plugins verified by the Collective",
+        ],
+        download: {
+          type: "html",
+          html: '<ms-store-badge productid="9PL8WPH0QK9M" window-mode="popup" theme="auto" language="en-us" animation="on" class="w-full"> </ms-store-badge>',
+        } as HTMLDownload,
+      },
+      {
+        icon: "heroicons:bolt",
+        title: "Supporter Edition",
+        description: "Support the development of Cider and get access to exclusive early access builds and features.",
+        isRecommended: false,
+        features: [
+          "All features available in the Itch.io version",
+          "Early access to new features and versions",
+          "Support the development of Cider with beta testing",
+        ],
+        download: {
+          type: "icon",
+          url: "https://discord.gg/applemusic",
+          icon: "simple-icons:discord",
+          text: "Become a Patron on Discord",
+        } as IconDownload,
+      }
     ],
-  });
-  type Download = {
-    url: string;
-    icon?: string;
-    text?: string;
-    html?: string;
-    image?: string;
-  };
-
-  type Price = {
-    icon: string;
-    title: string;
-    isRecommended?: boolean;
-    subtitle?: string;
-    price: number;
-    perks: string[];
-    download: Download;
-  };
-  const downloads = [
-    {
-      title: "Itch.io",
-      description:
-        "Available for all users on Windows, macOS, and Linux. A full list of supported platforms can be found on the Itch.io page.",
-      price: 20,
-      isRecommended: true,
-      perks: [
-        "All Platforms",
-        "Multi-platform Support",
-        "Faster Updates",
-        "Discord and Last.fm Integrations",
-        "Audio Enhancements (through our Audio Lab)",
-        "Blazingly Fast",
-        "Tons of Customization Options",
-        "Community Themes verified by the Collective",
-        "Community Plugins verified by the Collective",
-      ],
-      download: {
-        url: "https://cidercollective.itch.io/cider",
-        image: "/itchio-color.svg",
-      },
-    },
-    {
-      title: "Microsoft Store",
-      description: "Available on the Microsoft Store for Windows 10 and 11 users.",
-      isRecommended: false,
-      price: 20,
-      perks: [
-        "Windows 10 and 11 support",
-        "Store specific features",
-        "Automatic Updates",
-        "Discord and Last.fm Integrations",
-        "Audio Enhancements (through our Audio Lab)",
-        "Blazingly Fast",
-        "Tons of Customization Options",
-        "Community Themes verified by the Collective",
-        "Community Plugins verified by the Collective",
-      ],
-      download: {
-        html: '<ms-store-badge productid="9PL8WPH0QK9M" window-mode="popup" theme="auto" language="en-us" animation="on" class="w-full"> </ms-store-badge>',
-      },
-    },
-  ];
-  const otherDownloads = [
-    {
-      icon: "heroicons:bolt",
-      title: "Cider Nightly",
-      subtitle:
-        "For those daring to live on the edge. Includes early access to new features.",
-      price: 40,
-      perks: [
-        "All features in Cider",
-        "Early access to new features",
-        "Beta testing",
-      ],
-      download: {
-        url: "https://discord.gg/applemusic",
-        icon: "simple-icons:discord",
-        text: "Become a Patron on Discord",
-      },
-    },
-    {
-      icon: "heroicons:bolt",
-      title: "Cider Classic",
-      subtitle:
-        "[DEPRECATED] The original Cider app. No longer supported or maintained. Use at your own risk.",
-      price: 10,
-      perks: ["Free and open-source", "Community Plugins", "Community Themes"],
-      download: {
-        url: "https://github.com/ciderapp/cider/releases",
-        icon: "simple-icons:github",
-        text: "Get Cider Classic from GitHub",
-      },
-    },
-  ];
+  },
+  {
+    name: "Version 1",
+    value: "version-1",
+    isRecommended: false,
+    downloads: [
+      {
+        icon: "heroicons:bolt",
+        title: "Cider Classic",
+        description: "[DEPRECATED] The original Cider app. No longer supported or maintained. Use at your own risk.",
+        features: ["Free and open-source", "Community Plugins", "Community Themes"],
+        download: {
+          type: "icon",
+          url: "https://github.com/ciderapp/cider/releases",
+          icon: "simple-icons:github",
+          text: "Get Cider Classic from GitHub",
+        } as IconDownload,
+      }
+    ],
+  },
+];
 </script>

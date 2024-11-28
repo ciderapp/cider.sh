@@ -157,7 +157,7 @@ const features = [
     musicWin: true,
   },
   {
-    name: "Native Last.fm and Discord Integration",
+    name: "Built-in Integrations with Last.fm and Discord",
     cider1: true,
     cider2: true,
     musicWeb: false,
@@ -206,6 +206,14 @@ const features = [
     musicMac: false,
     musicWin: false,
   },
+  {
+    name: "Constant Updates and New Features",
+    cider1: false,
+    cider2: true,
+    musicWeb: false,
+    musicMac: false,
+    musicWin: false,
+  }
 ];
 
 const items = [
