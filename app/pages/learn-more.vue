@@ -51,8 +51,10 @@
           <UiTableBody class="last:border-b">
             <template v-for="(f, i) in features" :key="f.name">
               <UiTableRow>
-                <UiTableCell class="text-md font-semibold">{{ f.name }} <sup :id="'fnref-' + f.footnote"><a :href="'#fn-' + f.footnote"
-                      aria-describedby="footnote-label">{{ f.footnote }}</a></sup></UiTableCell>
+                <UiTableCell class="text-md font-semibold">
+                  {{ f.name }}
+                  <sup :id="'fnref-' + f.footnote"><a :href="'#fn-' + f.footnote">{{ f.footnote }}</a></sup>
+                </UiTableCell>
                 <UiTableCell class="text-center font-medium">
                   <BooleanIcon :value="f.cider2" />
                 </UiTableCell>
@@ -86,8 +88,8 @@
     </UiContainer>
     <section class="mx-auto max-w-full">
       <UiAccordion :default-value="['item-4']" type="multiple">
-        <template v-for="i in items" :key="i.value">
-          <UiAccordionItem :value="i.value">
+        <template v-for="(i, k) in items">
+          <UiAccordionItem :value="'item-' + k">
             <UiAccordionHeader>
               <UiAccordionTrigger class="text-lg">{{ i.title }}</UiAccordionTrigger>
             </UiAccordionHeader>
@@ -157,7 +159,7 @@ const features = [
     musicWin: true,
   },
   {
-    name: "Native Last.fm and Discord Integration",
+    name: "Built-in Integrations with Last.fm and Discord",
     cider1: true,
     cider2: true,
     musicWeb: false,
@@ -206,37 +208,44 @@ const features = [
     musicMac: false,
     musicWin: false,
   },
+  {
+    name: "Constant Updates and New Features",
+    cider1: false,
+    cider2: true,
+    musicWeb: false,
+    musicMac: false,
+    musicWin: false,
+  }
 ];
 
-const items = [
+const items: { title: string; content: string; }[] = [
   {
-    value: "item-1",
+    title: "Is lossless audio supported?",
+    content: "Unfortunately, we do not support lossless audio at this time. This is not currently possible in the MusicKit.js library due to there being no ability to decrypt the lossless music.",
+  },
+  {
     title: "Do you collect my data?",
     content:
       "No! We have a strict no data collection policy. We do not collect any personal data.",
   },
   {
-    value: "item-2",
     title: "Is it free to use?",
     content:
       "Cider is a paid application, itch.io, donation or Microsoft Store. Purchasing through itch.io or through donation will allow you to get the latest updates and features through Taproom.",
   },
   {
-    value: "item-3",
     title: "Can I customize with my own theme?",
     content:
       "Absolutely! We provide a powerful theming system that lets you create your own custom theme or choose from a selection of approved community themes available on the Cider Marketplace.",
   },
   {
-    value: "item-4",
     title: "Is signing into Cider safe?",
     content: "Yes. We only use the Apple Music API to access your library.",
   },
   {
-    value: "item-5",
     title: "Is there a free trial available?",
     content: "Unfortunately, we do not offer a free trial.",
-  },
+  }
 ];
 
 const stats = [
