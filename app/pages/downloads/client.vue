@@ -1,35 +1,52 @@
 <template>
   <DownloadItem.define v-slot="{ download }">
 
-    <div v-if="download.type == 'html'" class="" v-html="download.html" />
+    <NuxtLink v-if="download.type == 'html'" v-html="download.html" />
 
     <NuxtLink v-else-if="download.type == 'image'" :to="download.url">
       <NuxtImg :src="download.image" :alt="download.alt"
-        class="transition-[duration]-[1000ms] max-w-xs transform-gpu transition-all hover:-translate-y-1" />
+        class="transition-[duration]-[1000ms] transform-gpu transition-all hover:-translate-y-1" />
     </NuxtLink>
 
-    <NuxtLink v-else-if="download.type == 'icon'" class="w-full" :to="download.url">
+    <NuxtLink v-else-if="download.type == 'icon'" class="" :to="download.url">
       <UiButton class="w-full py-7 text-lg">
         <Icon :name="download.icon" class="mr-2 h-10 w-10 shrink-0" />
         {{ download.text }}
       </UiButton>
     </NuxtLink>
 
-    <template v-else-if="download.type == 'multiple'" v-for="dl in download.downloads">
+    <div v-else-if="download.type == 'multiple'" class="flex">
 
-      <NuxtLink v-if="dl.type == 'image'" :to="dl.url">
-        <NuxtImg :src="dl.image" alt="itch.io"
-          class="transition-[duration]-[1000ms] max-w-xs transform-gpu transition-all hover:-translate-y-1" />
-      </NuxtLink>
+      <div v-for="dl in download.downloads">
 
-      <NuxtLink v-else-if="dl.type == 'icon'" class="w-full" :to="dl.url">
-        <UiButton class="w-full py-7 text-lg">
-          <Icon :name="dl.icon" class="mr-2 h-10 w-10 shrink-0" />
-          {{ dl.text }}
-        </UiButton>
-      </NuxtLink>
+        <NuxtLink v-if="dl.type == 'image'" :to="dl.url">
+          <NuxtImg :src="dl.image" :alt="dl.alt"
+            class="transition-[duration]-[1000ms] max-w-xs transform-gpu transition-all hover:-translate-y-1" />
+        </NuxtLink>
 
-    </template>
+        <NuxtLink v-else-if="dl.type == 'icon'" :to="dl.url">
+
+          <UiTooltip>
+            <template #trigger>
+              <UiTooltipTrigger as-child>
+                <UiButton class="w-full py-7 text-lg" variant="outline">
+                  <Icon :name="dl.icon" class="mr-2 h-10 w-10 shrink-0" />
+                </UiButton>
+              </UiTooltipTrigger>
+            </template>
+
+            <template #content>
+              <UiTooltipContent>
+                {{ dl.text }}
+              </UiTooltipContent>
+            </template>
+
+          </UiTooltip>
+        </NuxtLink>
+
+      </div>
+
+    </div>
 
   </DownloadItem.define>
 
@@ -59,22 +76,25 @@
               <div class="flex flex-col-reverse gap-4 border-b px-6 pb-6 lg:flex-row lg:justify-between">
                 <p class="text-xl font-semibold lg:text-2xl">
                   {{ p.title }}
-                  <UiBadge v-if="p.isRecommended" class="ml-2 border-primary/50 text-primary" variant="outline">
-                    Popular</UiBadge>
+                  <UiBadge v-if="p.isRecommended" class="ml-2 border-primary/50 text-primary" variant="outline">Popular
+                  </UiBadge>
                 </p>
                 <p class="mt-1 text-muted-foreground">{{ p.description }}</p>
-                <DownloadItem :download="p.download" v-if="p.download.type != 'multiple'" />
-
+                <!-- <DownloadItem.reuse :download="p.download" v-if="p.download.type != 'multiple'" /> -->
               </div>
               <ul class="grid w-full grid-cols-1 gap-4 px-5 pt-8 md:grid-cols-2 lg:py-8">
                 <li v-for="(perk, k) in p.features" :key="k" class="flex items-center gap-3">
                   <Icon name="heroicons:check-circle" class="h-6 w-6 shrink-0 text-primary" />
-                  <span class="opacity-80">{{ perk }}</span>
+                  <span class="opacity-80">
+                    <NuxtLink v-html="perk" />
+                  </span>
                 </li>
               </ul>
             </UiCardContent>
 
-            <DownloadItem :download="p.download" v-if="p.download.type == 'multiple'" />
+            <UiCardFooter class="flex justify-center">
+              <DownloadItem.reuse :download="p.download" />
+            </UiCardFooter>
           </UiCard>
         </template>
       </UiTabsContent>
@@ -133,13 +153,11 @@ type Multiple = {
 }
 
 type Download = {
-  icon?: string;
   title: string;
   description: string;
   isRecommended?: boolean;
   features: string[];
   download: HTMLDownload | ImageDownload | IconDownload | Multiple
-  downloads?: ImageDownload[] | IconDownload[]
 }
 
 interface Tab {
@@ -167,12 +185,14 @@ const sources: Tab[] = [
         features: [
           "Access to Windows, macOS, and Linux releases",
           "Faster Updates",
+          "Access to <a href='https://cider.sh/taproom' class='text-primary'>Taproom</a>",
         ],
         download: {
           type: "image",
           url: "https://cidercollective.itch.io/cider",
           image: "/itchio-color.svg",
-        } as ImageDownload,
+          alt: "itch.io",
+        },
       },
       {
         title: "Microsoft Store",
@@ -192,10 +212,9 @@ const sources: Tab[] = [
         download: {
           type: "html",
           html: '<ms-store-badge productid="9PL8WPH0QK9M" window-mode="popup" theme="auto" language="en-us" animation="on" class="w-full"> </ms-store-badge>',
-        } as HTMLDownload,
+        },
       },
       {
-        icon: "heroicons:bolt",
         title: "Supporter Edition",
         description: "Support the development of Cider and get access to exclusive early access builds and features.",
         isRecommended: false,
@@ -203,13 +222,37 @@ const sources: Tab[] = [
           "All features available in the Itch.io version",
           "Early access to new features and versions",
           "Support the development of Cider with beta testing",
+          "Access to <a href='https://cider.sh/taproom' class='text-primary'>Taproom</a>",
         ],
         download: {
-          type: "icon",
-          url: "https://discord.gg/applemusic",
-          icon: "simple-icons:discord",
-          text: "Become a Patron on Discord",
-        } as IconDownload,
+          type: "multiple",
+          downloads: [
+            {
+              type: "icon",
+              url: "https://discord.gg/applemusic",
+              icon: "simple-icons:discord",
+              text: "Discord Sponsorship",
+            },
+            {
+              type: "icon",
+              url: "https://www.patreon.com/cidercollective",
+              icon: "simple-icons:patreon",
+              text: "Patreon Supporter",
+            },
+            {
+              type: "icon",
+              url: "https://opencollective.com/ciderapp",
+              icon: "simple-icons:opencollective",
+              text: "Open Collective",
+            },
+            {
+              type: "icon",
+              url: "https://github.com/sponsors/ciderapp",
+              icon: "simple-icons:github",
+              text: "GitHub Sponsorship",
+            }
+          ]
+        },
       }
     ],
   },
@@ -219,7 +262,6 @@ const sources: Tab[] = [
     isRecommended: false,
     downloads: [
       {
-        icon: "heroicons:bolt",
         title: "Cider Classic",
         description: "[DEPRECATED] The original Cider app. No longer supported or maintained. Use at your own risk.",
         features: ["Free and open-source", "Community Plugins", "Community Themes"],
@@ -228,7 +270,7 @@ const sources: Tab[] = [
           url: "https://github.com/ciderapp/cider/releases",
           icon: "simple-icons:github",
           text: "Get Cider Classic from GitHub",
-        } as IconDownload,
+        },
       }
     ],
   },
