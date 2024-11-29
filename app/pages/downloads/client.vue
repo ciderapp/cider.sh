@@ -1,48 +1,33 @@
 <template>
   <DownloadItem.define v-slot="{ download }">
 
-    <NuxtLink v-if="download.type == 'html'" v-html="download.html" />
+    <div class="w-full px-2" v-if="download.type != 'multiple'">
 
-    <NuxtLink v-else-if="download.type == 'image'" :to="download.url">
-      <NuxtImg :src="download.image" :alt="download.alt"
-        class="transition-[duration]-[1000ms] transform-gpu transition-all hover:-translate-y-1" />
-    </NuxtLink>
+      <NuxtLink v-if="download.type == 'html'" v-html="download.html" />
 
-    <NuxtLink v-else-if="download.type == 'icon'" class="" :to="download.url">
-      <UiButton class="w-full py-7 text-lg">
-        <Icon :name="download.icon" class="mr-2 h-10 w-10 shrink-0" />
-        {{ download.text }}
-      </UiButton>
-    </NuxtLink>
+      <NuxtLink v-else-if="download.type == 'image'" :to="download.url">
+        <NuxtImg :src="download.image" :alt="download.alt"
+          class="transition-[duration]-[1000ms] transform-gpu transition-all hover:-translate-y-1 " />
+      </NuxtLink>
+    </div>
 
-    <div v-else-if="download.type == 'multiple'" class="flex">
+    <div v-else-if="download.type == 'multiple'" class="flex gap-4">
 
-      <div v-for="dl in download.downloads">
+      <div v-for="dl in download.downloads" class="grow">
 
-        <NuxtLink v-if="dl.type == 'image'" :to="dl.url">
-          <NuxtImg :src="dl.image" :alt="dl.alt"
-            class="transition-[duration]-[1000ms] max-w-xs transform-gpu transition-all hover:-translate-y-1" />
-        </NuxtLink>
 
-        <NuxtLink v-else-if="dl.type == 'icon'" :to="dl.url">
+        <UiTooltip>
+          <UiTooltipTrigger class="w-full">
+            <UiButton class="w-full py-7 text-lg" variant="outline" :href="dl.url">
+              <Icon :name="dl.icon" class="mr-2 h-10 w-10 shrink-0" />
+            </UiButton>
+          </UiTooltipTrigger>
 
-          <UiTooltip>
-            <template #trigger>
-              <UiTooltipTrigger as-child>
-                <UiButton class="w-full py-7 text-lg" variant="outline">
-                  <Icon :name="dl.icon" class="mr-2 h-10 w-10 shrink-0" />
-                </UiButton>
-              </UiTooltipTrigger>
-            </template>
+          <UiTooltipContent align="center">
+            {{ dl.text }}
+          </UiTooltipContent>
 
-            <template #content>
-              <UiTooltipContent>
-                {{ dl.text }}
-              </UiTooltipContent>
-            </template>
-
-          </UiTooltip>
-        </NuxtLink>
+        </UiTooltip>
 
       </div>
 
@@ -52,7 +37,7 @@
 
   <UiContainer class="relative py-16 lg:py-24">
     <div class="mx-auto max-w-[760px] text-center">
-      <p class="font-semibold text-primary">Download Cider Client</p>
+      <p class="font-semibold text-primary">Get the Cider Client</p>
       <h2 class="mb-4 mt-3 text-3xl font-black lg:mb-6 lg:text-6xl">Drink Up!</h2>
       <p class="text-lg text-muted-foreground lg:text-xl">
         Now for the fun part, pick your flavor of Cider. We have a few options for you to choose
@@ -68,20 +53,25 @@
           <UiBadge class="ml-2 hidden lg:block" variant="outline" v-if="source.isRecommended">Recommended</UiBadge>
         </UiTabsTrigger>
       </UiTabsList>
+
       <UiTabsContent v-for="source in sources" :key="source.value" :value="source.value"
         class="grid w-full grid-cols-1 gap-y-10 lg:grid-cols-2 lg:gap-8 lg:gap-y-12 lg:py-0">
         <template v-for="p in source.downloads">
+
           <UiCard class="overflow-hidden">
+
+            <UiCardTitle class="flex items-center justify-between px-6 py-4">
+              <p class="text-lg font-semibold lg:text-2xl">{{ p.title }}</p>
+              <UiBadge v-if="p.sidenote" class="border-primary/50 text-primary" variant="outline">{{ p.sidenote }}
+              </UiBadge>
+            </UiCardTitle>
+
+            <UiCardDescription class="px-6 py-4 flex grow gap-4">
+              <p class="text-muted-foreground">{{ p.description }}</p>
+              <DownloadItem.reuse :download="p.download" v-if="p.download.type != 'multiple'" class="max-w-80" />
+            </UiCardDescription>
+
             <UiCardContent class="w-full px-0">
-              <div class="flex flex-col-reverse gap-4 border-b px-6 pb-6 lg:flex-row lg:justify-between">
-                <p class="text-xl font-semibold lg:text-2xl">
-                  {{ p.title }}
-                  <UiBadge v-if="p.isRecommended" class="ml-2 border-primary/50 text-primary" variant="outline">Popular
-                  </UiBadge>
-                </p>
-                <p class="mt-1 text-muted-foreground">{{ p.description }}</p>
-                <!-- <DownloadItem.reuse :download="p.download" v-if="p.download.type != 'multiple'" /> -->
-              </div>
               <ul class="grid w-full grid-cols-1 gap-4 px-5 pt-8 md:grid-cols-2 lg:py-8">
                 <li v-for="(perk, k) in p.features" :key="k" class="flex items-center gap-3">
                   <Icon name="heroicons:check-circle" class="h-6 w-6 shrink-0 text-primary" />
@@ -92,14 +82,28 @@
               </ul>
             </UiCardContent>
 
-            <UiCardFooter class="flex justify-center">
-              <DownloadItem.reuse :download="p.download" />
+            <UiCardFooter class="grid grid-rows-2 gap-4">
+              <p class="text-muted-foreground text-xs" v-html="p.footer" v-if="p.footer" />
+
+              <div class="flex justify-center">
+                <DownloadItem.reuse :download="p.download" v-if="p.download.type == 'multiple'" class="flex-auto" />
+              </div>
             </UiCardFooter>
           </UiCard>
+
         </template>
       </UiTabsContent>
     </UiTabs>
   </UiContainer>
+
+  <section class="m-4">
+    <p id="footnote-label" class="sr-only">Footnotes</p>
+    <ol class="text-muted-foreground text-xs">
+      <li id="fn-1">
+        1. Performance may vary depending on your device.
+      </li>
+    </ol>
+  </section>
 </template>
 
 <script lang="ts" setup>
@@ -149,21 +153,22 @@ type IconDownload = {
 
 type Multiple = {
   type: "multiple";
-  downloads: ImageDownload[] | IconDownload[]
+  downloads: IconDownload[]
 }
 
 type Download = {
   title: string;
   description: string;
-  isRecommended?: boolean;
+  sidenote?: string;
   features: string[];
-  download: HTMLDownload | ImageDownload | IconDownload | Multiple
+  download: HTMLDownload | ImageDownload | Multiple
+  footer?: string;
 }
 
 interface Tab {
   name: string;
   value: string;
-  isRecommended: boolean;
+  isRecommended?: boolean;
   downloads: Download[]
 }
 
@@ -181,49 +186,57 @@ const sources: Tab[] = [
         title: "Itch.io",
         description:
           "Available for all users on Windows, macOS, and Linux. A full list of supported platforms can be found on the Itch.io page.",
-        isRecommended: true,
+        sidenote: "Recommended",
         features: [
           "Access to Windows, macOS, and Linux releases",
-          "Faster Updates",
-          "Access to <a href='https://cider.sh/taproom' class='text-primary'>Taproom</a>",
+          "Faster Client Updates Compared to Other Storefronts",
+          "Access to <a href='https://taproom.cider.sh' class='text-primary'>Taproom</a>",
+          "Community Themes and Plugins verified by Cider Collective",
+          "Over-the-air Updates",
+          "Access to features specific to each platform",
+          "Ton of customization options",
+          "Audio Enhancements through our cutting Audio Lab technology",
+          "Blazingly Fast <a class='inline-block align-top text-[0.5em] underline' href='#fn-1'>1</a>",
+          "Help and Support from the Cider Community and Collective Team",
         ],
         download: {
           type: "image",
           url: "https://cidercollective.itch.io/cider",
-          image: "/itchio-color.svg",
+          image: "/itchio-black.svg",
           alt: "itch.io",
         },
       },
       {
         title: "Microsoft Store",
-        description: "Available on the Microsoft Store for Windows 10 and 11 users.",
-        isRecommended: false,
+        description: "Available on the Microsoft Store for Windows 10 and 11 users. Containing all stable features from the last major release.",
         features: [
           "Windows 10 and 11 support",
-          "Store specific features",
+          "Microsoft Store Specific Features",
           "Automatic Updates",
-          "Discord and Last.fm Integrations",
-          "Audio Enhancements (through our Audio Lab)",
-          "Blazingly Fast",
-          "Tons of Customization Options",
-          "Community Themes verified by the Collective",
-          "Community Plugins verified by the Collective",
+          "Community Themes and Plugins verified by Cider Collective",
+          "Blazingly Fast <a class='inline-block align-top text-[0.5em] underline' href='#fn-1'>1</a>",
+          "Access to features specific to each platform",
+          "Over-the-air Updates",
+          "Ton of customization options",
+          "Audio Enhancements through our cutting Audio Lab technology",
         ],
         download: {
           type: "html",
-          html: '<ms-store-badge productid="9PL8WPH0QK9M" window-mode="popup" theme="auto" language="en-us" animation="on" class="w-full"> </ms-store-badge>',
+          html: '<ms-store-badge productid="9PL8WPH0QK9M" window-mode="popup" theme="auto" language="en-us" animation="on"/>',
         },
       },
       {
         title: "Supporter Edition",
         description: "Support the development of Cider and get access to exclusive early access builds and features.",
-        isRecommended: false,
         features: [
           "All features available in the Itch.io version",
           "Early access to new features and versions",
           "Support the development of Cider with beta testing",
-          "Access to <a href='https://cider.sh/taproom' class='text-primary'>Taproom</a>",
+          "Access to <a href='https://taproom.cider.sh' class='text-primary'>Taproom</a>",
+          "Availble through a variety of platforms",
+          "Access to Supporter Channels on Discord, where you can chat with the developers and other supporters",
         ],
+        footer: "Minimum $4 donation required for access to Cider Supporter Edition. Donations at or over $20 will grant you access to the Cider Alpha Channel, which contains even more bleeding-edge features.",
         download: {
           type: "multiple",
           downloads: [
@@ -259,20 +272,50 @@ const sources: Tab[] = [
   {
     name: "Version 1",
     value: "version-1",
-    isRecommended: false,
     downloads: [
       {
         title: "Cider Classic",
-        description: "[DEPRECATED] The original Cider app. No longer supported or maintained. Use at your own risk.",
-        features: ["Free and open-source", "Community Plugins", "Community Themes"],
+        sidenote: "DEPRECATED",
+        description: "The predecessor to Cider Version 2. Available for Windows, macOS, and Linux.",
+        features: ["Free and open-source", "Community Themes and Plugins", "Customization Options", "Legacy Audio Lab Access"],
+        footer: "Cider Classic (v1.x) is deprecated and no longer supported. Support from the developers will <b>NOT</b> be provided. We recommend using Cider Version 2 for the best experience.",
         download: {
-          type: "icon",
-          url: "https://github.com/ciderapp/cider/releases",
-          icon: "simple-icons:github",
-          text: "Get Cider Classic from GitHub",
+          type: "multiple",
+          downloads: [
+            {
+              type: "icon",
+              icon: "simple-icons:github",
+              text: "Download from GitHub",
+              url: "https://github.com/ciderapp/cider/releases/latest",
+            },
+            {
+              type: "icon",
+              icon: "simple-icons:flathub",
+              text: "Download from Flathub",
+              url: "https://flathub.org/apps/sh.cider.Cider",
+            },
+            {
+              type: "icon",
+              icon: "simple-icons:archlinux",
+              text: "Download from AUR",
+              url: "https://aur.archlinux.org/packages/cider/",
+            },
+            {
+              type: "icon",
+              icon: "simple-icons:chocolatey",
+              text: "Download from Chocolatey",
+              url: "https://chocolatey.org/packages/cider",
+            }
+          ]
         },
       }
     ],
   },
 ];
 </script>
+
+<style>
+ms-store-badge::part(img) {
+  width: 100%;
+}
+</style>
