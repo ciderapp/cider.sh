@@ -52,7 +52,7 @@
         <img
           src="/remote_player.png"
           alt="Features section nine image"
-          class="mx-auto h-[360px] w-[400px] object-cover object-top lg:h-[640px] lg:w-full lg:object-contain"
+          class="mx-auto h-[360px] w-[400px] object-contain object-top lg:h-[640px] lg:w-full"
         />
         <div class="flex justify-center">
           <h3
@@ -74,7 +74,7 @@
         <img
           src="/remote_liveact.png"
           alt="New Feature section image"
-          class="mx-auto h-[360px] w-[400px] object-cover object-top mt-20 lg:w-full lg:object-contain"
+          class="mx-auto h-[360px] w-[400px] object-contain object-top mt-20 lg:w-full"
         />
       </div>
       <div class="flex flex-col gap-10 lg:gap-12">
