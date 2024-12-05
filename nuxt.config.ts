@@ -66,9 +66,9 @@ export default defineNuxtConfig({
       documentation: {
         prefix: "/docs",
         driver: "github",
-        repo: "ciderapp/cider-docs",
+        repo: "ciderapp/docs",
         branch: "main",
-        dir: "/",
+        dir: "/docs",
         token: process.env.GITHUB_PAT,
       },
       changelogs: {
@@ -76,7 +76,7 @@ export default defineNuxtConfig({
         driver: "github",
         repo: "ciderapp/changes",
         branch: "main",
-        dir: "/",
+        dir: "/changelogs",
         token: process.env.GITHUB_PAT,
       },
     },

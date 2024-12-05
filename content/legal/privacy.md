@@ -1,7 +1,6 @@
 ---
 title: "Privacy Policy"
 description: "Know which data we collect"
-draft: false
 ---
 
 # Privacy Policy for Cider and Cider Related Projects

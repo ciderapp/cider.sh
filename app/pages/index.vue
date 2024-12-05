@@ -5,7 +5,6 @@ definePageMeta({
 
 const { data } = await useAsyncData("latest-release", async () =>
   queryContent("/changelogs/client-releases")
-    .where({ _draft: false })
     .sort({ releaseNo: -1, $numeric: true })
     .only(["_path", "navigation"])
     .limit(1)

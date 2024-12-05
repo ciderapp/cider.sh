@@ -10,13 +10,10 @@
 
     <!-- Latest Release -->
     <div title="Latest Release" v-if="latest">
-      <div class="">
-
-        <NuxtLink :to="latest.path">
-          <NuxtImg v-if="latest.image" :src="latest.image" :alt="latest.title"
-            class="mt-10 h-60 w-full items-end overflow-hidden rounded-lg bg-cover drop-shadow lg:mt-24 lg:flex lg:h-[720px]" />
-        </NuxtLink>
-      </div>
+      <NuxtLink :to="latest.path">
+        <NuxtImg v-if="latest.image" :src="latest.image" :alt="latest.title"
+          class="mt-10 h-60 w-full items-end overflow-hidden rounded-lg bg-cover drop-shadow lg:mt-24 lg:flex lg:h-[720px]" />
+      </NuxtLink>
       <div class="w-full border-t border-white/10 bg-black/40 p-10 text-white backdrop-blur-2xl">
         <p v-if="latest.date" class="mb-2 text-lg font-semibold text-primary">
           {{ latest.date }}
@@ -33,7 +30,7 @@
           <template v-for="t in latest.tags" :key="t">
             <UiBadge class="border-white px-3 py-1 text-sm text-white" variant="outline">{{
               t
-            }}</UiBadge>
+              }}</UiBadge>
           </template>
         </div>
       </div>
@@ -81,11 +78,12 @@ interface Release {
   date: string;
   title: string;
   summary: string;
-  image: string;
+  image?: string;
   path: string;
   tags: string[];
-
 }
+
+const source = "https://github.com/ciderapp/changes/blob/main/changelogs/1.client-releases";
 
 type Changelog = { author: string; title: string; description: string; image: string; _path: string; navigation: { date: string }; tags: string[], _draft: boolean };
 
@@ -95,20 +93,20 @@ const { data } = await useAsyncData("changelogs", () =>
 
 const releases = computed<Release[]>(() => {
   // filter drafts and return the data
-  return data.value.filter((r) => !r._draft).map((r) => {
-      return {
-        author: r.author,
-        date: r.navigation.date,
-        title: r.title,
-        summary: r.description,
+  return data.value.map((r) => {
+    return {
+      author: r.author,
+      date: r.navigation.date,
+      title: r.title,
+      summary: r.description,
+      ...r.image ? {
         image:
-          "https://github.com/ciderapp/changes/blob/main/1.client-releases/images/" +
-          r.image +
-          "?raw=true",
-        path: r._path,
-        tags: r.tags
-      };
-    })
+          `${source}/images/${r.image}?raw=true`,
+      } : {},
+      path: r._path,
+      tags: r.tags
+    };
+  })
 });
 const latest = computed<Release | undefined>(() => releases.value[0]);
 

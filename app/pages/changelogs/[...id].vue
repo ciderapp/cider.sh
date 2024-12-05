@@ -3,7 +3,7 @@
     <!-- Embedded Content -->
     <div v-if="embedded" class="prose prose-lg prose-rose dark:prose-invert">
       <div v-if="page?.image">
-        <NuxtImg :src="'https://github.com/ciderapp/changes/blob/main/1.client-releases/images/' +
+        <NuxtImg :src="'https://github.com/ciderapp/changes/blob/main/changelogs/1.client-releases/images/' +
           page.image +
           '?raw=true'
           " :alt="page.title"
@@ -31,10 +31,7 @@
         <div
           class="prose prose-lg prose-rose mx-auto w-full min-w-0 max-w-none py-5 dark:prose-invert lg:prose-base prose-headings:scroll-mt-16 prose-headings:tracking-tight prose-h2:mt-6 prose-h2:border-b prose-h2:pb-3 first:prose-h2:mt-10 prose-a:decoration-primary prose-a:underline-offset-2 hover:prose-a:text-primary prose-pre:text-lg lg:prose-pre:text-base">
           <div v-if="page?.image">
-            <NuxtImg :src="'https://github.com/ciderapp/changes/blob/main/1.client-releases/images/' +
-              page.image +
-              '?raw=true'
-              " :alt="page.title"
+            <NuxtImg :src="image" :alt="page.title"
               class="mb-5 w-full overflow-hidden rounded-md border border-foreground/60 object-cover shadow-lg" />
           </div>
           <LazyContentDoc />
@@ -78,6 +75,10 @@ const { data: page } = await useAsyncData($route.path + "-data", () =>
   queryContent($route.path).findOne()
 );
 
+const image = computed(() => {
+  return `https://github.com/ciderapp/changes/blob/main/changelogs/1.client-releases/images/${page?.value?.image ?? 'undefined'}?raw=true`;
+})
+
 const { data } = await useAsyncData<any>("changelogs", () =>
   queryContent("/changelogs/client-releases").sort({ releaseNo: -1, $numeric: true }).find()
 );
@@ -95,6 +96,6 @@ const { activeId, setActive } = useActiveScroll(targets, {
 });
 
 useSeoMeta({
-  ogImage: `https://github.com/ciderapp/changes/blob/main/1.client-releases/images/${page.image || "undefined"}?raw=true`,
+  ogImage: image.value,
 });
 </script>
