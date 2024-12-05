@@ -110,6 +110,7 @@ export default defineNuxtConfig({
     "/downloads/remote": { prerender: true },
     "/remote": { redirect: "/downloads/remote" },
     "/marketplace": { redirect: "https://marketplace.cider.sh" },
+    "/taproom": { redirect: "https://taproom.cider.sh" },
     "/o": { redirect: "/api/v1/open" },
     "/p": { redirect: "/api/v1/play" },
   },
