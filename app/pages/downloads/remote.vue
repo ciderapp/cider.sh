@@ -54,28 +54,6 @@
           alt="Features section nine image"
           class="mx-auto h-[360px] w-[400px] object-contain object-top lg:h-[640px] lg:w-full"
         />
-        <div class="flex justify-center">
-          <h3
-          class="mt-4 text-center text-lg font-semibold lg:mt-5 lg:text-xl px-6 py-4 mx-2 rounded-xl border w-full">Latest Features</h3>
-        </div>
-        <div class="group flex flex-col p-4 m-2 rounded-xl border">
-          <div class="flex h-12 w-12 items-center justify-center rounded-md border">
-            <Icon
-              :name="newFeature.icon"
-              class="h-5 w-5 transition-colors group-hover:text-primary lg:h-6 lg:w-6"
-            />
-          </div>
-          <h3
-            class="mt-4 text-balance text-lg font-semibold lg:mt-5 lg:text-xl"
-            v-text="newFeature.title"
-          />
-          <p class="mt-1 text-balance text-muted-foreground lg:mt-2" v-text="newFeature.description" />
-        </div>
-        <img
-          src="/remote_liveact.png"
-          alt="New Feature section image"
-          class="mx-auto h-[360px] w-[400px] object-contain object-top mt-20 lg:w-full"
-        />
       </div>
       <div class="flex flex-col gap-10 lg:gap-12">
         <template v-for="(f, i) in features2" :key="i">
@@ -141,17 +119,11 @@
       description: `No more delays or interruptions. With Remote, you can control your Cider instance with speed and precision, right from your phone.`,
     },
     {
-      icon: "heroicons:bolt",
-      title: "Many MANY more planned features",
-      description:
-        "We're constantly working on new features and improvements for Remote. Stay tuned for updates and new releases.",
-    },
-  ];
-  const newFeature = {
       icon: "heroicons:rectangle-stack",
       title: "Live Activities",
       description:
         "Simply read the current playing song using the new Live Activity shown on the Lock Screen and in the Dynamic Island.",
       link: { text: "Learn more", url: "#" },
-    }
+    },
+  ];
 </script>
