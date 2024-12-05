@@ -10,8 +10,7 @@
         Take full control, right from your phone
       </h2>
       <p class="mx-auto max-w-[760px] text-center text-lg text-muted-foreground lg:text-xl">
-        Native UI for iOS. Seamlessly control your Cider Instances without interruptions
-        or delays.
+        Native UI for iOS. Seamlessly control your Cider Instances without interruptions or delays.
       </p>
       <div class="mt-8 flex justify-center gap-8">
         <NuxtLink to="https://testflight.apple.com/join/qTeV2T2w">
@@ -29,7 +28,7 @@
       </div>
     </div>
 
-    <div class="grid grid-cols-1 gap-y-12 py-10 md:grid-cols-2 lg:grid-cols-3 lg:gap-x-16 lg:py-20">
+    <div class="grid grid-cols-1 gap-y-12 p-10 md:grid-cols-2 lg:grid-cols-3 lg:gap-x-16">
       <div class="flex flex-col gap-10 lg:gap-12">
         <template v-for="(f, i) in features1" :key="i">
           <div class="group flex flex-col">
@@ -52,7 +51,7 @@
         <img
           src="/remote_player.png"
           alt="Features section nine image"
-          class="mx-auto h-[360px] w-[400px] object-contain object-top lg:h-[640px] lg:w-full"
+          class="mx-auto w-[400px] object-contain object-top lg:h-[640px] lg:w-full"
         />
       </div>
       <div class="flex flex-col gap-10 lg:gap-12">
@@ -75,7 +74,7 @@
     </div>
     <div>
       <p class="text-center text-sm text-gray-500">
-        * Requires Cider v2.5.0 or later, and a device running iOS 16.1 or later 
+        * Requires Cider v2.5.0 or later, and a device running iOS 16.1 or later
         <!-- , or Android 5.0 or later. -->
       </p>
       <p class="text-center text-sm text-gray-500">
@@ -90,10 +89,8 @@
   definePageMeta({ title: "Remote" });
   useSeoMeta({
     title: "Remote",
-    description:
-      "Take full control of your Cider instance with Remote, a native iOS app.",
-    ogDescription:
-      "Take full control of your Cider instance with Remote, a native iOS app.",
+    description: "Take full control of your Cider instance with Remote, a native iOS app.",
+    ogDescription: "Take full control of your Cider instance with Remote, a native iOS app.",
     ogImage: "/client-images/remote.png",
     ogUrl: "https://cider.sh/remote",
   });
