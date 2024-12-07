@@ -285,8 +285,8 @@ const sources: Tab[] = [
             {
               type: "icon",
               icon: "simple-icons:github",
-              text: "Download from GitHub",
-              url: "https://github.com/ciderapp/cider/releases/latest",
+              text: "Compile from GitHub",
+              url: "https://github.com/ciderapp/cider",
             },
             {
               type: "icon",
