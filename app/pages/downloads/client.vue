@@ -287,24 +287,6 @@ const sources: Tab[] = [
               icon: "simple-icons:github",
               text: "Compile from GitHub",
               url: "https://github.com/ciderapp/cider",
-            },
-            {
-              type: "icon",
-              icon: "simple-icons:flathub",
-              text: "Download from Flathub",
-              url: "https://flathub.org/apps/sh.cider.Cider",
-            },
-            {
-              type: "icon",
-              icon: "simple-icons:archlinux",
-              text: "Download from AUR",
-              url: "https://aur.archlinux.org/packages/cider/",
-            },
-            {
-              type: "icon",
-              icon: "simple-icons:chocolatey",
-              text: "Download from Chocolatey",
-              url: "https://chocolatey.org/packages/cider",
             }
           ]
         },
