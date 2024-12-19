@@ -59,5 +59,3 @@ Commits must be signed. You can learn more about [Commit Signing][] here.
 
 [Conventional Commits]: https://www.conventionalcommits.org/
 [Commit Signing]: https://docs.github.com/en/authentication/managing-commit-signature-verification/signing-commits]
-
-<!-- Thank you Zen-Browser -->
