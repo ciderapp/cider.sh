@@ -245,6 +245,10 @@ const items: { title: string; content: string; }[] = [
   {
     title: "Is there a free trial available?",
     content: "Unfortunately, we do not offer a free trial.",
+  },
+  {
+    title: "Can I transfer my Cider license from one store to another?",
+    content: "No, unfortunately, we do not support transferring licenses between stores. If you have purchased Cider from itch.io, you will need to purchase it again from the Microsoft Store and vice versa; so make sure you purchase from the store you want to use it on. (Itch.io will give you the best available builds).",
   }
 ];
 
