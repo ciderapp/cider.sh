@@ -1,8 +1,8 @@
 <template>
-  <Label :class="styles({ class: props.class })" v-bind="reactiveOmit(props, 'class')">
+  <Label :class="styles({ class: props.class })" v-bind="forwarded">
     <slot />
     <slot name="hint">
-      <span v-if="hint">
+      <span v-if="hint" class="text-muted-foreground">
         {{ hint }}
       </span>
     </slot>
@@ -20,6 +20,8 @@
       hint?: string;
     }
   >();
+
+  const forwarded = reactiveOmit(props, "class", "hint");
 
   const styles = tv({
     base: "flex items-center justify-between text-[15px] font-medium leading-none hover:cursor-pointer peer-disabled:cursor-not-allowed peer-disabled:opacity-70 sm:text-sm",

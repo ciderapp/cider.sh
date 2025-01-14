@@ -183,7 +183,7 @@
       title: "Cider Remote",
       badgeText: "Alpha",
       description: "Easily control your music from your phone or tablet.",
-      link: "remote"
+      link: "remote",
     },
     // {
     //   title: "Cider Connect",
