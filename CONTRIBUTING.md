@@ -58,4 +58,5 @@ Commits must be signed. You can learn more about [Commit Signing][] here.
 - Commit messages **must** be in English _sorry for the constraint_
 
 [Conventional Commits]: https://www.conventionalcommits.org/
+
 [Commit Signing]: https://docs.github.com/en/authentication/managing-commit-signature-verification/signing-commits]
