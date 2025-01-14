@@ -32,6 +32,8 @@
     "@css-inline/css-inline": "^0.14.3",
     "@ianvs/prettier-plugin-sort-imports": "^4.4.1",
     "@iconify-json/heroicons": "^1.2.2",
+    "@iconify-json/lucide": "^1.2.23",
+    "@iconify-json/mdi": "^1.2.2",
     "@iconify-json/simple-icons": "^1.2.20",
     "@nuxt/icon": "^1.10.3",
     "@nuxtjs/color-mode": "^3.5.2",
