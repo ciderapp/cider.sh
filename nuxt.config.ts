@@ -3,6 +3,9 @@ export default defineNuxtConfig({
   future: {
     compatibilityVersion: 4,
   },
+
+  ssr: true,
+
   experimental: {
     viewTransition: true,
   },
@@ -18,16 +21,16 @@ export default defineNuxtConfig({
   modules: [
     "@nuxtjs/tailwindcss",
     "@nuxtjs/color-mode",
+    "@nuxtjs/seo",
+    "@nuxt/content",
+    "@nuxt/icon",
+    "@nuxt/image",
+    "@nuxt/fonts",
     "@vueuse/nuxt",
     "@vee-validate/nuxt",
     "@morev/vue-transitions/nuxt",
-    "@nuxt/content",
-    "@nuxt/icon",
     "nuxt-swiper",
-    "@nuxt/image",
-    "@nuxtjs/seo",
     "radix-vue/nuxt",
-    "@nuxt/fonts",
   ],
 
   content: {
@@ -63,6 +66,11 @@ export default defineNuxtConfig({
     markdown: {
       toc: { depth: 5, searchDepth: 4 },
       anchorLinks: { depth: 3 },
+      // https://github.com/remarkjs/remark/blob/main/doc/plugins.md#list-of-plugins
+      remarkPlugins: [
+        "remark-gfm",
+        "remark-code-blocks"
+      ],
     },
     sources: {
       documentation: {
