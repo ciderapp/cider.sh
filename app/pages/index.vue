@@ -68,7 +68,7 @@
           style="transform: translate(-20%, 0)"
         ></div>
         <div
-          class="bg-cider absolute h-[40rem] w-[40rem] rounded-full"
+          class="absolute h-[40rem] w-[40rem] rounded-full bg-cider"
           style="transform: translate(10%, -35%)"
         ></div>
         <div
@@ -109,12 +109,11 @@
             :class="[isUwu ? 'md:justify-start md:text-left' : '']"
           >
             <NuxtLink to="/downloads">
-              <UiButton size="lg">Get Cider</UiButton>
+              <UiButton>Get Cider</UiButton>
             </NuxtLink>
             <NuxtLink to="/learn-more">
               <UiButton
                 type="button"
-                size="lg"
                 variant="ghost"
                 class="learn-more hover:gap-5 hover:bg-transparent hover:underline"
               >

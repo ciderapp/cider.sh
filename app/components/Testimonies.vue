@@ -21,21 +21,17 @@
     </div>
     <div class="flex h-[350px] w-full shrink-0 items-end p-2 md:w-[700px] lg:h-full lg:p-8">
       <swiper-container
-        :autoplay="{ delay: 4000 }"
+        :autoplay="{ delay: 5000 }"
         :speed="800"
         loop
         grab-cursor
-        :slides-per-view="1"
+        style="overflow: hidden; margin-left: 100px;"
         :breakpoints="{
           640: {
-            slidesPerView: 1.1,
+            slidesPerView: 1.01,
             spaceBetween: 100,
-            autoplay: {
-              delay: 7000,
-            },
-          },
+          }
         }"
-        style="overflow: hidden"
       >
         <swiper-slide v-for="t in testimonies" :key="t.author">
           <div

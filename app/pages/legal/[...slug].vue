@@ -23,7 +23,7 @@
     <div class="flex flex-col">
       <!-- <p class="mb-3 font-semibold text-primary">Legal</p> -->
       <ContentRenderer
-        class="prose prose-rose dark:prose-invert max-w-screen-md lg:max-w-screen-lg"
+        class="prose prose-rose max-w-screen-md dark:prose-invert lg:max-w-screen-lg"
         :value="page"
       />
     </div>
