@@ -19,13 +19,15 @@ export default defineNuxtConfig({
     "@nuxtjs/tailwindcss",
     "@nuxtjs/color-mode",
     "@vueuse/nuxt",
-    "nuxt-icon",
     "@vee-validate/nuxt",
     "@morev/vue-transitions/nuxt",
     "@nuxt/content",
+    "@nuxt/icon",
     "nuxt-swiper",
     "@nuxt/image",
     "@nuxtjs/seo",
+    "radix-vue/nuxt",
+    "@nuxt/fonts",
   ],
 
   content: {
@@ -119,15 +121,16 @@ export default defineNuxtConfig({
 
   tailwindcss: {
     exposeConfig: true,
+    editorSupport: true,
   },
 
   colorMode: {
+    classSuffix: "",
     preference: "dark",
     fallback: "dark",
     hid: "nuxt-color-mode-script",
     globalName: "__NUXT_COLOR_MODE__",
     componentName: "ColorScheme",
-    classSuffix: "",
     storageKey: "nuxt-color-mode",
   },
 
@@ -145,5 +148,5 @@ export default defineNuxtConfig({
     ],
   },
 
-  compatibilityDate: '2024-11-01',
+  compatibilityDate: "2024-11-01",
 });
