@@ -33,7 +33,7 @@
           }
         }"
       >
-        <swiper-slide v-for="t in testimonies" :key="t.author">
+        <swiper-slide v-for="t in randomizedOrder" :key="t.author">
           <div
             class="light:border-black/20 light:bg-gray-700/10 flex h-[300px] flex-col rounded-lg border border-white/20 bg-gray-500/10 p-4 text-foreground backdrop-blur-lg lg:px-5 lg:py-6"
           >
@@ -64,6 +64,10 @@
     return `"${quote}"`;
   }
 
+  const randomizedOrder = computed(() => {
+    return [...testimonies].sort(() => Math.random() - 0.5);
+  });
+
   const testimonies: Testimony[] = [
     {
       author: "Kai",
@@ -89,5 +93,11 @@
       quote:
         "Cider completely changes the game for the desktop Apple Music experience. Gone are the blindingly ugly light mode of iTunes and the awful performance on official clients, replaced by an <b>absolute</b> beauty that zips around like a supercar. I for one welcome our new music overlords.",
     },
+    {
+      author: "RylanFM",
+      position: "New Cider Enthusiast",
+      quote:
+        "I was a bit skeptical having never even heard of Cider until the afternoon I got it. A couple weeks in and I can confidently say that this is one of the best purchases I have ever made. The UI is so clean and intuitive. I have a vertical monitor and immersive mode looks amazing. Everyone in the Discord server was so kind and helped me get it set up in just a few minutes. I highly recommend giving Cider a try!",
+    }
   ];
 </script>
