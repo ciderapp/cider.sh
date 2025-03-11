@@ -7,7 +7,7 @@
         <NuxtImg
           :src="download.image"
           :alt="download.alt"
-          class="transition-[duration]-[1000ms] transform-gpu transition-all hover:-translate-y-1"
+          class="transition-[duration]-[1000ms] transform-gpu transition-all hover:-translate-y-1 w-full"
         />
       </NuxtLink>
     </div>
@@ -53,10 +53,10 @@
         v-for="source in sources"
         :key="source.value"
         :value="source.value"
-        class="grid w-full grid-cols-1 gap-y-10 lg:grid-cols-2 lg:gap-8 lg:gap-y-12 lg:py-0"
+        class="flex flex-wrap justify-center gap-y-10 lg:gap-8 lg:gap-y-12 lg:py-0"
       >
         <template v-for="p in source.downloads">
-          <UiCard class="overflow-hidden">
+          <UiCard class="overflow-hidden flex-1 min-w-[300px] max-w-[600px] lg:basis-[48%] md:basis-[80%] sm:basis-full">
             <UiCardTitle class="flex items-center justify-between px-6 py-4">
               <p class="text-lg font-semibold lg:text-2xl">{{ p.title }}</p>
               <UiBadge v-if="p.sidenote" class="border-primary/50 text-primary" variant="outline"
@@ -64,12 +64,12 @@
               </UiBadge>
             </UiCardTitle>
 
-            <UiCardDescription class="flex grow gap-4 px-6 py-4">
-              <p class="text-muted-foreground">{{ p.description }}</p>
+            <UiCardDescription class="flex grow gap-4 px-6 py-4 items-center">
+              <p class="text-muted-foreground flex-[50%]">{{ p.description }}</p>
               <DownloadItem.reuse
                 :download="p.download"
                 v-if="p.download.type != 'multiple'"
-                class="max-w-80"
+                class="flex-[50%] max-w-80"
               />
             </UiCardDescription>
 
@@ -224,8 +224,10 @@
             "Audio Enhancements through our cutting Audio Lab technology",
           ],
           download: {
-            type: "html",
-            html: '<ms-store-badge productid="9PL8WPH0QK9M" window-mode="popup" theme="auto" language="en-us" animation="on"/>',
+            type: "image",
+            url: "https://apps.microsoft.com/detail/9PL8WPH0QK9M?mode=direct",
+            image: "https://get.microsoft.com/images/en-us%20dark.svg",
+            alt: "Microsoft Store",
           },
         },
         {
@@ -307,9 +309,3 @@
     },
   ];
 </script>
-
-<style>
-  ms-store-badge::part(img) {
-    width: 100%;
-  }
-</style>
