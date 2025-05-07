@@ -3,6 +3,9 @@ export default defineNuxtConfig({
   future: {
     compatibilityVersion: 4,
   },
+
+  ssr: true,
+
   experimental: {
     viewTransition: true,
   },
@@ -18,14 +21,16 @@ export default defineNuxtConfig({
   modules: [
     "@nuxtjs/tailwindcss",
     "@nuxtjs/color-mode",
+    "@nuxtjs/seo",
+    "@nuxt/content",
+    "@nuxt/icon",
+    "@nuxt/image",
+    "@nuxt/fonts",
     "@vueuse/nuxt",
-    "nuxt-icon",
     "@vee-validate/nuxt",
     "@morev/vue-transitions/nuxt",
-    "@nuxt/content",
     "nuxt-swiper",
-    "@nuxt/image",
-    "@nuxtjs/seo",
+    "radix-vue/nuxt",
   ],
 
   content: {
@@ -61,14 +66,19 @@ export default defineNuxtConfig({
     markdown: {
       toc: { depth: 5, searchDepth: 4 },
       anchorLinks: { depth: 3 },
+      // https://github.com/remarkjs/remark/blob/main/doc/plugins.md#list-of-plugins
+      remarkPlugins: [
+        "remark-gfm",
+        "remark-code-blocks"
+      ],
     },
     sources: {
       documentation: {
         prefix: "/docs",
         driver: "github",
-        repo: "ciderapp/cider-docs",
+        repo: "ciderapp/docs",
         branch: "main",
-        dir: "/",
+        dir: "/docs",
         token: process.env.GITHUB_PAT,
       },
       changelogs: {
@@ -76,7 +86,7 @@ export default defineNuxtConfig({
         driver: "github",
         repo: "ciderapp/changes",
         branch: "main",
-        dir: "/",
+        dir: "/changelogs",
         token: process.env.GITHUB_PAT,
       },
     },
@@ -110,6 +120,7 @@ export default defineNuxtConfig({
     "/downloads/remote": { prerender: true },
     "/remote": { redirect: "/downloads/remote" },
     "/marketplace": { redirect: "https://marketplace.cider.sh" },
+    "/taproom": { redirect: "https://taproom.cider.sh" },
     "/o": { redirect: "/api/v1/open" },
     "/p": { redirect: "/api/v1/play" },
   },
@@ -118,15 +129,16 @@ export default defineNuxtConfig({
 
   tailwindcss: {
     exposeConfig: true,
+    editorSupport: true,
   },
 
   colorMode: {
+    classSuffix: "",
     preference: "dark",
     fallback: "dark",
     hid: "nuxt-color-mode-script",
     globalName: "__NUXT_COLOR_MODE__",
     componentName: "ColorScheme",
-    classSuffix: "",
     storageKey: "nuxt-color-mode",
   },
 
@@ -144,5 +156,5 @@ export default defineNuxtConfig({
     ],
   },
 
-  compatibilityDate: '2024-11-01',
+  compatibilityDate: "2024-11-01",
 });

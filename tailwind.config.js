@@ -1,5 +1,3 @@
-import tailwindTypography from "@tailwindcss/typography";
-
 const { fontFamily } = require("tailwindcss/defaultTheme");
 
 /**@type {import('tailwindcss').Config} */
@@ -15,11 +13,17 @@ module.exports = {
           lg: "4rem",
         },
         screens: {
-          "2xl": "1440px",
+          "2xl": "1300px",
         },
       },
       fontFamily: {
-        sans: ["Inter var", "Inter", ...fontFamily.sans],
+        sans: [
+          `Inter, ${fontFamily.sans.join(", ")}`,
+          {
+            fontFeatureSettings: '"cv02","cv03","cv04","cv11"',
+          },
+        ],
+        mono: ["'Fira Code'", ...fontFamily.mono],
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -27,6 +31,27 @@ module.exports = {
         sm: "calc(var(--radius) - 4px)",
       },
       keyframes: {
+        shine: {
+          from: { backgroundPosition: "200% 0" },
+          to: { backgroundPosition: "-200% 0" },
+        },
+        meteor: {
+          "0%": { transform: "rotate(215deg) translateX(0)", opacity: 1 },
+          "70%": { opacity: 1 },
+          "100%": {
+            transform: "rotate(215deg) translateX(-500px)",
+            opacity: 0,
+          },
+        },
+        grid: {
+          "0%": { transform: "translateY(-50%)" },
+          "100%": { transform: "translateY(0)" },
+        },
+        "border-beam": {
+          "100%": {
+            "offset-distance": "100%",
+          },
+        },
         "accordion-down": {
           from: { height: "0px" },
           to: { height: "var(--radix-accordion-content-height)" },
@@ -53,6 +78,9 @@ module.exports = {
         },
       },
       animation: {
+        shine: "shine 8s ease-in-out infinite",
+        meteor: "meteor 5s linear infinite",
+        grid: "grid 15s linear infinite",
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         fadeIn: "fadeIn 0.2s ease-out",
@@ -96,8 +124,23 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        sidebar: {
+          DEFAULT: "hsl(var(--sidebar-background))",
+          foreground: "hsl(var(--sidebar-foreground))",
+          primary: "hsl(var(--sidebar-primary))",
+          "primary-foreground": "hsl(var(--sidebar-primary-foreground))",
+          accent: "hsl(var(--sidebar-accent))",
+          "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
+          border: "hsl(var(--sidebar-border))",
+          ring: "hsl(var(--sidebar-ring))",
+          input: "hsl(var(--sidebar-input))",
+        },
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), tailwindTypography],
+  plugins: [
+    require("tailwindcss-animate"),
+    require("@tailwindcss/forms")({ strategy: "class" }),
+    require("@tailwindcss/typography"),
+  ],
 };

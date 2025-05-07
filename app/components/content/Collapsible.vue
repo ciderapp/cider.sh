@@ -1,21 +1,16 @@
-<script setup lang="ts">
-interface Props {
-    header: string;
-}
-
-const props = defineProps<Props>();
-</script>
-
 <template>
-    <UiCollapsible class="flex flex-col">
-        <div style="display: flex; align-items: center; justify-content: space-between">
-            <UiCollapsibleTrigger>
-                {{ props.header }}
-            </UiCollapsibleTrigger>
-        </div>
-
-        <UiCollapsibleContent class="data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp overflow-hidden">
-            <ContentSlot :use="$slots.default" unwrap="span" class="text-md" />
-        </UiCollapsibleContent>
-    </UiCollapsible>
+  <CollapsibleRoot v-bind="forwarded">
+    <slot />
+  </CollapsibleRoot>
 </template>
+
+<script lang="ts" setup>
+  import { CollapsibleRoot, useForwardPropsEmits } from "radix-vue";
+  import type { CollapsibleRootEmits, CollapsibleRootProps } from "radix-vue";
+
+  const props = defineProps<CollapsibleRootProps>();
+
+  const emit = defineEmits<CollapsibleRootEmits>();
+
+  const forwarded = useForwardPropsEmits(props, emit);
+</script>

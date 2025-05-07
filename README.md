@@ -7,7 +7,7 @@
 Cider Website
 </h1>
 
-This repository contains the source code for the Cider Website. This website outlines our app and all the details surrounding it. 
+This repository contains the source code for the Cider Website. This website outlines our app and all the details surrounding it.
 
 Cider's website is built with [Nuxt](https://nuxt.com/) (Vue.js), [Radix-Vue](https://www.radix-vue.com/), and [Tailwind CSS](https://tailwindcss.com/).
 

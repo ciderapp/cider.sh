@@ -1,7 +1,6 @@
 ---
 title: "Code of Conduct"
 description: "Contributor Covenant Code of Conduct"
-draft: false
 ---
 
 # Contributor Covenant Code of Conduct

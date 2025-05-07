@@ -60,6 +60,8 @@
                   </div>
                 </UiNavigationMenuContent>
               </UiNavigationMenuItem>
+
+              <!-- Changelogs -->
               <UiNavigationMenuItem>
                 <UiNavigationMenuLink
                   asChild
@@ -69,22 +71,35 @@
                   <UiButton variant="link" to="/changelogs">Changelogs</UiButton>
                 </UiNavigationMenuLink>
               </UiNavigationMenuItem>
+
+              <!-- Documentation -->
               <UiNavigationMenuItem>
                 <UiNavigationMenuLink
                   asChild
                   :class="[currentPath.includes('/docs') ? '!text-foreground' : '']"
                   class="text-foreground/60 transition-colors hover:text-foreground"
                 >
-                  <UiButton variant="link" to="/docs">Docs</UiButton>
+                  <UiButton variant="link" to="/docs">Documentation</UiButton>
                 </UiNavigationMenuLink>
               </UiNavigationMenuItem>
+
+              <!-- Marketplace -->
               <UiNavigationMenuItem>
                 <UiNavigationMenuLink
                   asChild
                   class="text-foreground/60 transition-colors hover:text-foreground"
                 >
                   <UiButton variant="link" to="/marketplace">Marketplace</UiButton>
-                  <!-- TODO: Update to https://marketplace.cider.sh when ready-->
+                </UiNavigationMenuLink>
+              </UiNavigationMenuItem>
+
+              <!-- Taproom -->
+              <UiNavigationMenuItem>
+                <UiNavigationMenuLink
+                  asChild
+                  class="text-foreground/60 transition-colors hover:text-foreground"
+                >
+                  <UiButton variant="link" to="/taproom">Taproom</UiButton>
                 </UiNavigationMenuLink>
               </UiNavigationMenuItem>
             </UiNavigationMenuList>
@@ -168,7 +183,7 @@
       title: "Cider Remote",
       badgeText: "Alpha",
       description: "Easily control your music from your phone or tablet.",
-      link: "remote"
+      link: "remote",
     },
     // {
     //   title: "Cider Connect",
