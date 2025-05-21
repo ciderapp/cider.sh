@@ -11,10 +11,7 @@
       <div>
         <h3 class="text-4xl font-black lg:text-6xl">Don't just take our word for it</h3>
         <p class="mt-10 text-xl text-muted-foreground lg:mr-20">
-          Cider is the go-to choice for thousands of talented individuals (<kbd>{{
-            memberCount
-          }}</kbd>
-          to be exact) like you! Our vibrant community is at the heart of everything we do. See what
+          Cider is the go-to choice for thousands of talented individuals like you! Our vibrant community is at the heart of everything we do. See what
           some of our satisfied users have to say...
         </p>
       </div>
@@ -57,8 +54,6 @@
     position: string;
     quote: string;
   };
-
-  const memberCount = ref("13,567");
 
   function addQuotes(quote: string) {
     return `"${quote}"`;
