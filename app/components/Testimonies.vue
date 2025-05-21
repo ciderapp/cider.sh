@@ -70,7 +70,6 @@ function addQuotes(quote: string) {
   return `"${quote}"`;
 }
 
-
 const testimonies = ref<Testimony[]>([
   {
     author: "Kai",
