@@ -13,10 +13,10 @@
         Native UI for iOS. Seamlessly control your Cider Instances without interruptions or delays.
       </p>
       <div class="mt-8 flex justify-center gap-8">
-        <NuxtLink to="https://testflight.apple.com/join/qTeV2T2w">
+        <NuxtLink to="https://apps.apple.com/us/app/cider-remote/id6670149407">
           <UiButton variant="outline">
             <Icon name="logos:apple-app-store" />
-            Get from TestFlight
+            Get from the App Store
           </UiButton>
         </NuxtLink>
         <!-- <NuxtLink to="https://cdn.cider.sh/cider-remote-0.3.1.apk">
@@ -78,7 +78,7 @@
         <!-- , or Android 5.0 or later. -->
       </p>
       <p class="text-center text-sm text-gray-500">
-        * Cider Remote is currently in beta, and may contain bugs or issues. Please report any
+        * Cider Remote may contain bugs or issues. Please report any
         problems you encounter.
       </p>
     </div>

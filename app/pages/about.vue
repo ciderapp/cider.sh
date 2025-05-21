@@ -313,6 +313,20 @@
       songId: "157472443",
       songTimestamp: 327,
     },
+    {
+      name: "Lumaa",
+      github: "https://github.com/lumaa-dev",
+      role: "Remote Team Lead",
+      roles: [],
+      projects: ["cider-remote"],
+      avatar: "https://avatars.githubusercontent.com/u/93350976?v=4",
+      twitter: "https://twitter.com/lumaa_dev",
+      quote: `Remote android? Ask cryptofyre`,
+      email: "lumaa@lumaa.fr"
+      color: `#004C90`,
+      songId: "1773437922",
+      songTimestamp: 62
+    }
   ]
     .slice()
     .sort((a, b) => {
