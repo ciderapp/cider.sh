@@ -37,7 +37,7 @@
     "@iconify-json/simple-icons": "^1.2.20",
     "@nuxt/icon": "^1.10.3",
     "@nuxtjs/color-mode": "^3.5.2",
-    "@nuxtjs/mdc": "^0.12.1",
+    "@nuxtjs/mdc": "^0.13.3",
     "@nuxtjs/tailwindcss": "^6.13.1",
     "@vueuse/core": "^12.4.0",
     "@vueuse/math": "^12.4.0",
