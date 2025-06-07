@@ -181,8 +181,7 @@
     },
     {
       title: "Cider Remote",
-      badgeText: "Alpha",
-      description: "Easily control your music from your phone or tablet.",
+      description: "Easily control your music from your iPhone or iPad.",
       link: "remote",
     },
     // {
