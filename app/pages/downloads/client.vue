@@ -185,6 +185,31 @@
       isRecommended: true,
       downloads: [
         {
+          title: "Direct",
+          description:
+            "Available for all users on Windows, macOS, and Linux. A full list of supported platforms can be found on Taproom.",
+          sidenote: "Recommended & New!",
+          features: [
+            "Support us directly by purchasing Cider through Taproom",
+            "Access to Windows, macOS, and Linux releases",
+            "Faster Client Updates Compared to Other Storefronts",
+            "Access to <a href='https://taproom.cider.sh' class='text-primary'>Taproom</a>",
+            "Community Themes and Plugins verified by Cider Collective",
+            "Over-the-air Updates",
+            "Access to features specific to each platform",
+            "Ton of customization options",
+            "Audio Enhancements through our cutting Audio Lab technology",
+            "Blazingly Fast <a class='inline-block align-top text-[0.5em] underline' href='#fn-1'>1</a>",
+            "Help and Support from the Cider Community and Collective Team",
+          ],
+          download: {
+            type: "image",
+            url: "https://taproom.cider.sh/purchase",
+            image: "/taproom.svg",
+            alt: "taproom",
+          },
+        },
+        {
           title: "Itch.io",
           description:
             "Available for all users on Windows, macOS, and Linux. A full list of supported platforms can be found on the Itch.io page.",
