@@ -10,14 +10,6 @@
   useSeoMeta({
     title: `Home`,
     titleTemplate: "%s | Cider Collective",
-    description:
-      "A community-ran and maintained software company focused on creating the best experience for end users. Home of Cider, Connect, Remote.",
-    ogDescription:
-      "A community-ran and maintained software company focused on creating the best experience for end users. Home of Cider, Connect, Remote.",
-    twitterDescription:
-      "A community-ran and maintained software company focused on creating the best experience for end users. Home of Cider, Connect, Remote.",
-    ogImage: "/og.png",
-    twitterImage: "/og.png",
     twitterCard: "summary_large_image",
     twitterSite: "@UseCider",
     ogType: "website",

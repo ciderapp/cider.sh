@@ -1,6 +1,14 @@
 <script lang="ts" setup>
   definePageMeta({
     title: "Home",
+    description:
+      "A community-ran and maintained software company focused on creating the best experience for end users. Home of Cider and Remote.",
+    ogDescription:
+      "A community-ran and maintained software company focused on creating the best experience for end users. Home of Cider and Remote.",
+    twitterDescription:
+      "A community-ran and maintained software company focused on creating the best experience for end users. Home of Cider and Remote.",
+    ogImage: "/og.png",
+    twitterImage: "/og.png",
   });
 
   const { data } = await useAsyncData("latest-release", async () =>
@@ -33,9 +41,8 @@
     },
     {
       icon: "material-symbols:nest-remote",
-      title: "Remote Controllable (Soon!)",
-      subtitle: "balls",
-      description: `We know how annoying it is to keep hitting <kbd>Alt+Tab</kbd> while working or gaming, so we're creating a <a href="remote">remote app</a> just for that.`,
+      title: "Remote Controllable",
+      description: `No matter what you're doing away from your keyboard, you can control Cider however you like with Cider Remote.`,
     },
     {
       icon: "heroicons:bolt",
