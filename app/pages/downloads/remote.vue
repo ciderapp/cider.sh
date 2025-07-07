@@ -19,6 +19,12 @@
             Get from the App Store
           </UiButton>
         </NuxtLink>
+        <NuxtLink to="#android">
+          <UiButton variant="outline">
+            <Icon name="logos:android-icon" />
+            About Android
+          </UiButton>
+        </NuxtLink>
       </div>
     </div>
 
@@ -69,6 +75,8 @@
       </div>
     </div>
 
+    <BuiltUsing :isDesktop="false" />
+
     <div class="mx-auto max-w-[760px] mt-16">
       <p class="text-center font-semibold text-primary">Features</p>
       <h2 class="mb-4 mt-3 text-center text-3xl font-semibold lg:mb-5 lg:text-4xl">
@@ -87,24 +95,36 @@
         >
         <template v-for="feature in features" :key="feature.title">
           <swiper-slide class="w-96">
-            <div class="group border bg-gray-500/10 border-white/20 p-4 rounded-lg w-96 h-60">
-              <div class="flex h-12 w-12 items-center justify-center rounded-md border">
-                <Icon
+              <div class="group border bg-gray-500/10 border-white/20 p-4 rounded-lg w-96 h-60">
+                <div class="flex h-12 w-12 items-center justify-center rounded-md border">
+                  <Icon
                   :name="feature.icon"
                   class="h-5 w-5 transition-colors group-hover:text-primary lg:h-6 lg:w-6"
-                />  
+                  />  
+                </div>
+                <h3 class="mt-4 text-balance text-lg font-semibold lg:mt-5 lg:text-xl">{{ feature.title }}</h3>
+                <p class="mt-1 text-balance text-muted-foreground lg:mt-2">{{ feature.description }}</p>
               </div>
-              <h3 class="mt-4 text-balance text-lg font-semibold lg:mt-5 lg:text-xl">{{ feature.title }}</h3>
-              <p class="mt-1 text-balance text-muted-foreground lg:mt-2">{{ feature.description }}</p>
-            </div>
-          </swiper-slide>
+            </swiper-slide>
         </template>
       </swiper-container>
     </div>
 
+    <div class="mx-auto max-w-[760px] mt-16">
+      <p class="text-center font-semibold text-primary" id="android">Android</p>
+      <h2 class="mb-4 mt-3 text-center text-3xl font-semibold lg:mb-5 lg:text-4xl">
+        About Remote on Android
+      </h2>
+      <p class="text-muted-foreground">
+        An Android version for Cider Remote is planned at some point, but we are currently focused on the iOS version.
+        <br /><br />
+        Also, the team working only on Cider Remote only has iOS developers and would require Android developers for a potential Android version to come out.
+      </p>
+    </div>
+
     <div>
       <p class="text-center text-sm text-gray-500 pt-10">
-        Cider Remote requires Cider v2.5.0 or later, and iOS 16.1 or later.
+        Cider Remote requires Cider v2.5.0 or later, and iOS 17 or later.
       </p>
     </div>
   </UiContainer>
@@ -152,7 +172,7 @@
     },
   ]];
 
-  const features = [
+  var features = [
     {
       icon: "heroicons:rectangle-stack",
       title: "Live Activity",
@@ -170,6 +190,7 @@
       title: "Horizontal Layout",
       description:
         "Portrait or landscape, Remote adapts to your iPhone's orientation. Leave your phone on the side and it'll never turn off.",
+      image: "/remote/Horizontal.png",
     },
     {
       icon: "heroicons:numbered-list",
