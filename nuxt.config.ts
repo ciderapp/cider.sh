@@ -21,7 +21,6 @@ export default defineNuxtConfig({
   modules: [
     "@nuxtjs/tailwindcss",
     "@nuxtjs/color-mode",
-    "@nuxtjs/seo",
     "@nuxt/content",
     "@nuxt/icon",
     "@nuxt/image",
@@ -34,7 +33,7 @@ export default defineNuxtConfig({
   ],
 
   content: {
-    ignores: ["/1.client-releases/images", "\\.html$", "CNAME"],
+    ignores: ["/changelogs/images", "\\.html$", "CNAME"],
     highlight: {
       theme: {
         // Default theme (same as single string)
@@ -62,7 +61,7 @@ export default defineNuxtConfig({
         },
       },
     },
-    navigation: { fields: ["icon", "releaseNo", "tags"] },
+    navigation: { fields: ["icon"] },
     markdown: {
       toc: { depth: 5, searchDepth: 4 },
       anchorLinks: { depth: 3 },
@@ -81,33 +80,11 @@ export default defineNuxtConfig({
         dir: "/docs",
         token: process.env.GITHUB_PAT,
       },
-      changelogs: {
-        prefix: "/changelogs",
-        driver: "github",
-        repo: "ciderapp/changes",
-        branch: "main",
-        dir: "/changelogs",
-        token: process.env.GITHUB_PAT,
-      },
+
     },
   },
 
-  site: {
-    url: "https://cider.sh",
-    name: "Cider Collective",
-    description:
-      "A community-ran and maintained software company focused on creating the best experience for end users. Home of Cider, Connect, Remote.",
-    defaultLocale: "en",
-  },
 
-  seo: {
-    fallbackTitle: true,
-  },
-
-  sitemap: {
-    strictNuxtContentPaths: true,
-    sources: ["/api/__sitemap__/urls"],
-  },
 
   routeRules: {
     "/": { prerender: true },
@@ -140,6 +117,12 @@ export default defineNuxtConfig({
     globalName: "__NUXT_COLOR_MODE__",
     componentName: "ColorScheme",
     storageKey: "nuxt-color-mode",
+  },
+
+  runtimeConfig: {
+    public: {
+      riseApiUrl: process.env.RISE_API_URL || 'https://rise.cider.sh',
+    },
   },
 
   imports: {

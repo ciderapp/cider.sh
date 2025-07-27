@@ -1,15 +1,48 @@
 import { serverQueryContent } from "#content/server";
-import { asSitemapUrl, defineSitemapEventHandler } from "#imports";
-import { defineEventHandler } from "h3";
-import type { ParsedContent } from "@nuxt/content/dist/runtime/types";
 
-export default defineSitemapEventHandler(async (e) => {
-  const contentList = (await serverQueryContent(e).find()) as ParsedContent[];
-  console.log(contentList);
-  return contentList.map((c) => {
-    return asSitemapUrl({
-      loc: `${c._path}`,
-      // lastmod: updatedAt,
+
+export default defineEventHandler(async (e) => {
+  try {
+    const urls = [];
+    
+    const contentList = (await serverQueryContent(e).find()) as any[];
+    contentList.forEach((c) => {
+      urls.push({
+        loc: c._path,
+        lastmod: new Date().toISOString(),
+        changefreq: 'weekly',
+        priority: 0.8
+      });
     });
-  });
+    
+    try {
+      const riseApiBaseUrl = 'https://rise.cider.sh';
+      const changelogsResponse = await $fetch<{changelogs: any[]}>(`${riseApiBaseUrl}/api/v1/changelogs/list`);
+      
+      urls.push({
+        loc: '/changelogs',
+        lastmod: new Date().toISOString(),
+        changefreq: 'weekly', 
+        priority: 0.9
+      });
+      
+      if (changelogsResponse?.changelogs) {
+        changelogsResponse.changelogs.forEach((changelog: any) => {
+          urls.push({
+            loc: `/changelogs/${changelog.version}`,
+            lastmod: new Date(changelog.lastUpdated).toISOString(),
+            changefreq: 'monthly',
+            priority: 0.7
+          });
+        });
+      }
+    } catch (apiError) {
+      console.warn('Failed to fetch changelog URLs for sitemap:', apiError);
+    }
+    
+    return urls;
+  } catch (error) {
+    console.error('Sitemap generation error:', error);
+    return [];
+  }
 });

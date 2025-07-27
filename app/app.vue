@@ -7,6 +7,7 @@
   </div>
 </template>
 <script setup lang="ts">
+
   useSeoMeta({
     title: `Home`,
     titleTemplate: "%s | Cider Collective",

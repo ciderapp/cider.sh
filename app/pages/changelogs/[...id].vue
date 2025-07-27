@@ -1,19 +1,16 @@
 <template>
   <div class="flex flex-col items-center">
     <!-- Embedded Content -->
-    <div v-if="embedded" class="prose prose-lg prose-rose dark:prose-invert">
+    <div v-if="embedded" class="prose prose-lg prose-rose dark:prose-invert scroll-smooth">
       <div v-if="page?.image">
         <NuxtImg
-          :src="
-            'https://github.com/ciderapp/changes/blob/main/changelogs/1.client-releases/images/' +
-            page.image +
-            '?raw=true'
-          "
+          :src="image"
           :alt="page.title"
           class="mb-5 w-full overflow-hidden rounded-md border border-foreground/60 object-cover shadow-lg"
         />
       </div>
-      <LazyContentDoc />
+      <!-- Render markdown content as HTML -->
+      <div v-if="renderedContent" v-html="renderedContent"></div>
     </div>
     <!-- Main content -->
     <main v-else class="container grid grid-cols-1 lg:grid-cols-[290px_minmax(0,1fr)] lg:gap-10">
@@ -24,7 +21,7 @@
         <UiScrollArea class="h-[calc(100dvh-57px)] bg-background px-2 py-5" orientation="vertical">
           <p class="text-md mb-8 font-semibold">Client Releases</p>
           <Suspense>
-            <LazyDocsNavlink :links="data" />
+            <LazyDocsNavlink :links="navigationData" />
             <template #fallback>
               <UiSkeleton class="h-[calc(100dvh-57px)] w-full" />
             </template>
@@ -35,7 +32,7 @@
       <div class="xl:grid xl:grid-cols-[1fr,250px] xl:gap-5">
         <!-- Page content -->
         <div
-          class="prose prose-lg prose-rose mx-auto w-full min-w-0 max-w-none py-5 dark:prose-invert lg:prose-base prose-headings:scroll-mt-16 prose-headings:tracking-tight prose-h2:mt-6 prose-h2:border-b prose-h2:pb-3 first:prose-h2:mt-10 prose-a:decoration-primary prose-a:underline-offset-2 hover:prose-a:text-primary prose-pre:text-lg lg:prose-pre:text-base"
+          class="prose prose-lg prose-rose mx-auto w-full min-w-0 max-w-none py-5 dark:prose-invert lg:prose-base prose-headings:scroll-mt-16 prose-headings:tracking-tight prose-h2:mt-6 prose-h2:border-b prose-h2:pb-3 first:prose-h2:mt-10 prose-a:decoration-primary prose-a:underline-offset-2 hover:prose-a:text-primary prose-pre:text-lg lg:prose-pre:text-base scroll-smooth"
         >
           <div v-if="page?.image">
             <NuxtImg
@@ -44,11 +41,12 @@
               class="mb-5 w-full overflow-hidden rounded-md border border-foreground/60 object-cover shadow-lg"
             />
           </div>
-          <LazyContentDoc />
+          <!-- Render markdown content as HTML -->
+          <div v-if="renderedContent" v-html="renderedContent"></div>
         </div>
         <!-- Table of contents for current page -->
         <aside
-          v-if="page && page.body && page.body.toc && page.body.toc.links.length > 0"
+          v-if="tableOfContents.length > 0"
           class="sticky top-14 z-20 hidden h-[calc(100dvh-57px)] overflow-y-auto border-l bg-background text-card-foreground xl:block"
         >
           <div class="p-5">
@@ -57,7 +55,7 @@
               <LazyDocsToclink
                 :set-active="setActive"
                 :active-id="activeId"
-                :links="page.body.toc.links"
+                :links="tableOfContents"
               />
               <template #fallback>
                 <UiSkeleton class="h-[calc(100dvh-57px)] w-full" />
@@ -84,23 +82,161 @@
 
 <script lang="ts" setup>
   import { useActiveScroll } from "vue-use-active-scroll";
+  import { marked } from 'marked';
+  
+  type ChangelogItem = {
+    version: string;
+    shortDesc: string;
+    lastUpdated: number;
+  };
 
-  const $route = useRoute();
-  const embedded = $route.query.embedded == "true";
-  const { data: page } = await useAsyncData($route.path + "-data", () =>
-    queryContent($route.path).findOne()
-  );
 
-  const image = computed(() => {
-    return `https://github.com/ciderapp/changes/blob/main/changelogs/1.client-releases/images/${page?.value?.image ?? "undefined"}?raw=true`;
+  interface RiseChangelogDetail {
+    shortDesc: string;
+    longDesc: string;
+    thumbnail?: string;
+    highlights: Array<{
+      name: string;
+      desc: string;
+      icon: string;
+    }>;
+    version: string;
+    lastUpdated: number;
+  }
+
+  interface RiseChangelogListItem {
+    version: string;
+    shortDesc: string;
+    thumbnail?: string;
+    lastUpdated: number;
+  }
+
+  interface RiseChangelogListResponse {
+    changelogs: RiseChangelogListItem[];
+    total: number;
+  }
+
+
+  const embedded = ref(false);
+  const page = ref<any>(null);
+
+
+  const data = ref<RiseChangelogListResponse | null>(null);
+
+
+  onMounted(async () => {
+    const route = useRoute();
+    embedded.value = route.query.embedded === "true";
+    
+    const id = route.params.id;
+    const version = Array.isArray(id) ? id.join('/') : (id || 'latest');
+    
+          try {      
+        const [pageResponse, navResponse] = await Promise.all([
+          $fetch<RiseChangelogDetail>(`/api/changelogs/${version}`),
+          $fetch<RiseChangelogListResponse>('/api/changelogs/list')
+        ]);
+      
+      page.value = {
+        title: `Cider ${pageResponse.version}`,
+        description: pageResponse.shortDesc,
+        image: pageResponse.thumbnail,
+        version: pageResponse.version,
+        longDesc: pageResponse.longDesc,
+        highlights: pageResponse.highlights,
+        lastUpdated: pageResponse.lastUpdated
+      };
+      
+      data.value = navResponse;
+    } catch (error) {
+      console.error('Failed to fetch changelog:', error);
+      throw createError({ statusCode: 404, statusMessage: `Changelog for version ${version} not found` });
+    }
   });
 
-  const { data } = await useAsyncData<any>("changelogs", () =>
-    queryContent("/changelogs/client-releases").sort({ releaseNo: -1, $numeric: true }).find()
-  );
+
+  const image = computed(() => {
+    return page.value?.image || '';
+  });
+
+  
+  const navigationData = computed(() => {
+    if (!data.value?.changelogs) return [];
+    
+    return data.value.changelogs.map((changelog: RiseChangelogListItem) => ({
+      title: `Cider ${changelog.version}`,
+      _path: `/changelogs/${changelog.version}`,
+      navigation: {
+        date: new Date(changelog.lastUpdated).toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        })
+      },
+      version: changelog.version
+    }));
+  });
+
+
+  marked.setOptions({
+    breaks: true,
+    gfm: true,
+  });
+
+
+  const generateHeadingId = (text: string) => {
+    return text.toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+  };
+
+
+  const renderedContent = computed(() => {
+    if (!page.value?.longDesc) return '';
+    try {
+      let markdown = page.value.longDesc;
+      
+      markdown = markdown.replace(/^(#{1,6})\s+(.+)$/gm, (match: string, hashes: string, text: string) => {
+        const id = generateHeadingId(text.trim());
+        const level = hashes.length;
+        return `<h${level} id="${id}" style="scroll-margin-top: 80px;">${text.trim()}</h${level}>`;
+      });
+      
+      return marked(markdown);
+    } catch (error) {
+      console.error('Failed to render markdown:', error);
+      return page.value.longDesc;
+    }
+  });
+
+
+  const tableOfContents = computed(() => {
+    if (!page.value?.longDesc) return [];
+    
+    const headingRegex = /^(#{1,6})\s+(.+)$/gm;
+    const headings = [];
+    let match;
+    
+    while ((match = headingRegex.exec(page.value.longDesc)) !== null) {
+      if (match[1] && match[2]) {
+        const level = match[1].length;
+        const text = match[2].trim();
+        const id = generateHeadingId(text);
+        
+        headings.push({
+          id,
+          text,
+          depth: level,
+          children: []
+        });
+      }
+    }
+    
+    return headings;
+  });
 
   const targets: any = computed(() =>
-    page.value?.body?.toc?.links.flatMap(({ id, children = [] }: any) => [
+    tableOfContents.value.flatMap(({ id, children = [] }: any) => [
       id,
       ...children.map(({ id }: { id: string }) => id),
     ])
@@ -111,7 +247,38 @@
     overlayHeight: 80,
   });
 
-  useSeoMeta({
-    ogImage: image.value,
+
+  definePageMeta({ 
+    title: 'Cider Changelog'
+  });
+
+
+  useHead({
+    title: computed(() => page.value?.title || 'Cider Changelog'),
+    meta: [
+      {
+        name: 'description',
+        content: computed(() => page.value?.description || 'Cider changelog')
+      },
+      {
+        property: 'og:title',
+        content: computed(() => page.value?.title || 'Cider Changelog')
+      },
+      {
+        property: 'og:description', 
+        content: computed(() => page.value?.description || 'Cider changelog')
+      },
+      {
+        property: 'og:image',
+        content: computed(() => image.value || '')
+      }
+    ]
+  });
+
+
+  useHead({
+    htmlAttrs: {
+      style: 'scroll-behavior: smooth;'
+    }
   });
 </script>

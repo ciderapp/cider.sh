@@ -1,5 +1,5 @@
 import { logicAnd, logicNot } from "@vueuse/math";
-import { computed, ref } from "vue";
+import { computed, ref, getCurrentInstance } from "vue";
 import type { ComputedRef, WatchSource } from "vue";
 
 export interface ShortcutConfig {
@@ -31,6 +31,12 @@ interface Shortcut {
 }
 
 export const defineShortcuts = (config: ShortcutsConfig, options: ShortcutsOptions = {}) => {
+  // Use getCurrentInstance to check if we're in a valid component context
+  if (!getCurrentInstance()) {
+    console.warn('defineShortcuts must be called within a Vue component setup function');
+    return;
+  }
+  
   const { macOS, usingInput } = useShortcuts();
 
   let shortcuts: Shortcut[] = [];

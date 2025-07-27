@@ -11,13 +11,43 @@
     twitterImage: "/og.png",
   });
 
-  const { data } = await useAsyncData("latest-release", async () =>
-    queryContent("/changelogs/client-releases")
-      .sort({ releaseNo: -1, $numeric: true })
-      .only(["_path", "navigation"])
-      .limit(1)
-      .find()
-  );
+
+  interface RiseChangelogDetail {
+    shortDesc: string;
+    longDesc: string;
+    thumbnail?: string;
+    highlights: Array<{
+      name: string;
+      desc: string;
+      icon: string;
+    }>;
+    version: string;
+    lastUpdated: number;
+  }
+
+
+  const { data } = await useAsyncData("latest-release", async () => {
+    try {
+      const response = await $fetch<RiseChangelogDetail>('/api/changelogs/latest');
+      
+      return [{
+        _path: `/changelogs/${response.version}`,
+        navigation: {
+          headline: `New Release: Cider ${response.version}`,
+          date: new Date(response.lastUpdated).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+          })
+        },
+        title: `Cider ${response.version}`,
+        description: response.shortDesc
+      }];
+    } catch (error) {
+      console.error('Failed to fetch latest release:', error);
+      return null;
+    }
+  });
 
   const path = useRoute().fullPath;
   const isUwu = ref(false);

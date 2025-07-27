@@ -33,4 +33,6 @@ export const _useShortcuts = () => {
   };
 };
 
-export const useShortcuts = createSharedComposable(_useShortcuts);
+export const useShortcuts = () => {
+  return _useShortcuts();
+};

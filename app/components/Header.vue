@@ -151,9 +151,10 @@
 </style>
 
 <script lang="ts" setup>
-  const currentPath = ref(useRoute().fullPath);
+  const route = useRoute();
+  const currentPath = ref(route.fullPath);
   watch(
-    () => useRoute().fullPath,
+    () => route.fullPath,
     (val) => (currentPath.value = val)
   );
   const socialLinks = [
@@ -173,7 +174,14 @@
     },
   ];
 
-  const products = [
+  interface Product {
+    title: string;
+    description: string;
+    link: string;
+    badgeText?: string;
+  }
+
+  const products: Product[] = [
     {
       title: "Cider Client",
       description: "Available for Windows, macOS, and Linux! The main Cider client.",
@@ -204,7 +212,6 @@
   const isOpen = ref(false);
 
   const { metaSymbol } = useShortcuts();
-
   defineShortcuts({
     meta_k: () => {
       isOpen.value = !isOpen.value;
