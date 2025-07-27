@@ -196,6 +196,27 @@
     try {
       let markdown = page.value.longDesc;
       
+      // Preprocess markdown to fix common formatting issues
+      // Fix bullet points that might be improperly formatted
+      markdown = markdown.replace(/^-\s+/gm, '- ');
+      
+      // Handle the specific case where multiple bullet points are on one line
+      // Split entries that end with " - " followed by bold text
+      markdown = markdown.replace(/([^-\n]+)\s+-\s+(\*\*[^*]+\*\*:)/g, '$1\n- $2');
+      
+      // Ensure proper line breaks between bullet points
+      markdown = markdown.replace(/(\*\*[^*]+\*\*:[^-]+)-\s+\*\*/g, '$1\n- **');
+      
+      // Fix bullet points mixed with other content on same line
+      markdown = markdown.replace(/(\*\*[^*]+\*\*:[^-]+)\s+-\s+(\*\*[^*]+\*\*:)/g, '$1\n- $2');
+      
+      // Ensure proper spacing around bold text in lists
+      markdown = markdown.replace(/^-\s*(\*\*[^*]+\*\*)/gm, '- $1');
+      
+      // Fix lines that start with content and have bullet points mixed in
+      markdown = markdown.replace(/^([^-\n]*)-\s+(\*\*[^*]+\*\*:)/gm, '- $1\n- $2');
+      
+      // Add heading IDs
       markdown = markdown.replace(/^(#{1,6})\s+(.+)$/gm, (match: string, hashes: string, text: string) => {
         const id = generateHeadingId(text.trim());
         const level = hashes.length;
