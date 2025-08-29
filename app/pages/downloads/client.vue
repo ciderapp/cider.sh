@@ -264,7 +264,7 @@
             "Early access to new features and versions",
             "Support the development of Cider with beta testing",
             "Access to <a href='https://taproom.cider.sh' class='text-primary'>Taproom</a>",
-            "Availble through a variety of platforms",
+            "Available through a variety of platforms",
             "Access to Supporter Channels on Discord, where you can chat with the developers and other supporters",
           ],
           footer:
