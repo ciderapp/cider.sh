@@ -228,19 +228,6 @@
       color: "#d6aa68",
     },
     {
-      name: "GamingLiamStudios",
-      github: "https://github.com/GamingLiamStudios",
-      role: "Developer",
-      roles: [],
-      projects: ["cider-1", "cider-2"],
-      avatar: "https://avatars.githubusercontent.com/u/58615717?v=4",
-      twitter: "https://twitter.com/GLStudios_",
-      email: "gls@cider.sh",
-      quote: `you like jazz?`,
-      songId: "1673536432",
-      songTimestamp: 106,
-    },
-    {
       name: "Amaru",
       github: "https://github.com/Amaru8",
       role: "Developer",
@@ -279,7 +266,7 @@
     {
       name: "Monochromish",
       github: "https://github.com/Monochromish",
-      role: "Developer",
+      role: "Lead Developer",
       roles: [],
       projects: ["cider-2"],
       avatar: "https://avatars.githubusercontent.com/u/79590499?v=4",
