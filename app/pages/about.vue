@@ -201,17 +201,6 @@
       songTimestamp: 40,
     },
     {
-      name: "vapormusic",
-      github: "https://github.com/vapormusic",
-      role: "Developer",
-      roles: [],
-      projects: ["ame", "cider-1", "cider-2"],
-      avatar: "https://avatars.githubusercontent.com/u/27716185?v=4",
-      quote: `eh`,
-      color: "#000000",
-      songId: "1440838060",
-    },
-    {
       name: "Maikiwi",
       github: "https://github.com/maikirakiwi",
       role: "Lead Developer",
