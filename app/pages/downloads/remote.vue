@@ -12,11 +12,11 @@
       <p class="mx-auto max-w-[760px] text-center text-lg text-muted-foreground lg:text-xl">
         Seamlessly control your Cider Devices without interruptions or delays.
       </p>
-      <div class="mt-8 flex justify-center gap-8">
+      <div class="mt-8 flex justify-center gap-8 lg:flex-row">
         <NuxtLink to="https://apps.apple.com/us/app/cider-remote/id6670149407">
           <UiButton variant="outline">
             <Icon name="logos:apple-app-store" />
-            Get from the App Store
+            App Store
           </UiButton>
         </NuxtLink>
         <NuxtLink to="#android">
@@ -116,10 +116,12 @@
         About Remote on Android
       </h2>
       <p class="text-muted-foreground">
-        An Android version for Cider Remote has recently started being worked on. Although an ETA cannot be made yet.
-        <br /><br />
-        It's important to note that Cider Remote will have different interfaces (iOS / Android), which both versions are worked by two different people.
+        The official Cider Remote app is now available on Android for free, and open-source.
+        Test it now using the link below, and by downloading the APK file. The Android
+        version of Cider Remote is not managed or developed by Lumaa, but by other members of
+        Cider Collective.
       </p>
+      <a href="https://github.com/ciderapp/Cider-Remote-RN/releases/latest" class="text-center mt-6">Latest Version</a>
     </div>
 
     <div>
