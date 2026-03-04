@@ -6,7 +6,7 @@
 
     <!-- Desktop Tilted App Mockup Background -->
     <div 
-      class="relative hidden md:block w-[120vw] max-w-[1800px] perspective-container opacity-100 dark:opacity-80 mask-fade transition-transform duration-[50ms] ease-out mt-12"
+      class="relative hidden md:block w-[120vw] max-w-[1800px] perspective-container opacity-100 dark:opacity-80 mask-fade transition-transform [transition-duration:50ms] ease-out mt-12"
       :style="{ transform: `translateY(-${y * 0.4}px)` }"
     >
       <div class="hero-mockup-desktop animate-float-desktop blur-[8px]">
@@ -16,7 +16,7 @@
 
     <!-- Mobile Tilted App Mockup Background -->
     <div 
-      class="relative block md:hidden w-[350vw] sm:w-[250vw] max-w-none perspective-container-mobile opacity-100 dark:opacity-80 mask-fade-mobile transition-transform duration-[50ms] ease-out mt-[20vh]"
+      class="relative block md:hidden w-[350vw] sm:w-[250vw] max-w-none perspective-container-mobile opacity-100 dark:opacity-80 mask-fade-mobile transition-transform [transition-duration:50ms] ease-out mt-[20vh]"
       :style="{ transform: `translateY(-${y * 0.4}px)` }"
     >
       <div class="hero-mockup-mobile animate-float-mobile blur-[6px]">

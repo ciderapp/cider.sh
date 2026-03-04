@@ -1,3 +1,5 @@
+import path from "path";
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   future: {
@@ -24,13 +26,28 @@ export default defineNuxtConfig({
     "@nuxt/content",
     "@nuxt/icon",
     "@nuxt/image",
-    "@nuxt/fonts",
+    // "@nuxt/fonts",
     "@vueuse/nuxt",
     "@vee-validate/nuxt",
     "nuxt-swiper",
     "radix-vue/nuxt",
     "@vueuse/motion/nuxt",
-    "@nuxtjs/i18n"
+    "@nuxtjs/i18n",
+    // Override the Tailwind PostCSS plugin to point directly at tailwind.config.js
+    // instead of the generated .nuxt/tailwind/postcss.mjs, which uses import.meta
+    // and breaks when jiti loads it in a non-module context.
+    (_options, nuxt) => {
+      nuxt.hook("modules:done", () => {
+        const postcssPlugins = nuxt.options.postcss?.plugins as Record<string, unknown> | undefined;
+        if (
+          postcssPlugins?.tailwindcss &&
+          typeof postcssPlugins.tailwindcss === "string" &&
+          (postcssPlugins.tailwindcss as string).includes(".nuxt/tailwind/postcss.mjs")
+        ) {
+          postcssPlugins.tailwindcss = path.join(nuxt.options.rootDir, "tailwind.config.js");
+        }
+      });
+    },
   ],
 
   i18n: {
@@ -115,8 +132,9 @@ export default defineNuxtConfig({
   css: ["~/assets/css/styles.scss"],
 
   tailwindcss: {
-    exposeConfig: true,
+    exposeConfig: false,
     editorSupport: true,
+    viewer: false,
   },
 
   colorMode: {
