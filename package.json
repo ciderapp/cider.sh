@@ -14,10 +14,13 @@
     "@nuxt/content": "npm:@nuxt/content-edge@latest",
     "@nuxt/fonts": "^0.10.3",
     "@nuxt/image": "^1.10.0",
+    "@nuxtjs/i18n": "^10.2.3",
     "@nuxtjs/seo": "2.0.3",
     "@tailwindcss/forms": "^0.5.10",
     "@tailwindcss/typography": "^0.5.16",
     "@vee-validate/nuxt": "4.15.0",
+    "@vee-validate/zod": "4.15.1",
+    "@vueuse/motion": "^3.0.3",
     "marked": "^16.1.1",
     "nuxt": "^3.17.7",
     "nuxt-swiper": "^2.0.1",
@@ -52,5 +55,5 @@
     "tailwindcss-animate": "^1.0.7",
     "typescript": "^5.8.3"
   },
-  "packageManager": "pnpm@9.12.2"
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

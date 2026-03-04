@@ -3,15 +3,15 @@
     <p class="mb-8 text-center text-muted-foreground">
       {{ props.isDesktop ? "Cider" : "Remote" }} was built using these amazing frameworks and libraries
     </p>
-    <div class="flex flex-wrap items-center justify-center gap-5">
+    <div class="flex flex-wrap items-center justify-center gap-3 md:gap-5">
       <template v-for="n in companies" :key="n.text">
         <UiTooltip disable-closing-trigger>
           <template #trigger>
             <UiTooltipTrigger as-child>
               <NuxtLink :to="n.link">
                 <span class="sr-only">{{ n.text }}</span>
-                <Icon :name="n.icon" class="h-24 w-24" v-if="!n.icon.startsWith('/')"/>
-                <img :src="n.icon" class="h-24 w-24" v-if="n.icon.startsWith('/')"/>
+                <Icon :name="n.icon" class="h-16 w-16 md:h-20 md:w-20 lg:h-24 lg:w-24" v-if="!n.icon.startsWith('/')"/>
+                <img :src="n.icon" class="h-16 w-16 md:h-20 md:w-20 lg:h-24 lg:w-24" v-if="n.icon.startsWith('/')"/>
               </NuxtLink>
             </UiTooltipTrigger>
           </template>

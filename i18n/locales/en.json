@@ -1,0 +1,44 @@
+{
+  "seo": {
+    "title": "Home",
+    "description": "Cider is a community-ran software company focused on creating the best experience for end users. Discover a new cross-platform Apple Music experience."
+  },
+  "hero": {
+    "title": "Listening to Music",
+    "subtitle": "Redefined",
+    "description": "Immerse yourself in a beautifully crafted, wildly fast Apple Music app. Built from the ground up for true music lovers, offering unparalleled performance and customization.",
+    "get_cider": "Get Cider",
+    "learn_more": "Learn More"
+  },
+  "features_section": {
+    "label": "Features",
+    "title": "Built for Modern Music Lovers",
+    "description": "Experience your favorite tracks like never before. With a meticulously designed interface and ultra-responsive performance, Cider lets the music take center stage."
+  },
+  "features": {
+    "seamless_integrations": {
+      "title": "Seamless Integrations",
+      "description": "Cider comes with out-of-the-box integration with services like Discord, Last.fm, Spotify, and many more."
+    },
+    "audio_enhancements": {
+      "title": "Audio Enhancements",
+      "description": "Audio Spatialization, Adrenaline Processor™, and equalizers are actively developed by our local audio engineer, Maikiwi."
+    },
+    "remote_controllable": {
+      "title": "Remote Controllable",
+      "description": "No matter what you're doing away from your keyboard, you can control Cider however you like with Cider Remote."
+    },
+    "fast": {
+      "title": "Fast as F*ck",
+      "description": "Cider has native backends for each operating system. This ensures minimal overhead and maximum performance."
+    },
+    "customize": {
+      "title": "Customize however you like",
+      "description": "Built with customization in mind, you can customize your app from top to bottom! Cider also includes a robust plugin system for those who want to go the extra mile."
+    },
+    "much_more": {
+      "title": "And Much More!",
+      "description": "Cider is jam-packed with features, and we're always adding more. We are always looking for new ideas and suggestions from our users, so join our"
+    }
+  }
+}
