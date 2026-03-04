@@ -59,13 +59,11 @@
   "pnpm": {
     "supportedArchitectures": {
       "os": [
-        "current",
         "linux",
         "win32",
         "darwin"
       ],
       "cpu": [
-        "current",
         "x64",
         "arm64"
       ]
