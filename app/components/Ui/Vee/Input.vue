@@ -34,15 +34,15 @@
         @blur="handleBlur"
       />
     </div>
-    <TransitionSlide group tag="div">
-      <p v-if="hint && !errorMessage" key="hint" class="mt-1.5 text-sm text-muted-foreground">
+    <div class="mt-1.5 h-5">
+      <p v-if="hint && !errorMessage" class="text-sm text-muted-foreground transition-all duration-300">
         {{ hint }}
       </p>
 
-      <p v-if="errorMessage" key="errorMessage" class="mt-1.5 text-sm text-destructive">
+      <p v-if="errorMessage" class="text-sm text-destructive transition-all duration-300">
         {{ errorMessage }}
       </p>
-    </TransitionSlide>
+    </div>
   </div>
 </template>
 

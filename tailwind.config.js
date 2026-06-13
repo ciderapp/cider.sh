@@ -1,8 +1,22 @@
-const { fontFamily } = require("tailwindcss/defaultTheme");
+import defaultTheme from "tailwindcss/defaultTheme.js";
+import tailwindcssAnimate from "tailwindcss-animate";
+import tailwindcssForms from "@tailwindcss/forms";
+import tailwindcssTypography from "@tailwindcss/typography";
 
 /**@type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   darkMode: "class",
+  content: [
+    "./app/components/**/*.{vue,js,ts}",
+    "./app/layouts/**/*.vue",
+    "./app/pages/**/*.vue",
+    "./app/composables/**/*.{js,ts}",
+    "./app/plugins/**/*.{js,ts}",
+    "./app/utils/**/*.{js,ts}",
+    "./app/app.vue",
+    "./app/error.vue",
+    "./content/**/*.md",
+  ],
   theme: {
     extend: {
       container: {
@@ -18,12 +32,12 @@ module.exports = {
       },
       fontFamily: {
         sans: [
-          `Inter, ${fontFamily.sans.join(", ")}`,
+          `Inter, ${defaultTheme.fontFamily.sans.join(", ")}`,
           {
             fontFeatureSettings: '"cv02","cv03","cv04","cv11"',
           },
         ],
-        mono: ["'Fira Code'", ...fontFamily.mono],
+        mono: ["'Fira Code'", ...defaultTheme.fontFamily.mono],
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -139,8 +153,8 @@ module.exports = {
     },
   },
   plugins: [
-    require("tailwindcss-animate"),
-    require("@tailwindcss/forms")({ strategy: "class" }),
-    require("@tailwindcss/typography"),
+    tailwindcssAnimate,
+    tailwindcssForms({ strategy: "class" }),
+    tailwindcssTypography,
   ],
 };

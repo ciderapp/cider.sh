@@ -1,26 +1,21 @@
 <template>
-  <header class="sticky top-0 z-30 border-b bg-background/85 backdrop-blur">
-    <div class="container flex h-14 items-center justify-between">
-      <div class="flex items-center gap-10">
-        <div class="flex items-center gap-5">
-          <UiButton
-            size="icon-sm"
-            variant="outline"
-            class="h-9 w-9 lg:hidden"
-            @click="mobileNav = true"
-            ><Icon name="heroicons:bars-3" class="h-4 w-4" />
-          </UiButton>
+  <header class="fixed left-1/2 top-4 z-40 w-full max-w-4xl -translate-x-1/2 px-4 transition-all duration-300 hidden md:block">
+    <div class="flex h-[3.25rem] items-center justify-between rounded-full border border-border/50 bg-background/50 px-5 shadow-lg backdrop-blur-xl">
+      <!-- Left: Logo -->
+      <div class="flex flex-1 items-center justify-start">
+        <NuxtLink to="/" class="flex items-center text-lg font-bold transition-transform hover:scale-[1.02]">
+          <div class="mr-2 flex rounded-xl bg-black p-1 dark:bg-black/0">
+            <NuxtImg src="/CC24-transparent.svg" class="h-6 w-6" />
+          </div>
 
-          <NuxtLink to="/" class="flex items-center text-lg font-bold">
-            <div class="mr-2 flex rounded-md bg-black p-1 dark:bg-black/0">
-              <NuxtImg src="/CC24-transparent.svg" class="h-8 w-8" />
-            </div>
+          <span class="hidden text-base md:block">Cider Collective</span>
+          <span class="text-md font-bold md:hidden">CC</span>
+        </NuxtLink>
+      </div>
 
-            <span class="hidden md:block">Cider Collective</span>
-            <span class="text-md font-bold md:hidden">CC</span>
-          </NuxtLink>
-        </div>
-        <nav class="hidden items-center space-x-6 text-sm font-medium lg:flex">
+      <!-- Center: Nav Links -->
+      <div class="hidden flex-shrink-0 items-center justify-center md:flex">
+        <nav class="flex items-center space-x-1 text-sm font-medium">
           <UiNavigationMenu>
             <UiNavigationMenuList>
               <UiNavigationMenuItem
@@ -29,20 +24,20 @@
                     ? '!text-foreground'
                     : '',
                 ]"
-                class="text-foreground/60 transition-colors hover:text-foreground"
+                class="text-foreground/70 transition-colors hover:text-foreground"
               >
-                <UiNavigationMenuTrigger title="Products" />
+            <UiNavigationMenuTrigger title="Products" class="h-8 rounded-full bg-transparent px-3 py-1.5 text-sm font-medium transition-colors hover:bg-muted" />
                 <UiNavigationMenuContent>
                   <div class="grid w-[350px] grid-cols-1 gap-5 p-4">
-                    <ul class="flex flex-col gap-2">
+                    <ul class="flex flex-col gap-1">
                       <li
                         v-for="(item, i) in products"
                         :key="i"
-                        class="rounded-md p-3 text-sm hover:bg-muted"
+                        class="group rounded-xl p-3 text-sm transition-colors hover:bg-muted/50"
                       >
                         <NuxtLink :to="item.link">
-                          <div class="flex w-full">
-                            <p class="mb-1 font-semibold leading-none text-foreground">
+                          <div class="flex w-full items-center">
+                            <p class="mb-1.5 font-medium leading-none text-foreground transition-colors group-hover:text-primary">
                               {{ item.title }}
                               <UiBadge
                                 v-if="item.badgeText"
@@ -62,44 +57,25 @@
               </UiNavigationMenuItem>
 
               <!-- Changelogs -->
-              <UiNavigationMenuItem>
-                <UiNavigationMenuLink
-                  asChild
-                  :class="[currentPath.includes('/changelogs') ? '!text-foreground' : '']"
-                  class="text-foreground/60 transition-colors hover:text-foreground"
-                >
-                  <UiButton variant="link" to="/changelogs">Changelogs</UiButton>
-                </UiNavigationMenuLink>
-              </UiNavigationMenuItem>
-
-              <!-- Documentation -->
-              <UiNavigationMenuItem>
-                <UiNavigationMenuLink
-                  asChild
-                  :class="[currentPath.includes('/docs') ? '!text-foreground' : '']"
-                  class="text-foreground/60 transition-colors hover:text-foreground"
-                >
-                  <UiButton variant="link" to="/docs">Documentation</UiButton>
-                </UiNavigationMenuLink>
-              </UiNavigationMenuItem>
-
               <!-- Marketplace -->
               <UiNavigationMenuItem>
                 <UiNavigationMenuLink
                   asChild
-                  class="text-foreground/60 transition-colors hover:text-foreground"
+                  :class="[currentPath.includes('/marketplace') ? '!bg-primary/10 !text-primary' : '']"
+                  class="rounded-full text-foreground/70 transition-colors"
                 >
-                  <UiButton variant="link" to="/marketplace">Marketplace</UiButton>
+                  <UiButton variant="ghost" size="sm" class="rounded-full hover:bg-muted hover:text-foreground" to="/marketplace">Marketplace</UiButton>
                 </UiNavigationMenuLink>
               </UiNavigationMenuItem>
 
-              <!-- Taproom -->
+              <!-- Taproom (formerly Docs) -->
               <UiNavigationMenuItem>
                 <UiNavigationMenuLink
                   asChild
-                  class="text-foreground/60 transition-colors hover:text-foreground"
+                  :class="[currentPath.includes('/taproom') ? '!bg-primary/10 !text-primary' : '']"
+                  class="rounded-full text-foreground/70 transition-colors"
                 >
-                  <UiButton variant="link" to="/taproom">Taproom</UiButton>
+                  <UiButton variant="ghost" size="sm" class="rounded-full hover:bg-muted hover:text-foreground" to="/taproom">Taproom</UiButton>
                 </UiNavigationMenuLink>
               </UiNavigationMenuItem>
             </UiNavigationMenuList>
@@ -107,48 +83,33 @@
         </nav>
       </div>
 
-      <div class="flex items-center">
+      <!-- Right: Search -->
+      <div class="flex flex-1 items-center justify-end">
         <UiButton
           size="sm"
-          class="mr-2 hidden min-w-[300px] font-normal text-muted-foreground md:flex"
-          variant="outline"
-          @click="isOpen = true"
-        >
-          <Icon name="fe:search" />
-          Search...
-          <UiKbd class="ml-auto">{{ metaSymbol }}+K</UiKbd>
-        </UiButton>
-        <UiButton
-          size="icon"
-          class="mr-2 text-muted-foreground md:hidden"
+          class="hidden h-[2.125rem] w-48 items-center justify-between rounded-full bg-muted/50 pl-3 pr-1.5 font-normal text-muted-foreground transition-colors hover:bg-muted lg:flex"
           variant="ghost"
           @click="isOpen = true"
         >
-          <Icon name="fe:search" class="mt-1 h-[25px] w-[25px]" />
+          <span class="flex items-center gap-2">
+            <Icon name="fe:search" class="h-4 w-4" />
+            <span class="text-sm">Search...</span>
+          </span>
+          <UiKbd class="flex h-5 items-center rounded-md border-none bg-background/50 px-1.5 font-sans text-[11px] font-medium">{{ metaSymbol }} K</UiKbd>
         </UiButton>
-        <div class="social-icons flex items-center gap-3">
-          <NuxtLink v-for="link in socialLinks" :key="link.url" :to="link.url" target="_blank">
-            <Icon :name="link.icon" />
-          </NuxtLink>
-        </div>
+        <UiButton
+          size="icon"
+          class="text-muted-foreground lg:hidden"
+          variant="ghost"
+          @click="isOpen = true"
+        >
+          <Icon name="fe:search" class="h-5 w-5" />
+        </UiButton>
         <CommandSearch v-model="isOpen" />
       </div>
     </div>
-    <MobileNav v-model="mobileNav" v-if="mobileNav" />
   </header>
 </template>
-
-<style scoped lang="scss">
-  .social-icons .icon {
-    width: auto;
-    height: 1.35rem;
-    opacity: 0.8;
-    transition: opacity 0.2s ease-in-out;
-    &:hover {
-      opacity: 1;
-    }
-  }
-</style>
 
 <script lang="ts" setup>
   const route = useRoute();
@@ -157,22 +118,6 @@
     () => route.fullPath,
     (val) => (currentPath.value = val)
   );
-  const socialLinks = [
-    {
-      url: "https://github.com/ciderapp/",
-      icon: "simple-icons:github",
-    },
-    {
-      url: "https://x.com/useCider",
-      icon: "simple-icons:x",
-    },
-
-    { url: "https://discord.gg/applemusic", icon: "simple-icons:discord" },
-    {
-      url: "https://opencollective.com/ciderapp",
-      icon: "simple-icons:opencollective",
-    },
-  ];
 
   interface Product {
     title: string;
@@ -183,14 +128,14 @@
 
   const products: Product[] = [
     {
-      title: "Cider Client",
-      description: "Available for Windows, macOS, and Linux! The main Cider client.",
-      link: "/downloads/client",
+      title: "Cider",
+      description: "Our flagship Apple Music client, built for performance and customization.",
+      link: "/downloads",
     },
     {
       title: "Cider Remote",
-      description: "Easily control your music from your phone or tablet.",
-      link: "remote",
+      description: "Control your listening experience seamlessly from any mobile device.",
+      link: "/remote",
     },
     // {
     //   title: "Cider Connect",
@@ -206,8 +151,6 @@
     { icon: "lucide:moon", title: "Dark", value: "dark" },
     { icon: "lucide:laptop", title: "System", value: "system" },
   ];
-
-  const mobileNav = ref(false);
 
   const isOpen = ref(false);
 

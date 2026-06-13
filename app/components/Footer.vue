@@ -1,7 +1,7 @@
 <template>
   <UiContainer
     as="footer"
-    class="flex flex-col items-center justify-between gap-7 border-t py-12 lg:flex-row"
+    class="mt-10 mb-24 flex flex-col items-center justify-between gap-7 py-8 md:rounded-3xl md:border md:border-border/50 md:bg-card/30 md:p-8 lg:mb-10 lg:flex-row lg:px-12"
   >
     <NuxtLink to="#" class="flex items-center gap-3">
       <!-- eslint-disable-next-line vue/html-self-closing -->
@@ -34,8 +34,8 @@
       path: "/changelogs",
     },
     {
-      title: "Docs",
-      path: "/docs",
+      title: "Taproom",
+      path: "/taproom",
     },
     {
       title: "About Us",

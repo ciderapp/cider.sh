@@ -1,16 +1,14 @@
 <script lang="ts" setup>
-  definePageMeta({
-    title: "Home",
-    description:
-      "A community-ran and maintained software company focused on creating the best experience for end users. Home of Cider and Remote.",
-    ogDescription:
-      "A community-ran and maintained software company focused on creating the best experience for end users. Home of Cider and Remote.",
-    twitterDescription:
-      "A community-ran and maintained software company focused on creating the best experience for end users. Home of Cider and Remote.",
+  const { t, locale } = useI18n();
+
+  useSeoMeta({
+    title: t("seo.title"),
+    description: t("seo.description"),
+    ogDescription: t("seo.description"),
+    twitterDescription: t("seo.description"),
     ogImage: "/og.png",
     twitterImage: "/og.png",
   });
-
 
   interface RiseChangelogDetail {
     shortDesc: string;
@@ -25,26 +23,27 @@
     lastUpdated: number;
   }
 
-
   const { data } = await useAsyncData("latest-release", async () => {
     try {
-      const response = await $fetch<RiseChangelogDetail>('/api/changelogs/latest');
-      
-      return [{
-        _path: `/changelogs/${response.version}`,
-        navigation: {
-          headline: `New Release: Cider ${response.version}`,
-          date: new Date(response.lastUpdated).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-          })
+      const response = await $fetch<RiseChangelogDetail>("/api/changelogs/latest");
+
+      return [
+        {
+          _path: `/changelogs/${response.version}`,
+          navigation: {
+            headline: `New Release: Cider ${response.version}`,
+            date: new Date(response.lastUpdated).toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            }),
+          },
+          title: `Cider ${response.version}`,
+          description: response.shortDesc,
         },
-        title: `Cider ${response.version}`,
-        description: response.shortDesc
-      }];
+      ];
     } catch (error) {
-      console.error('Failed to fetch latest release:', error);
+      console.error("Failed to fetch latest release:", error);
       return null;
     }
   });
@@ -55,155 +54,222 @@
     isUwu.value = true;
   }
 
-  let images = ["/client-immersive.png", "/client-comfy.png", "/client-compact.png"];
-  const features = [
+  let images = ["/client-immersive.png", "/client-interface.png", "/client-lovers.png"];
+
+  const features = computed(() => [
     {
       icon: "heroicons:link",
-      title: "Seamless Integrations",
-      description:
-        "Cider comes with out-of-the-box integration with services like Discord, Last.fm, Spotify, and many more.",
+      title: t("features.seamless_integrations.title"),
+      description: t("features.seamless_integrations.description"),
     },
     {
       icon: "material-symbols:spatial-tracking-rounded",
-      title: "Audio Enhancements",
-      description:
-        "Audio Spatialization, Adrenaline Processor™, and equalizers are actively developed by our local audio engineer, Maikiwi.",
+      title: t("features.audio_enhancements.title"),
+      description: t("features.audio_enhancements.description"),
     },
     {
       icon: "material-symbols:nest-remote",
-      title: "Remote Controllable",
-      description: `No matter what you're doing away from your keyboard, you can control Cider however you like with Cider Remote.`,
+      title: t("features.remote_controllable.title"),
+      description: t("features.remote_controllable.description"),
     },
     {
       icon: "heroicons:bolt",
-      title: "Fast as F*ck",
-      description:
-        "Cider has native backends for each operating system. This ensures minimal overhead and maximum performance.",
+      title: t("features.fast.title"),
+      description: t("features.fast.description"),
     },
     {
       icon: "material-symbols:dashboard-customize",
-      title: "Customize however you like",
-      description:
-        "Built with customization in mind, you can customize your client from top to bottom! Cider also includes a robust plugin system for those who want to go the extra mile.",
+      title: t("features.customize.title"),
+      description: t("features.customize.description"),
     },
     {
       icon: "heroicons:heart",
-      title: "And Much More!",
-      description: `Cider is jam-packed with features, and we're always adding more. We are always looking for new ideas and suggestions from our users, so join our <a href="https://discord.gg/applemusic">Discord server</a> server to get involved!`,
+      title: t("features.much_more.title"),
+      description: t("features.much_more.description"),
     },
-  ];
+  ]);
 </script>
 
 <template>
-  <main class="overflow-hidden">
-    <div
-      class="spin relative mx-auto flex h-max w-max items-center justify-center opacity-50 blur-[120px] filter"
-    >
-      <div class="absolute inset-0 flex items-center justify-center">
+  <main class="overflow-x-clip">
+    <ShowcaseScroll :images="images">
+      <template #title>
+        <HeroBackground />
         <div
-          class="absolute h-[40rem] w-[40rem] rounded-full bg-rose-600"
-          style="transform: translate(-20%, 0)"
-        ></div>
-        <div
-          class="absolute h-[40rem] w-[40rem] rounded-full bg-cider"
-          style="transform: translate(10%, -35%)"
-        ></div>
-        <div
-          class="absolute h-[40rem] w-[40rem] rounded-full bg-rose-800"
-          style="transform: translate(10%, 35%)"
-        ></div>
-      </div>
-    </div>
-    <UiContainer class="relative flex flex-col items-center py-10 text-center lg:py-20">
-      <div v-if="data">
-        <UiBadge
-          :to="data[0]?._path"
-          variant="secondary"
-          class="px-3 py-1.5 text-sm font-normal backdrop-blur-md dark:bg-transparent dark:backdrop-brightness-50 lg:py-2"
+          class="relative z-10 mt-8 flex flex-col items-center justify-center text-center md:mt-12"
         >
-          {{ data[0]?.navigation.headline }}
-          <Icon class="ml-3 h-4 w-4" name="lucide:arrow-right" />
-        </UiBadge>
-      </div>
-      <div class="flex flex-col-reverse md:flex-row">
-        <div :class="[isUwu ? 'w-full max-w-[760px] max-w-xl justify-between !text-left' : '']">
-          <h1
-            class="mb-4 mt-7 text-4xl font-extrabold lg:mb-6 lg:mt-5 lg:text-center lg:text-5xl xl:text-6xl"
-            :class="[isUwu ? '!text-left' : '']"
-          >
-            Listening to music<br />Redefined
-          </h1>
-          <p
-            class="mx-auto max-w-[760px] text-lg text-muted-foreground lg:text-center lg:text-xl"
-            :class="[isUwu ? '!text-left' : '']"
-          >
-            Cider is a new cross-platform Apple Music experience built on Vue.js and written from
-            the ground up with performance in mind. 🚀
-          </p>
-
-          <div
-            class="mt-8 flex w-full items-center justify-center gap-3 lg:mt-10"
-            :class="[isUwu ? 'md:justify-start md:text-left' : '']"
-          >
-            <NuxtLink to="/downloads">
-              <UiButton>Get Cider</UiButton>
-            </NuxtLink>
-            <NuxtLink to="/learn-more">
-              <UiButton
-                type="button"
-                variant="ghost"
-                class="learn-more hover:gap-5 hover:bg-transparent hover:underline"
+          <div v-if="data">
+            <UiBadge
+              :to="data[0]?._path"
+              variant="secondary"
+              class="pointer-events-auto bg-secondary/50 px-3 py-1.5 text-sm font-normal backdrop-blur-md dark:bg-black/40 lg:py-2"
+            >
+              {{ data[0]?.navigation.headline }}
+              <Icon class="ml-3 h-4 w-4" name="lucide:arrow-right" />
+            </UiBadge>
+          </div>
+          <div class="flex flex-col-reverse md:flex-row">
+            <div :class="[isUwu ? 'w-full max-w-[760px] max-w-xl justify-between !text-left' : '']">
+              <h1
+                class="mb-6 mt-7 text-5xl font-extrabold leading-tight tracking-tight lg:mb-8 lg:mt-8 lg:text-center lg:text-6xl xl:text-7xl"
+                :class="[isUwu ? '!text-left' : '']"
               >
-                Learn More
-                <Icon name="material-symbols:arrow-right-alt-rounded" size="24px" />
-              </UiButton>
-            </NuxtLink>
+                {{ $t("hero.title") }}<br />
+                <span class="inline-block">
+                  <span
+                    v-for="(char, index) in String($t('hero.subtitle')).split('')"
+                    :key="index"
+                    class="animate-wave-char whitespace-pre"
+                    :style="{ animationDelay: `${index * 0.08 + 0.2}s` }"
+                    >{{ char }}</span
+                  >
+                </span>
+              </h1>
+              <p
+                class="mx-auto hidden max-w-[760px] text-lg leading-relaxed text-muted-foreground md:block lg:text-center lg:text-xl"
+                :class="[isUwu ? '!text-left' : '']"
+              >
+                {{ $t("hero.description") }}
+              </p>
+
+              <div
+                class="pointer-events-auto mt-8 flex w-full flex-col items-center justify-center gap-6 lg:mt-12"
+                :class="[isUwu ? 'md:items-start md:text-left' : '']"
+              >
+                <NuxtLink to="/downloads" class="hidden md:block">
+                  <UiButton size="lg" class="rounded-full px-8 text-base">
+                    <Icon name="lucide:shopping-bag" class="mr-2 h-5 w-5" />
+                    {{ $t("hero.get_cider") }}
+                  </UiButton>
+                </NuxtLink>
+                <div
+                  class="animate-float mt-12 flex flex-col items-center gap-2 text-muted-foreground opacity-80 lg:mt-24"
+                >
+                  <span class="text-xs font-semibold uppercase tracking-widest">See more</span>
+                  <Icon name="lucide:chevron-down" size="32px" />
+                </div>
+              </div>
+            </div>
+            <div v-if="isUwu" class="max-w-xl md:pl-20">
+              <NuxtImg src="/uwu-logo.png" alt="Cider Logo" class="mx-auto" />
+            </div>
           </div>
         </div>
-        <div v-if="isUwu" class="max-w-xl md:pl-20">
-          <NuxtImg src="/uwu-logo.png" alt="Cider Logo" class="mx-auto" />
-        </div>
-      </div>
+      </template>
+    </ShowcaseScroll>
 
-      <Carousel :images="images" />
-    </UiContainer>
     <BuiltUsing />
     <UiContainer class="features py-16 lg:p-20">
-      <p class="text-center font-semibold text-primary">Features</p>
-      <h2 class="mb-4 mt-3 text-center text-3xl font-semibold lg:mb-5 lg:text-4xl">
-        Built for the Modern Music Lovers
+      <p
+        class="text-center font-semibold text-primary"
+        v-motion
+        :initial="{ opacity: 0 }"
+        :visible-once="{ opacity: 1, transition: { duration: 500 } }"
+      >
+        {{ $t("features_section.label") }}
+      </p>
+      <h2
+        class="mb-4 mt-3 text-center text-3xl font-semibold lg:mb-5 lg:text-4xl"
+        v-motion
+        :initial="{ opacity: 0, y: 30 }"
+        :visible-once="{ opacity: 1, y: 0, transition: { duration: 500, delay: 100 } }"
+      >
+        {{ $t("features_section.title") }}
       </h2>
-      <p class="mx-auto max-w-[760px] text-center text-lg text-muted-foreground lg:text-xl">
-        Cider is a powerful music player that allows you listen to your favorite tracks with style.
-        Thanks to its modern design and intuitive interface, you can enjoy your music without any
-        distractions.
+      <p
+        class="mx-auto max-w-[760px] text-center text-lg text-muted-foreground lg:text-xl"
+        v-motion
+        :initial="{ opacity: 0, y: 30 }"
+        :visible-once="{ opacity: 1, y: 0, transition: { duration: 500, delay: 200 } }"
+      >
+        {{ $t("features_section.description") }}
       </p>
 
       <div
-        class="grid grid-cols-1 gap-y-10 py-10 md:grid-cols-2 lg:grid-cols-3 lg:gap-8 lg:gap-y-16 lg:py-16"
+        class="grid grid-cols-1 gap-y-4 py-10 md:grid-cols-2 md:gap-y-10 lg:grid-cols-3 lg:gap-8 lg:gap-y-16 lg:py-16"
       >
         <template v-for="(f, i) in features" :key="i">
-          <div class="group flex flex-col items-center justify-center">
-            <div class="flex h-12 w-12 items-center justify-center rounded-md border">
+          <div
+            class="group flex flex-row items-center gap-5 rounded-3xl border border-border/50 bg-card p-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl md:flex-col md:justify-center md:gap-0 md:p-8"
+            v-motion
+            :initial="{ opacity: 0, y: 50 }"
+            :visible-once="{ opacity: 1, y: 0, transition: { duration: 500, delay: 50 } }"
+          >
+            <div
+              class="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-2xl border bg-background/50 shadow-sm transition-transform duration-300 group-hover:scale-110 group-hover:border-primary/50 md:h-12 md:w-12 md:rounded-xl"
+            >
               <Icon
                 :name="f.icon"
-                class="h-5 w-5 transition-colors group-hover:text-primary lg:h-6 lg:w-6"
+                class="h-6 w-6 transition-colors group-hover:text-primary md:h-5 md:w-5 lg:h-6 lg:w-6"
               />
             </div>
-            <h3
-              class="mt-4 text-balance text-center text-lg font-semibold lg:mt-5 lg:text-xl"
-              v-html="f.title"
-            />
-            <p
-              class="mt-1 max-w-[400px] text-balance text-center text-muted-foreground lg:mt-2"
-              v-html="f.description"
-            />
+            <div class="flex flex-col text-left md:text-center">
+              <h3 class="text-balance text-lg font-semibold md:mt-5 lg:mt-6 lg:text-xl">
+                {{ f.title }}
+              </h3>
+              <p
+                class="mt-1 text-balance text-sm text-muted-foreground md:mt-2 md:text-base lg:mt-3"
+              >
+                {{ f.description }}
+                <template v-if="f.icon === 'heroicons:heart'">
+                  <a href="https://discord.gg/applemusic" class="text-primary hover:underline"
+                    >Discord server</a
+                  >
+                  to get involved!
+                </template>
+              </p>
+            </div>
           </div>
         </template>
       </div>
     </UiContainer>
 
     <Testimonies />
+
+    <!-- Bottom CTA Section -->
+    <UiContainer class="py-20 lg:py-32">
+      <div class="flex flex-col items-center justify-center text-center">
+        <h2
+          class="mb-4 text-4xl font-extrabold tracking-tight lg:text-5xl"
+          v-motion
+          :initial="{ opacity: 0, y: 30 }"
+          :visible-once="{ opacity: 1, y: 0, transition: { duration: 500 } }"
+        >
+          Ready to get started?
+        </h2>
+        <p
+          class="mx-auto max-w-[600px] text-lg text-muted-foreground lg:text-xl"
+          v-motion
+          :initial="{ opacity: 0, y: 30 }"
+          :visible-once="{ opacity: 1, y: 0, transition: { duration: 500, delay: 100 } }"
+        >
+          Join thousands of other users and elevate your Apple Music experience today.
+        </p>
+        <div
+          class="mt-8 flex w-full flex-col items-center justify-center gap-4 sm:flex-row lg:mt-12"
+          v-motion
+          :initial="{ opacity: 0, y: 30 }"
+          :visible-once="{ opacity: 1, y: 0, transition: { duration: 500, delay: 200 } }"
+        >
+          <NuxtLink to="/downloads" class="hidden w-full sm:w-auto md:block">
+            <UiButton size="lg" class="w-full rounded-full px-8 text-base sm:w-auto">
+              {{ $t("hero.get_cider") }}
+            </UiButton>
+          </NuxtLink>
+          <NuxtLink to="/learn-more" class="w-full sm:w-auto">
+            <UiButton
+              size="lg"
+              type="button"
+              variant="secondary"
+              class="learn-more w-full rounded-full px-8 text-base hover:gap-5 sm:w-auto"
+            >
+              {{ $t("hero.learn_more") }}
+              <Icon name="material-symbols:arrow-right-alt-rounded" size="24px" class="ml-2" />
+            </UiButton>
+          </NuxtLink>
+        </div>
+      </div>
+    </UiContainer>
   </main>
 </template>
 
@@ -214,13 +280,32 @@
     transition: gap 0.2s ease-in-out;
   }
 
-  .spin {
-    animation: spin 20s linear infinite;
+  .animate-wave-char {
+    display: inline-block;
+    animation: gentle-lift 1.2s ease-in-out both;
   }
 
-  @keyframes spin {
+  @keyframes gentle-lift {
+    0%,
     100% {
-      transform: rotate(1turn);
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-12px);
+    }
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(10px);
     }
   }
 </style>

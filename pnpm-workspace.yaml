@@ -1,0 +1,11 @@
+supportedArchitectures:
+  os:
+    - linux
+    - win32
+    - darwin
+  cpu:
+    - x64
+    - arm64
+  libc:
+    - glibc
+    - musl

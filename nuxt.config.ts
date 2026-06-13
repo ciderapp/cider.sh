@@ -1,3 +1,5 @@
+import path from "path";
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   future: {
@@ -24,13 +26,48 @@ export default defineNuxtConfig({
     "@nuxt/content",
     "@nuxt/icon",
     "@nuxt/image",
-    "@nuxt/fonts",
+    // "@nuxt/fonts",
     "@vueuse/nuxt",
     "@vee-validate/nuxt",
-    "@morev/vue-transitions/nuxt",
     "nuxt-swiper",
     "radix-vue/nuxt",
+    "@vueuse/motion/nuxt",
+    "@nuxtjs/i18n",
+    // Override the Tailwind PostCSS plugin to point directly at tailwind.config.js
+    // instead of the generated .nuxt/tailwind/postcss.mjs, which uses import.meta
+    // and breaks when jiti loads it in a non-module context.
+    (_options, nuxt) => {
+      nuxt.hook("modules:done", () => {
+        const postcssPlugins = nuxt.options.postcss?.plugins as Record<string, unknown> | undefined;
+        if (
+          postcssPlugins?.tailwindcss &&
+          typeof postcssPlugins.tailwindcss === "string" &&
+          (postcssPlugins.tailwindcss as string).includes(".nuxt/tailwind/postcss.mjs")
+        ) {
+          postcssPlugins.tailwindcss = path.join(nuxt.options.rootDir, "tailwind.config.js");
+        }
+      });
+    },
   ],
+
+  i18n: {
+    locales: [
+      { code: 'en', file: 'en.json', name: 'English' },
+      { code: 'es', file: 'es.json', name: 'Español' },
+      { code: 'fr', file: 'fr.json', name: 'Français' },
+      { code: 'de', file: 'de.json', name: 'Deutsch' },
+      { code: 'ja', file: 'ja.json', name: '日本語' },
+      { code: 'ko', file: 'ko.json', name: '한국어' },
+      { code: 'zh', file: 'zh.json', name: '中文' },
+      { code: 'ru', file: 'ru.json', name: 'Русский' },
+      { code: 'it', file: 'it.json', name: 'Italiano' },
+      { code: 'tr', file: 'tr.json', name: 'Türkçe' },
+      { code: 'pl', file: 'pl.json', name: 'Polski' },
+      { code: 'nl', file: 'nl.json', name: 'Nederlands' }
+    ],
+    defaultLocale: 'en',
+    strategy: 'prefix_except_default'
+  },
 
   content: {
     ignores: ["/changelogs/images", "\\.html$", "CNAME"],
@@ -72,15 +109,7 @@ export default defineNuxtConfig({
       ],
     },
     sources: {
-      documentation: {
-        prefix: "/docs",
-        driver: "github",
-        repo: "ciderapp/docs",
-        branch: "main",
-        dir: "/docs",
-        token: process.env.GITHUB_PAT,
-      },
-
+      
     },
   },
 
@@ -92,8 +121,6 @@ export default defineNuxtConfig({
     "/downloads/client": { prerender: true },
     "/changelogs": { prerender: true },
     "/changelogs/**": { isr: 60 },
-    "/docs": { redirect: "/docs/client/rpc" },
-    "/docs/**": { isr: 60 },
     "/downloads/remote": { prerender: true },
     "/remote": { redirect: "/downloads/remote" },
     "/marketplace": { redirect: "https://marketplace.cider.sh" },
@@ -105,8 +132,9 @@ export default defineNuxtConfig({
   css: ["~/assets/css/styles.scss"],
 
   tailwindcss: {
-    exposeConfig: true,
+    exposeConfig: false,
     editorSupport: true,
+    viewer: false,
   },
 
   colorMode: {

@@ -7,9 +7,9 @@
   </div>
 </template>
 <script setup lang="ts">
+  const { locale } = useI18n();
 
   useSeoMeta({
-    title: `Home`,
     titleTemplate: "%s | Cider Collective",
     twitterCard: "summary_large_image",
     twitterSite: "@UseCider",
@@ -17,11 +17,11 @@
     ogSiteName: "Cider Collective",
     ogUrl: "https://cider.sh",
     themeColor: "#e83057",
-    ogLocale: "en_US",
+    ogLocale: () => locale.value,
   });
   useHead({
     htmlAttrs: {
-      lang: "en-US",
+      lang: () => locale.value,
     },
     link: [
       {

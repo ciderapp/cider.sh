@@ -1,6 +1,7 @@
 {
   "name": "cider-website",
-  "private": true,
+  "version": "4.0.0",
+  "repository": "https://github.com/ciderapp/cider.sh",
   "type": "module",
   "scripts": {
     "build": "nuxt build",
@@ -12,12 +13,15 @@
   "dependencies": {
     "@morev/vue-transitions": "^3.0.5",
     "@nuxt/content": "npm:@nuxt/content-edge@latest",
-    "@nuxt/fonts": "^0.10.3",
+    "@nuxt/fonts": "^0.14.0",
     "@nuxt/image": "^1.10.0",
+    "@nuxtjs/i18n": "^10.2.3",
     "@nuxtjs/seo": "2.0.3",
     "@tailwindcss/forms": "^0.5.10",
     "@tailwindcss/typography": "^0.5.16",
     "@vee-validate/nuxt": "4.15.0",
+    "@vee-validate/zod": "4.15.1",
+    "@vueuse/motion": "^3.0.3",
     "marked": "^16.1.1",
     "nuxt": "^3.17.7",
     "nuxt-swiper": "^2.0.1",
@@ -52,5 +56,18 @@
     "tailwindcss-animate": "^1.0.7",
     "typescript": "^5.8.3"
   },
-  "packageManager": "pnpm@9.12.2"
+  "pnpm": {
+    "supportedArchitectures": {
+      "os": [
+        "linux",
+        "win32",
+        "darwin"
+      ],
+      "cpu": [
+        "x64",
+        "arm64"
+      ]
+    }
+  },
+  "packageManager": "pnpm@10.15.1+sha512.34e538c329b5553014ca8e8f4535997f96180a1d0f614339357449935350d924e22f8614682191264ec33d1462ac21561aff97f6bb18065351c162c7e8f6de67"
 }
