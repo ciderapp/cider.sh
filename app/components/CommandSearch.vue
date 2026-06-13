@@ -6,15 +6,17 @@
         Search the documentation for components, utilities, and more.
       </UiDialogDescription>
 
-      <!-- <UiCommandInput placeholder="Search..." /> -->
-      <UiVeeInput
-        v-model="search"
-        placeholder="Search..."
-        icon="mdi:search"
-        class="border-none focus:border-none"
-      />
+      <div class="flex items-center border-b px-3" cmdk-input-wrapper="">
+        <Icon name="mdi:search" class="mr-2 h-4 w-4 shrink-0 opacity-50" />
+        <input
+          v-model="search"
+          placeholder="Search..."
+          autofocus
+          class="flex h-11 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground"
+        />
+      </div>
 
-      <UiCommandList class="mt-2 bg-background">
+      <UiCommandList class="bg-background">
         <UiScrollArea class="h-[400px] w-full">
           <UiCommandEmpty>No results found.</UiCommandEmpty>
           <template v-if="results" v-for="res in results.value">

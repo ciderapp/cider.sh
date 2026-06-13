@@ -1,87 +1,159 @@
 <template>
-  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[100vh] pointer-events-none -z-10 overflow-hidden flex flex-col items-center justify-center md:justify-start md:pt-[5vh]">
-    
+  <div
+    class="pointer-events-none absolute left-1/2 top-1/2 -z-10 flex h-[100vh] w-[100vw] -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center overflow-hidden md:justify-start md:pt-[5vh]"
+  >
     <!-- Ambient Background Glow -->
-    <div class="absolute top-[50%] md:top-[30%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] md:w-[80vw] h-[60vh] bg-red-600/40 dark:bg-red-600/30 blur-[100px] md:blur-[120px] rounded-[100%] mix-blend-screen dark:mix-blend-lighten"></div>
+    <div
+      class="absolute left-1/2 top-[50%] h-[60vh] w-[100vw] -translate-x-1/2 -translate-y-1/2 rounded-[100%] bg-red-600/40 mix-blend-screen blur-[100px] dark:bg-red-600/30 dark:mix-blend-lighten md:top-[30%] md:w-[80vw] md:blur-[120px]"
+    ></div>
 
     <!-- Desktop Tilted App Mockup Background -->
-    <div 
-      class="relative hidden md:block w-[120vw] max-w-[1800px] perspective-container opacity-100 dark:opacity-80 mask-fade transition-transform [transition-duration:50ms] ease-out mt-12"
-      :style="{ transform: `translateY(-${y * 0.4}px)` }"
+    <div
+      ref="parallaxDesktop"
+      class="perspective-container mask-fade relative mt-12 hidden w-[120vw] max-w-[1800px] opacity-100 will-change-transform dark:opacity-80 md:block"
     >
       <div class="hero-mockup-desktop animate-float-desktop blur-[8px]">
-        <img src="/client-immersive.png" alt="Cider Interface Background" class="w-full h-auto shadow-[0_0_120px_rgba(250,40,78,0.5)] border border-white/10 rounded-[2rem]" />
+        <img
+          src="/client-immersive.png"
+          alt="Cider Interface Background"
+          class="h-auto w-full rounded-[2rem] border border-white/10 shadow-[0_0_120px_rgba(250,40,78,0.5)]"
+        />
       </div>
     </div>
 
     <!-- Mobile Tilted App Mockup Background -->
-    <div 
-      class="relative block md:hidden w-[350vw] sm:w-[250vw] max-w-none perspective-container-mobile opacity-100 dark:opacity-80 mask-fade-mobile transition-transform [transition-duration:50ms] ease-out mt-[20vh]"
-      :style="{ transform: `translateY(-${y * 0.4}px)` }"
+    <div
+      ref="parallaxMobile"
+      class="perspective-container-mobile mask-fade-mobile relative mt-[20vh] block w-[350vw] max-w-none opacity-100 will-change-transform dark:opacity-80 sm:w-[250vw] md:hidden"
     >
       <div class="hero-mockup-mobile animate-float-mobile blur-[6px]">
-        <img src="/client-immersive.png" alt="Cider Interface Background" class="w-full h-auto shadow-[0_0_120px_rgba(250,40,78,0.5)]" />
+        <img
+          src="/client-immersive.png"
+          alt="Cider Interface Background"
+          class="h-auto w-full shadow-[0_0_120px_rgba(250,40,78,0.5)]"
+        />
       </div>
     </div>
-    
   </div>
 </template>
 
 <script setup lang="ts">
-import { useWindowScroll } from '@vueuse/core';
+  import { useMediaQuery } from "@vueuse/core";
+  import { onBeforeUnmount, onMounted, ref } from "vue";
 
-// Get reactive scroll position for parallax effect
-const { y } = useWindowScroll();
+  const parallaxDesktop = ref<HTMLElement | null>(null);
+  const parallaxMobile = ref<HTMLElement | null>(null);
+
+  // Respect users who prefer reduced motion — skip the parallax for them.
+  const reduceMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
+
+  // Drive the parallax straight off the scroll position, throttled to one write
+  // per animation frame. Writing directly to the DOM (instead of a reactive
+  // :style binding) avoids re-rendering the component on every scroll event, and
+  // translate3d keeps the blurred mockup on its own GPU layer so scrolling
+  // composites it instead of repainting.
+  let ticking = false;
+
+  function applyParallax() {
+    ticking = false;
+    const factor = reduceMotion.value ? 0 : 0.4;
+    const transform = `translate3d(0, ${-(window.scrollY * factor)}px, 0)`;
+    if (parallaxDesktop.value) parallaxDesktop.value.style.transform = transform;
+    if (parallaxMobile.value) parallaxMobile.value.style.transform = transform;
+  }
+
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(applyParallax);
+  }
+
+  onMounted(() => {
+    applyParallax();
+    window.addEventListener("scroll", onScroll, { passive: true });
+  });
+
+  onBeforeUnmount(() => {
+    window.removeEventListener("scroll", onScroll);
+  });
 </script>
 
 <style scoped>
-.perspective-container {
-  perspective: 1500px;
-}
-.perspective-container-mobile {
-  perspective: 800px;
-}
+  .perspective-container {
+    perspective: 1500px;
+  }
+  .perspective-container-mobile {
+    perspective: 800px;
+  }
 
-.hero-mockup-desktop {
-  /* Tilted backwards to lay "flat" into the screen */
-  transform: rotateX(45deg) rotateY(0deg) rotateZ(-2deg) scale(1);
-  transform-style: preserve-3d;
-  will-change: transform;
-}
+  .hero-mockup-desktop {
+    /* Tilted backwards to lay "flat" into the screen */
+    transform: rotateX(45deg) rotateY(0deg) rotateZ(-2deg) scale(1);
+    transform-style: preserve-3d;
+    will-change: transform;
+  }
 
-.hero-mockup-mobile {
-  /* Steeper tilt for mobile to make it look deeper but still clear */
-  transform: rotateX(40deg) rotateY(0deg) rotateZ(-1deg) scale(1);
-  transform-style: preserve-3d;
-  will-change: transform;
-}
+  .hero-mockup-mobile {
+    /* Steeper tilt for mobile to make it look deeper but still clear */
+    transform: rotateX(40deg) rotateY(0deg) rotateZ(-1deg) scale(1);
+    transform-style: preserve-3d;
+    will-change: transform;
+  }
 
-/* Mask to smoothly fade the image out at the bottom and edges so it seamlessly blends */
-.mask-fade {
-  mask-image: radial-gradient(ellipse at top center, rgba(0,0,0,1) 10%, rgba(0,0,0,0.8) 25%, rgba(0,0,0,0) 60%);
-  -webkit-mask-image: radial-gradient(ellipse at top center, rgba(0,0,0,1) 10%, rgba(0,0,0,0.8) 25%, rgba(0,0,0,0) 60%);
-}
+  /* Mask to smoothly fade the image out at the bottom and edges so it seamlessly blends */
+  .mask-fade {
+    mask-image: radial-gradient(
+      ellipse at top center,
+      rgba(0, 0, 0, 1) 10%,
+      rgba(0, 0, 0, 0.8) 25%,
+      rgba(0, 0, 0, 0) 60%
+    );
+    -webkit-mask-image: radial-gradient(
+      ellipse at top center,
+      rgba(0, 0, 0, 1) 10%,
+      rgba(0, 0, 0, 0.8) 25%,
+      rgba(0, 0, 0, 0) 60%
+    );
+  }
 
-.mask-fade-mobile {
-  mask-image: radial-gradient(ellipse at top center, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 20%, rgba(0,0,0,0) 50%);
-  -webkit-mask-image: radial-gradient(ellipse at top center, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 20%, rgba(0,0,0,0) 50%);
-}
+  .mask-fade-mobile {
+    mask-image: radial-gradient(
+      ellipse at top center,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 0.8) 20%,
+      rgba(0, 0, 0, 0) 50%
+    );
+    -webkit-mask-image: radial-gradient(
+      ellipse at top center,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 0.8) 20%,
+      rgba(0, 0, 0, 0) 50%
+    );
+  }
 
-.animate-float-desktop {
-  animation: floatMockupDesktop 5s ease-in-out infinite alternate;
-}
+  .animate-float-desktop {
+    animation: floatMockupDesktop 5s ease-in-out infinite alternate;
+  }
 
-.animate-float-mobile {
-  animation: floatMockupMobile 5s ease-in-out infinite alternate;
-}
+  .animate-float-mobile {
+    animation: floatMockupMobile 5s ease-in-out infinite alternate;
+  }
 
-@keyframes floatMockupDesktop {
-  0% { transform: rotateX(45deg) rotateY(0deg) rotateZ(-2deg) scale(1) translateY(0); }
-  100% { transform: rotateX(45deg) rotateY(0deg) rotateZ(-2deg) scale(1) translateY(-30px); }
-}
+  @keyframes floatMockupDesktop {
+    0% {
+      transform: rotateX(45deg) rotateY(0deg) rotateZ(-2deg) scale(1) translateY(0);
+    }
+    100% {
+      transform: rotateX(45deg) rotateY(0deg) rotateZ(-2deg) scale(1) translateY(-30px);
+    }
+  }
 
-@keyframes floatMockupMobile {
-  0% { transform: rotateX(40deg) rotateY(0deg) rotateZ(-1deg) scale(1) translateY(0); }
-  100% { transform: rotateX(40deg) rotateY(0deg) rotateZ(-1deg) scale(1) translateY(-20px); }
-}
+  @keyframes floatMockupMobile {
+    0% {
+      transform: rotateX(40deg) rotateY(0deg) rotateZ(-1deg) scale(1) translateY(0);
+    }
+    100% {
+      transform: rotateX(40deg) rotateY(0deg) rotateZ(-1deg) scale(1) translateY(-20px);
+    }
+  }
 </style>

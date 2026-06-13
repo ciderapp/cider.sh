@@ -2,10 +2,10 @@
   const { t, locale } = useI18n();
 
   useSeoMeta({
-    title: t('seo.title'),
-    description: t('seo.description'),
-    ogDescription: t('seo.description'),
-    twitterDescription: t('seo.description'),
+    title: t("seo.title"),
+    description: t("seo.description"),
+    ogDescription: t("seo.description"),
+    twitterDescription: t("seo.description"),
     ogImage: "/og.png",
     twitterImage: "/og.png",
   });
@@ -23,26 +23,27 @@
     lastUpdated: number;
   }
 
-
   const { data } = await useAsyncData("latest-release", async () => {
     try {
-      const response = await $fetch<RiseChangelogDetail>('/api/changelogs/latest');
-      
-      return [{
-        _path: `/changelogs/${response.version}`,
-        navigation: {
-          headline: `New Release: Cider ${response.version}`,
-          date: new Date(response.lastUpdated).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-          })
+      const response = await $fetch<RiseChangelogDetail>("/api/changelogs/latest");
+
+      return [
+        {
+          _path: `/changelogs/${response.version}`,
+          navigation: {
+            headline: `New Release: Cider ${response.version}`,
+            date: new Date(response.lastUpdated).toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            }),
+          },
+          title: `Cider ${response.version}`,
+          description: response.shortDesc,
         },
-        title: `Cider ${response.version}`,
-        description: response.shortDesc
-      }];
+      ];
     } catch (error) {
-      console.error('Failed to fetch latest release:', error);
+      console.error("Failed to fetch latest release:", error);
       return null;
     }
   });
@@ -53,7 +54,7 @@
     isUwu.value = true;
   }
 
-  let images = ["/client-immersive.png", "/client-comfy.png", "/client-compact.png"];
+  let images = ["/client-immersive.png", "/client-interface.png", "/client-lovers.png"];
 
   const features = computed(() => [
     {
@@ -94,12 +95,14 @@
     <ShowcaseScroll :images="images">
       <template #title>
         <HeroBackground />
-        <div class="flex flex-col items-center justify-center text-center mt-8 md:mt-12 z-10 relative">
+        <div
+          class="relative z-10 mt-8 flex flex-col items-center justify-center text-center md:mt-12"
+        >
           <div v-if="data">
             <UiBadge
               :to="data[0]?._path"
               variant="secondary"
-              class="px-3 py-1.5 text-sm font-normal backdrop-blur-md bg-secondary/50 dark:bg-black/40 lg:py-2 pointer-events-auto"
+              class="pointer-events-auto bg-secondary/50 px-3 py-1.5 text-sm font-normal backdrop-blur-md dark:bg-black/40 lg:py-2"
             >
               {{ data[0]?.navigation.headline }}
               <Icon class="ml-3 h-4 w-4" name="lucide:arrow-right" />
@@ -111,34 +114,37 @@
                 class="mb-6 mt-7 text-5xl font-extrabold leading-tight tracking-tight lg:mb-8 lg:mt-8 lg:text-center lg:text-6xl xl:text-7xl"
                 :class="[isUwu ? '!text-left' : '']"
               >
-                {{ $t('hero.title') }}<br />
+                {{ $t("hero.title") }}<br />
                 <span class="inline-block">
                   <span
                     v-for="(char, index) in String($t('hero.subtitle')).split('')"
                     :key="index"
                     class="animate-wave-char whitespace-pre"
                     :style="{ animationDelay: `${index * 0.08 + 0.2}s` }"
-                  >{{ char }}</span>
+                    >{{ char }}</span
+                  >
                 </span>
               </h1>
               <p
                 class="mx-auto hidden max-w-[760px] text-lg leading-relaxed text-muted-foreground md:block lg:text-center lg:text-xl"
                 :class="[isUwu ? '!text-left' : '']"
               >
-                {{ $t('hero.description') }}
+                {{ $t("hero.description") }}
               </p>
 
               <div
-                class="mt-8 flex w-full flex-col items-center justify-center gap-6 lg:mt-12 pointer-events-auto"
+                class="pointer-events-auto mt-8 flex w-full flex-col items-center justify-center gap-6 lg:mt-12"
                 :class="[isUwu ? 'md:items-start md:text-left' : '']"
               >
                 <NuxtLink to="/downloads" class="hidden md:block">
                   <UiButton size="lg" class="rounded-full px-8 text-base">
                     <Icon name="lucide:shopping-bag" class="mr-2 h-5 w-5" />
-                    {{ $t('hero.get_cider') }}
+                    {{ $t("hero.get_cider") }}
                   </UiButton>
                 </NuxtLink>
-                <div class="animate-float flex flex-col items-center gap-2 text-muted-foreground mt-12 lg:mt-24 opacity-80">
+                <div
+                  class="animate-float mt-12 flex flex-col items-center gap-2 text-muted-foreground opacity-80 lg:mt-24"
+                >
                   <span class="text-xs font-semibold uppercase tracking-widest">See more</span>
                   <Icon name="lucide:chevron-down" size="32px" />
                 </div>
@@ -154,41 +160,51 @@
 
     <BuiltUsing />
     <UiContainer class="features py-16 lg:p-20">
-      <p class="text-center font-semibold text-primary" v-motion :initial="{ opacity: 0 }" :visible-once="{ opacity: 1, transition: { duration: 500 } }">{{ $t('features_section.label') }}</p>
-      <h2 class="mb-4 mt-3 text-center text-3xl font-semibold lg:mb-5 lg:text-4xl"
-          v-motion
-          :initial="{ opacity: 0, y: 30 }"
-          :visible-once="{ opacity: 1, y: 0, transition: { duration: 500, delay: 100 } }"
+      <p
+        class="text-center font-semibold text-primary"
+        v-motion
+        :initial="{ opacity: 0 }"
+        :visible-once="{ opacity: 1, transition: { duration: 500 } }"
       >
-        {{ $t('features_section.title') }}
+        {{ $t("features_section.label") }}
+      </p>
+      <h2
+        class="mb-4 mt-3 text-center text-3xl font-semibold lg:mb-5 lg:text-4xl"
+        v-motion
+        :initial="{ opacity: 0, y: 30 }"
+        :visible-once="{ opacity: 1, y: 0, transition: { duration: 500, delay: 100 } }"
+      >
+        {{ $t("features_section.title") }}
       </h2>
-      <p class="mx-auto max-w-[760px] text-center text-lg text-muted-foreground lg:text-xl"
-         v-motion
-         :initial="{ opacity: 0, y: 30 }"
-         :visible-once="{ opacity: 1, y: 0, transition: { duration: 500, delay: 200 } }"
+      <p
+        class="mx-auto max-w-[760px] text-center text-lg text-muted-foreground lg:text-xl"
+        v-motion
+        :initial="{ opacity: 0, y: 30 }"
+        :visible-once="{ opacity: 1, y: 0, transition: { duration: 500, delay: 200 } }"
       >
-        {{ $t('features_section.description') }}
+        {{ $t("features_section.description") }}
       </p>
 
       <div
         class="grid grid-cols-1 gap-y-4 py-10 md:grid-cols-2 md:gap-y-10 lg:grid-cols-3 lg:gap-8 lg:gap-y-16 lg:py-16"
       >
         <template v-for="(f, i) in features" :key="i">
-          <div class="group flex flex-row items-center gap-5 rounded-3xl border border-border/50 bg-card p-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl md:flex-col md:justify-center md:gap-0 md:p-8"
-               v-motion
-               :initial="{ opacity: 0, y: 50 }"
-               :visible-once="{ opacity: 1, y: 0, transition: { duration: 500, delay: 50 } }"
+          <div
+            class="group flex flex-row items-center gap-5 rounded-3xl border border-border/50 bg-card p-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl md:flex-col md:justify-center md:gap-0 md:p-8"
+            v-motion
+            :initial="{ opacity: 0, y: 50 }"
+            :visible-once="{ opacity: 1, y: 0, transition: { duration: 500, delay: 50 } }"
           >
-            <div class="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-2xl border bg-background/50 shadow-sm transition-transform duration-300 group-hover:scale-110 group-hover:border-primary/50 md:h-12 md:w-12 md:rounded-xl">
+            <div
+              class="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-2xl border bg-background/50 shadow-sm transition-transform duration-300 group-hover:scale-110 group-hover:border-primary/50 md:h-12 md:w-12 md:rounded-xl"
+            >
               <Icon
                 :name="f.icon"
                 class="h-6 w-6 transition-colors group-hover:text-primary md:h-5 md:w-5 lg:h-6 lg:w-6"
               />
             </div>
             <div class="flex flex-col text-left md:text-center">
-              <h3
-                class="text-balance text-lg font-semibold md:mt-5 lg:mt-6 lg:text-xl"
-              >
+              <h3 class="text-balance text-lg font-semibold md:mt-5 lg:mt-6 lg:text-xl">
                 {{ f.title }}
               </h3>
               <p
@@ -196,7 +212,10 @@
               >
                 {{ f.description }}
                 <template v-if="f.icon === 'heroicons:heart'">
-                  <a href="https://discord.gg/applemusic" class="text-primary hover:underline">Discord server</a> to get involved!
+                  <a href="https://discord.gg/applemusic" class="text-primary hover:underline"
+                    >Discord server</a
+                  >
+                  to get involved!
                 </template>
               </p>
             </div>
@@ -210,28 +229,31 @@
     <!-- Bottom CTA Section -->
     <UiContainer class="py-20 lg:py-32">
       <div class="flex flex-col items-center justify-center text-center">
-        <h2 class="mb-4 text-4xl font-extrabold tracking-tight lg:text-5xl"
-            v-motion
-            :initial="{ opacity: 0, y: 30 }"
-            :visible-once="{ opacity: 1, y: 0, transition: { duration: 500 } }"
+        <h2
+          class="mb-4 text-4xl font-extrabold tracking-tight lg:text-5xl"
+          v-motion
+          :initial="{ opacity: 0, y: 30 }"
+          :visible-once="{ opacity: 1, y: 0, transition: { duration: 500 } }"
         >
           Ready to get started?
         </h2>
-        <p class="mx-auto max-w-[600px] text-lg text-muted-foreground lg:text-xl"
-           v-motion
-           :initial="{ opacity: 0, y: 30 }"
-           :visible-once="{ opacity: 1, y: 0, transition: { duration: 500, delay: 100 } }"
+        <p
+          class="mx-auto max-w-[600px] text-lg text-muted-foreground lg:text-xl"
+          v-motion
+          :initial="{ opacity: 0, y: 30 }"
+          :visible-once="{ opacity: 1, y: 0, transition: { duration: 500, delay: 100 } }"
         >
           Join thousands of other users and elevate your Apple Music experience today.
         </p>
-        <div class="mt-8 flex w-full flex-col items-center justify-center gap-4 sm:flex-row lg:mt-12"
-             v-motion
-             :initial="{ opacity: 0, y: 30 }"
-             :visible-once="{ opacity: 1, y: 0, transition: { duration: 500, delay: 200 } }"
+        <div
+          class="mt-8 flex w-full flex-col items-center justify-center gap-4 sm:flex-row lg:mt-12"
+          v-motion
+          :initial="{ opacity: 0, y: 30 }"
+          :visible-once="{ opacity: 1, y: 0, transition: { duration: 500, delay: 200 } }"
         >
-          <NuxtLink to="/downloads" class="w-full sm:w-auto hidden md:block">
+          <NuxtLink to="/downloads" class="hidden w-full sm:w-auto md:block">
             <UiButton size="lg" class="w-full rounded-full px-8 text-base sm:w-auto">
-              {{ $t('hero.get_cider') }}
+              {{ $t("hero.get_cider") }}
             </UiButton>
           </NuxtLink>
           <NuxtLink to="/learn-more" class="w-full sm:w-auto">
@@ -241,7 +263,7 @@
               variant="secondary"
               class="learn-more w-full rounded-full px-8 text-base hover:gap-5 sm:w-auto"
             >
-              {{ $t('hero.learn_more') }}
+              {{ $t("hero.learn_more") }}
               <Icon name="material-symbols:arrow-right-alt-rounded" size="24px" class="ml-2" />
             </UiButton>
           </NuxtLink>
@@ -264,8 +286,13 @@
   }
 
   @keyframes gentle-lift {
-    0%, 100% { transform: translateY(0); }
-    40% { transform: translateY(-12px); }
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-12px);
+    }
   }
 
   .animate-float {
@@ -273,7 +300,12 @@
   }
 
   @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(10px); }
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(10px);
+    }
   }
 </style>
