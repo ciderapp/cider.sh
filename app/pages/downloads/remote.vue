@@ -12,11 +12,11 @@
       <p class="mx-auto max-w-[760px] text-center text-lg text-muted-foreground lg:text-xl">
         Seamlessly control your Cider Devices without interruptions or delays.
       </p>
-      <div class="mt-8 flex justify-center gap-8">
+      <div class="mt-8 flex justify-center gap-8 lg:flex-row">
         <NuxtLink to="https://apps.apple.com/us/app/cider-remote/id6670149407">
           <UiButton variant="outline">
             <Icon name="logos:apple-app-store" />
-            Get from the App Store
+            App Store
           </UiButton>
         </NuxtLink>
         <NuxtLink to="#android">
@@ -116,10 +116,12 @@
         About Remote on Android
       </h2>
       <p class="text-muted-foreground">
-        An Android version for Cider Remote is planned at some point, but we are currently focused on the iOS version.
-        <br /><br />
-        Also, the team working only on Cider Remote only has iOS developers and would require Android developers for a potential Android version to come out.
+        The official Cider Remote app is now available on Android for free, and open-source.
+        Test it now using the link below, and by downloading the APK file. The Android
+        version of Cider Remote is not managed or developed by Lumaa, but by other members of
+        Cider Collective.
       </p>
+      <a href="https://github.com/ciderapp/Cider-Remote-RN/releases/latest" class="text-center mt-6">Latest Version</a>
     </div>
 
     <div>
@@ -193,9 +195,9 @@
       image: "/remote/Horizontal.png",
     },
     {
-      icon: "heroicons:numbered-list",
-      title: "Queue Management",
-      description: "Manage your playback queue with ease. Remove and reorder tracks in your queue, all from the Remote app.",
+      icon: "heroicons:squares-plus",
+      title: "Animated Covers",
+      description: "Watch with the thinest details the animated covers of your favorite album.",
     },
     {
       icon: "heroicons:microphone",
