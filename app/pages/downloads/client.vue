@@ -46,11 +46,22 @@
         <UiCard
           class="min-w-[300px] max-w-[600px] flex-1 overflow-hidden sm:basis-full md:basis-[80%] lg:basis-[48%]"
         >
-          <UiCardTitle class="flex items-center justify-between px-6 py-4">
+          <UiCardTitle class="flex flex-wrap items-center justify-between gap-2 px-6 py-4">
             <p class="text-lg font-semibold lg:text-2xl">{{ p.title }}</p>
-            <UiBadge v-if="p.sidenote" class="border-primary/50 text-primary" variant="outline"
-              >{{ p.sidenote }}
-            </UiBadge>
+
+            <div v-if="p.sidenote || p.notice" class="flex flex-wrap items-center gap-2">
+              <UiBadge v-if="p.sidenote" class="border-primary/50 text-primary" variant="outline"
+                >{{ p.sidenote }}
+              </UiBadge>
+              <UiBadge
+                v-if="p.notice"
+                class="gap-1.5 border-amber-500/50 text-amber-600 dark:text-amber-400"
+                variant="outline"
+              >
+                <Icon name="heroicons:exclamation-triangle" class="h-3.5 w-3.5 shrink-0" />
+                {{ p.notice }}
+              </UiBadge>
+            </div>
           </UiCardTitle>
 
           <UiCardDescription class="flex grow items-center gap-4 px-6 py-4">
@@ -150,6 +161,7 @@
     title: string;
     description: string;
     sidenote?: string;
+    notice?: string;
     features: string[];
     download: HTMLDownload | ImageDownload | Multiple;
     footer?: string;
@@ -211,8 +223,9 @@
     },
     {
       title: "Microsoft Store",
+      notice: "Currently on 3.1",
       description:
-        "Available on the Microsoft Store for Windows 10 and 11 users. Containing all stable features from the last major release.",
+        "Available on the Microsoft Store for Windows 10 and 11 users. Containing all stable features from the last major release. This version is currently held at 3.1 while we resolve storefront issues that prevent us from pushing 4.0.",
       features: [
         "Windows 10 and 11 support",
         "Microsoft Store Specific Features",
