@@ -124,7 +124,7 @@ To request the complete deletion of all data associated with your Discord User I
    * **Required Details:** Include your **Discord User ID** (17–19 digit numeric ID) so our team can locate and purge all database records associated with your account. We will act on deleting your data upon receipt.
 
 3. **Discord Support Server / Ticket:**
-   * Join the official [Cider Collective Discord Server](https://discord.gg/cider) and open a support ticket with staff providing your Discord User ID.
+   * Join the official [Cider Collective Discord Server](https://discord.gg/applemusic) and open a support ticket with staff providing your Discord User ID.
 
 4. **Processing Time:**
    * `/deleteactivity` takes effect immediately. Email and ticket requests will be processed promptly (typically within 72 hours, and guaranteed within 30 days).
@@ -144,5 +144,5 @@ If you have questions, feedback, or concerns regarding this Privacy Policy or ou
 * **Privacy Contact:** [privacy@cider.sh](mailto:privacy@cider.sh)
 * **General Support:** [support@cider.sh](mailto:support@cider.sh)
 * **GitHub Repository:** [https://github.com/ciderapp/Saki](https://github.com/ciderapp/Saki)
-* **Community Discord:** [https://discord.gg/cider](https://discord.gg/cider)
+* **Community Discord:** [https://discord.gg/applemusic](https://discord.gg/applemusic)
 * **Organization:** Cider Collective
