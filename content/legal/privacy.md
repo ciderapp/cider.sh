@@ -15,6 +15,8 @@ Owner contact email: [development@cider.sh](mailto:development@cider.sh)
 
 NOTE: This document does not contain the data collected by music providers ex. Apple, Spotify, YouTube(Google) you should look up those privacy holders in regards to their policys.
 
+> **Discord Bot Privacy Policy:** For information regarding data collection, Privileged Intents (Guild Members, Message Content), and data deletion requests for Saki and our Discord bots, please refer to our [Discord Bot Privacy Policy](/legal/bot-privacy).
+
 Types of Data collected
 Among the types of Personal Data that this Application collects, by itself or through third parties, there are: App Diagnostics/Crash Logs.
 

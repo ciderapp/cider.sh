@@ -41,5 +41,9 @@
       title: "About Us",
       path: "/about",
     },
+    {
+      title: "Legal",
+      path: "/legal/privacy",
+    },
   ];
 </script>
