@@ -15,7 +15,6 @@
     twitterSite: "@UseCider",
     ogType: "website",
     ogSiteName: "Cider Collective",
-    ogUrl: "https://cider.sh",
     themeColor: "#e83057",
     ogLocale: () => locale.value,
   });
@@ -27,7 +26,11 @@
       {
         rel: "icon",
         type: "image/png",
-        href: "/logo.png",
+        href: "/icon.png",
+      },
+      {
+        rel: "apple-touch-icon",
+        href: "/apple-touch-icon.png",
       },
     ],
     script: [

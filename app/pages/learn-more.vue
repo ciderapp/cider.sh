@@ -135,6 +135,27 @@
 </template>
 
 <script lang="ts" setup>
+  useSeoMeta({
+    title: "Learn More",
+    description: "Features, platforms, and why people choose Cider.",
+    ogTitle: "Learn More",
+    ogDescription: "Features, platforms, and why people choose Cider.",
+    twitterTitle: "Learn More",
+    twitterDescription: "Features, platforms, and why people choose Cider.",
+    ogUrl: "https://cider.sh/learn-more",
+    ogImage: "https://cider.sh/og/learn-more.png",
+    ogImageWidth: 1200,
+    ogImageHeight: 630,
+    twitterImage: "https://cider.sh/og/learn-more.png",
+  });
+
+  defineOgImageComponent('OgShareCard', {
+    title: 'Learn more',
+    description: 'Features, platforms, and why people choose Cider.',
+    chip: 'LEARN',
+    site: 'cider',
+  });
+
   const features = [
     {
       name: "iCloud Library",

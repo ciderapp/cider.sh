@@ -2,13 +2,57 @@
   const { t, locale } = useI18n();
 
   useSeoMeta({
-    title: t("seo.title"),
-    description: t("seo.description"),
-    ogDescription: t("seo.description"),
-    twitterDescription: t("seo.description"),
-    ogImage: "/og.png",
-    twitterImage: "/og.png",
+    title: "Cider — Cross-Platform Apple Music Client",
+    description: "Cider is a community-run Apple Music client for Windows, macOS, and Linux — fast, customizable, and built for listeners.",
+    ogTitle: "Cider — Cross-Platform Apple Music Client",
+    ogDescription: "Cider is a community-run Apple Music client for Windows, macOS, and Linux — fast, customizable, and built for listeners.",
+    twitterTitle: "Cider — Cross-Platform Apple Music Client",
+    twitterDescription: "Cider is a community-run Apple Music client for Windows, macOS, and Linux — fast, customizable, and built for listeners.",
+    ogUrl: "https://cider.sh",
+    ogImage: "https://cider.sh/og/home.png",
+    ogImageWidth: 1200,
+    ogImageHeight: 630,
+    twitterImage: "https://cider.sh/og/home.png",
   });
+
+  defineOgImageComponent('OgShareCard', {
+    title: 'Cider',
+    description: 'A powerful, customizable Apple Music client for every platform.',
+    chip: 'HOME',
+    site: 'cider',
+  });
+
+  useSchemaOrg([
+    {
+      '@type': 'WebSite',
+      name: 'Cider',
+      url: 'https://cider.sh',
+      description: 'A powerful, customizable Apple Music client for every platform.',
+    },
+    {
+      '@type': 'Organization',
+      name: 'Cider Collective',
+      url: 'https://cider.sh',
+      logo: 'https://cider.sh/icon.png',
+      sameAs: [
+        'https://twitter.com/UseCider',
+        'https://github.com/ciderapp/cider',
+        'https://discord.gg/applemusic',
+      ],
+    },
+    {
+      '@type': 'SoftwareApplication',
+      name: 'Cider',
+      operatingSystem: 'Windows, macOS, Linux',
+      applicationCategory: 'MultimediaApplication',
+      offers: {
+        '@type': 'Offer',
+        price: '4.00',
+        priceCurrency: 'USD',
+      },
+      description: 'A powerful, customizable Apple Music client for every platform.',
+    },
+  ]);
 
   interface RiseChangelogDetail {
     shortDesc: string;

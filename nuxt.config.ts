@@ -33,6 +33,8 @@ export default defineNuxtConfig({
     "radix-vue/nuxt",
     "@vueuse/motion/nuxt",
     "@nuxtjs/i18n",
+    "@nuxtjs/seo",
+    "nuxt-og-image",
     // Override the Tailwind PostCSS plugin to point directly at tailwind.config.js
     // instead of the generated .nuxt/tailwind/postcss.mjs, which uses import.meta
     // and breaks when jiti loads it in a non-module context.
@@ -145,6 +147,19 @@ export default defineNuxtConfig({
     globalName: "__NUXT_COLOR_MODE__",
     componentName: "ColorScheme",
     storageKey: "nuxt-color-mode",
+  },
+
+  site: {
+    url: 'https://cider.sh',
+    name: 'Cider Collective',
+  },
+
+  ogImage: {
+    defaults: {
+      component: 'OgShareCard',
+      width: 1200,
+      height: 630,
+    },
   },
 
   runtimeConfig: {
