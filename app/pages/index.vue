@@ -69,10 +69,9 @@
   });
 
   defineOgImageComponent('OgShareCard', {
-    title: 'Cider',
-    description: 'A powerful, customizable Apple Music client for every platform.',
-    chip: 'HOME',
+    layout: 'home',
     site: 'cider',
+    image: '/client-interface.png',
   });
 
   interface RiseChangelogDetail {

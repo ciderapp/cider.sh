@@ -119,11 +119,11 @@
   });
   useSeoMeta({
     title: "Download Cider",
-    description: "Download Cider for Windows, macOS, and Linux",
+    description: "Get the desktop client for Windows, macOS, and Linux.",
     ogTitle: "Download Cider",
-    ogDescription: "Download Cider for Windows, macOS, and Linux",
+    ogDescription: "Get the desktop client for Windows, macOS, and Linux.",
     twitterTitle: "Download Cider",
-    twitterDescription: "Download Cider for Windows, macOS, and Linux",
+    twitterDescription: "Get the desktop client for Windows, macOS, and Linux.",
     ogUrl: "https://cider.sh/downloads/client",
     ogImage: "https://cider.sh/og/downloads-client.png",
     ogImageWidth: 1200,
@@ -132,9 +132,11 @@
   });
 
   defineOgImageComponent('OgShareCard', {
+    layout: 'secondary',
     title: 'Download Cider',
     description: 'Get the desktop client for Windows, macOS, and Linux.',
-    chip: 'DOWNLOADS',
+    footer: 'cider.sh/downloads',
+    icon: '/og-icons/downloads.png',
     site: 'cider',
   });
 

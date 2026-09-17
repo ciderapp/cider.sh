@@ -113,9 +113,11 @@
   });
 
   defineOgImageComponent('OgShareCard', {
-    title: 'About Cider',
+    layout: 'secondary',
+    title: 'About Cider Collective',
     description: 'The story behind Cider and the community building it.',
-    chip: 'ABOUT',
+    footer: 'cider.sh/about',
+    icon: '/og-icons/about.png',
     site: 'cider',
   });
 

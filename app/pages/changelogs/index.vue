@@ -92,9 +92,11 @@
   });
 
   defineOgImageComponent('OgShareCard', {
+    layout: 'secondary',
     title: 'Changelogs',
     description: "What's new in Cider: releases and notes.",
-    chip: 'UPDATES',
+    footer: 'cider.sh/changelogs',
+    icon: '/og-icons/changelogs.png',
     site: 'cider',
   });
 

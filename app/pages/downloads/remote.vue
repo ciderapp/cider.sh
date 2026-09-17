@@ -147,9 +147,11 @@
   });
 
   defineOgImageComponent('OgShareCard', {
+    layout: 'secondary',
     title: 'Cider Remote',
     description: 'Control your music from your phone.',
-    chip: 'REMOTE',
+    footer: 'cider.sh/downloads/remote',
+    icon: '/og-icons/remote.png',
     site: 'cider',
   });
 

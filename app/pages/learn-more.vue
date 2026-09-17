@@ -149,9 +149,10 @@
   });
 
   defineOgImageComponent('OgShareCard', {
+    layout: 'secondary',
     title: 'Learn more',
     description: 'Features, platforms, and why people choose Cider.',
-    chip: 'LEARN',
+    footer: 'cider.sh/learn-more',
     site: 'cider',
   });
 
