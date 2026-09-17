@@ -100,11 +100,11 @@
 <script lang="ts" setup>
   useSeoMeta({
     title: "About Cider Collective",
-    description: "Meet the Cider Collective — the team building a better cross-platform Apple Music experience.",
+    description: "Meet the Cider Collective: the team building a better cross-platform Apple Music experience.",
     ogTitle: "About Cider Collective",
-    ogDescription: "Meet the Cider Collective — the team building a better cross-platform Apple Music experience.",
+    ogDescription: "Meet the Cider Collective: the team building a better cross-platform Apple Music experience.",
     twitterTitle: "About Cider Collective",
-    twitterDescription: "Meet the Cider Collective — the team building a better cross-platform Apple Music experience.",
+    twitterDescription: "Meet the Cider Collective: the team building a better cross-platform Apple Music experience.",
     ogUrl: "https://cider.sh/about",
     ogImage: "https://cider.sh/og/about.png",
     ogImageWidth: 1200,

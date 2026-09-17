@@ -2,17 +2,70 @@
   const { t, locale } = useI18n();
 
   useSeoMeta({
-    title: "Cider — Cross-Platform Apple Music Client",
-    description: "Cider is a community-run Apple Music client for Windows, macOS, and Linux — fast, customizable, and built for listeners.",
-    ogTitle: "Cider — Cross-Platform Apple Music Client",
-    ogDescription: "Cider is a community-run Apple Music client for Windows, macOS, and Linux — fast, customizable, and built for listeners.",
-    twitterTitle: "Cider — Cross-Platform Apple Music Client",
-    twitterDescription: "Cider is a community-run Apple Music client for Windows, macOS, and Linux — fast, customizable, and built for listeners.",
+    title: "Cider: Cross-Platform Apple Music Client",
+    description: "Cider is a community-run Apple Music client for Windows, macOS, and Linux. Fast, customizable, and built for listeners.",
+    ogTitle: "Cider: Cross-Platform Apple Music Client",
+    ogDescription: "Cider is a community-run Apple Music client for Windows, macOS, and Linux. Fast, customizable, and built for listeners.",
+    twitterTitle: "Cider: Cross-Platform Apple Music Client",
+    twitterDescription: "Cider is a community-run Apple Music client for Windows, macOS, and Linux. Fast, customizable, and built for listeners.",
     ogUrl: "https://cider.sh",
     ogImage: "https://cider.sh/og/home.png",
     ogImageWidth: 1200,
     ogImageHeight: 630,
     twitterImage: "https://cider.sh/og/home.png",
+  });
+
+  useHead({
+    script: [
+      {
+        type: 'application/ld+json',
+        children: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@graph': [
+            {
+              '@type': 'WebSite',
+              '@id': 'https://cider.sh/#website',
+              url: 'https://cider.sh',
+              name: 'Cider',
+              description: 'A powerful, customizable Apple Music client for every platform.',
+              inLanguage: 'en-US',
+            },
+            {
+              '@type': 'Organization',
+              '@id': 'https://cider.sh/#organization',
+              name: 'Cider Collective',
+              url: 'https://cider.sh',
+              logo: {
+                '@type': 'ImageObject',
+                url: 'https://cider.sh/icon.png',
+              },
+              sameAs: [
+                'https://twitter.com/UseCider',
+                'https://github.com/ciderapp/cider',
+                'https://discord.gg/applemusic',
+              ],
+            },
+            {
+              '@type': 'SoftwareApplication',
+              '@id': 'https://cider.sh/#software',
+              name: 'Cider',
+              operatingSystem: 'Windows, macOS, Linux',
+              applicationCategory: 'MultimediaApplication',
+              offers: {
+                '@type': 'Offer',
+                price: '4.00',
+                priceCurrency: 'USD',
+              },
+              description: 'A powerful, customizable Apple Music client for every platform.',
+              softwareVersion: '2.0',
+              author: {
+                '@id': 'https://cider.sh/#organization',
+              },
+            },
+          ],
+        }),
+      },
+    ],
   });
 
   defineOgImageComponent('OgShareCard', {

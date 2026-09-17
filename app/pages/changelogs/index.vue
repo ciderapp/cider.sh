@@ -93,7 +93,7 @@
 
   defineOgImageComponent('OgShareCard', {
     title: 'Changelogs',
-    description: "What's new in Cider — releases and notes.",
+    description: "What's new in Cider: releases and notes.",
     chip: 'UPDATES',
     site: 'cider',
   });

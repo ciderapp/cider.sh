@@ -15,7 +15,7 @@
     twitterSite: "@UseCider",
     ogType: "website",
     ogSiteName: "Cider Collective",
-    themeColor: "#e83057",
+    themeColor: "#dc0f54",
     ogLocale: () => locale.value,
   });
   useHead({
