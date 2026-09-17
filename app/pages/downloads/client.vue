@@ -131,13 +131,6 @@
     twitterImage: "https://cider.sh/og/downloads-client.png",
   });
 
-  defineOgImageComponent('OgShareCard', {
-    title: 'Download Cider',
-    description: 'Get the desktop client for Windows, macOS, and Linux.',
-    chip: 'DOWNLOADS',
-    site: 'cider',
-  });
-
   useHead({
     script: [
       {

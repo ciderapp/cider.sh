@@ -146,13 +146,6 @@
     twitterImage: "https://cider.sh/og/downloads-remote.png",
   });
 
-  defineOgImageComponent('OgShareCard', {
-    title: 'Cider Remote',
-    description: 'Control your music from your phone.',
-    chip: 'REMOTE',
-    site: 'cider',
-  });
-
   const headlines = [[
     {
       icon: "heroicons:puzzle-piece-solid",

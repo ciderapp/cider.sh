@@ -112,13 +112,6 @@
     twitterImage: "https://cider.sh/og/about.png",
   });
 
-  defineOgImageComponent('OgShareCard', {
-    title: 'About Cider',
-    description: 'The story behind Cider and the community building it.',
-    chip: 'ABOUT',
-    site: 'cider',
-  });
-
   const headline = "About Us";
   const title = "Meet the Team";
   const description =

@@ -149,13 +149,6 @@
     twitterImage: "https://cider.sh/og/learn-more.png",
   });
 
-  defineOgImageComponent('OgShareCard', {
-    title: 'Learn more',
-    description: 'Features, platforms, and why people choose Cider.',
-    chip: 'LEARN',
-    site: 'cider',
-  });
-
   const features = [
     {
       name: "iCloud Library",

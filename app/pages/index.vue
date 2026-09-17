@@ -15,45 +15,6 @@
     twitterImage: "https://cider.sh/og/home.png",
   });
 
-  defineOgImageComponent('OgShareCard', {
-    title: 'Cider',
-    description: 'A powerful, customizable Apple Music client for every platform.',
-    chip: 'HOME',
-    site: 'cider',
-  });
-
-  useSchemaOrg([
-    {
-      '@type': 'WebSite',
-      name: 'Cider',
-      url: 'https://cider.sh',
-      description: 'A powerful, customizable Apple Music client for every platform.',
-    },
-    {
-      '@type': 'Organization',
-      name: 'Cider Collective',
-      url: 'https://cider.sh',
-      logo: 'https://cider.sh/icon.png',
-      sameAs: [
-        'https://twitter.com/UseCider',
-        'https://github.com/ciderapp/cider',
-        'https://discord.gg/applemusic',
-      ],
-    },
-    {
-      '@type': 'SoftwareApplication',
-      name: 'Cider',
-      operatingSystem: 'Windows, macOS, Linux',
-      applicationCategory: 'MultimediaApplication',
-      offers: {
-        '@type': 'Offer',
-        price: '4.00',
-        priceCurrency: 'USD',
-      },
-      description: 'A powerful, customizable Apple Music client for every platform.',
-    },
-  ]);
-
   interface RiseChangelogDetail {
     shortDesc: string;
     longDesc: string;

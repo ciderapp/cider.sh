@@ -34,7 +34,6 @@ export default defineNuxtConfig({
     "@vueuse/motion/nuxt",
     "@nuxtjs/i18n",
     "@nuxtjs/seo",
-    "nuxt-og-image",
     // Override the Tailwind PostCSS plugin to point directly at tailwind.config.js
     // instead of the generated .nuxt/tailwind/postcss.mjs, which uses import.meta
     // and breaks when jiti loads it in a non-module context.
@@ -155,11 +154,11 @@ export default defineNuxtConfig({
   },
 
   ogImage: {
-    defaults: {
-      component: 'OgShareCard',
-      width: 1200,
-      height: 630,
-    },
+    enabled: false,
+  },
+
+  schemaOrg: {
+    enabled: false,
   },
 
   runtimeConfig: {
