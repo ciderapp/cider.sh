@@ -85,6 +85,10 @@
     twitterTitle: "Changelogs",
     twitterDescription: "Stay up to date with the latest Cider releases, news, updates, and resources.",
     ogUrl: "https://cider.sh/changelogs",
+    ogImage: "https://cider.sh/og/changelogs.png",
+    ogImageWidth: 1200,
+    ogImageHeight: 630,
+    twitterImage: "https://cider.sh/og/changelogs.png",
   });
 
   defineOgImageComponent('OgShareCard', {

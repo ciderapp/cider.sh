@@ -140,6 +140,10 @@
     twitterTitle: "Cider Remote",
     twitterDescription: "Take full control of Cider with Remote, a native iOS app.",
     ogUrl: "https://cider.sh/downloads/remote",
+    ogImage: "https://cider.sh/og/downloads-remote.png",
+    ogImageWidth: 1200,
+    ogImageHeight: 630,
+    twitterImage: "https://cider.sh/og/downloads-remote.png",
   });
 
   defineOgImageComponent('OgShareCard', {

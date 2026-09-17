@@ -142,6 +142,10 @@
     twitterTitle: "Learn More",
     twitterDescription: "Features, platforms, and why people choose Cider.",
     ogUrl: "https://cider.sh/learn-more",
+    ogImage: "https://cider.sh/og/learn-more.png",
+    ogImageWidth: 1200,
+    ogImageHeight: 630,
+    twitterImage: "https://cider.sh/og/learn-more.png",
   });
 
   defineOgImageComponent('OgShareCard', {
