@@ -155,6 +155,18 @@ export default defineNuxtConfig({
     name: 'Cider Collective',
   },
 
+  robots: {
+    enabled: true,
+  },
+
+  sitemap: {
+    enabled: true,
+  },
+
+  linkChecker: {
+    enabled: false,
+  },
+
   ogImage: {
     enabled: true,
     defaults: {
