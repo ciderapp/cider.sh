@@ -28,8 +28,7 @@
           </div>
         </template>
       </div>
-      <!-- eslint-disable-next-line vue/html-self-closing -->
-      <NuxtImg
+      <img
         src="/og.png"
         alt="Share team inboxes feature"
         class="h-[300px] w-full rounded-lg object-cover shadow-sm lg:h-[520px]"
@@ -143,10 +142,13 @@
     twitterTitle: "Learn More",
     twitterDescription: "Features, platforms, and why people choose Cider.",
     ogUrl: "https://cider.sh/learn-more",
-    ogImage: "https://cider.sh/og/learn-more.png",
-    ogImageWidth: 1200,
-    ogImageHeight: 630,
-    twitterImage: "https://cider.sh/og/learn-more.png",
+  });
+
+  defineOgImageComponent('OgShareCard', {
+    title: 'Learn more',
+    description: 'Features, platforms, and why people choose Cider.',
+    chip: 'LEARN',
+    site: 'cider',
   });
 
   const features = [

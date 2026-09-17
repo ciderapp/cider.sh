@@ -125,10 +125,13 @@
     twitterTitle: "Download Cider",
     twitterDescription: "Download Cider for Windows, macOS, and Linux",
     ogUrl: "https://cider.sh/downloads/client",
-    ogImage: "https://cider.sh/og/downloads-client.png",
-    ogImageWidth: 1200,
-    ogImageHeight: 630,
-    twitterImage: "https://cider.sh/og/downloads-client.png",
+  });
+
+  defineOgImageComponent('OgShareCard', {
+    title: 'Download Cider',
+    description: 'Get the desktop client for Windows, macOS, and Linux.',
+    chip: 'DOWNLOADS',
+    site: 'cider',
   });
 
   useHead({

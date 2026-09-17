@@ -1,145 +1,18 @@
+<script setup lang="ts">
+withDefaults(defineProps<{ title?: string; description?: string; chip?: string; site?: 'cider' | 'taproom'; accent?: string }>(), { title: 'Cider', description: '', chip: '', site: 'cider', accent: '#dc0f54' })
+</script>
 <template>
-  <div
-    :style="{
-      display: 'flex',
-      flexDirection: 'column',
-      width: '100%',
-      height: '100%',
-      backgroundColor: '#09090a',
-      color: '#fff',
-      fontFamily: 'Inter, sans-serif',
-      position: 'relative',
-      overflow: 'hidden',
-    }"
-  >
-    <!-- Background gradient -->
-    <div
-      :style="{
-        position: 'absolute',
-        top: '0',
-        right: '0',
-        width: '800px',
-        height: '800px',
-        background: `radial-gradient(circle at center, ${accent || '#dc0f54'}40 0%, transparent 70%)`,
-        transform: 'translate(20%, -20%)',
-      }"
-    />
-
-    <!-- Content -->
-    <div
-      :style="{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        height: '100%',
-        padding: '60px',
-        position: 'relative',
-        zIndex: 1,
-      }"
-    >
-      <!-- Top section -->
-      <div :style="{ display: 'flex', flexDirection: 'column', gap: '20px' }">
-        <!-- Chip badge -->
-        <div
-          v-if="chip"
-          :style="{
-            display: 'inline-flex',
-            alignItems: 'center',
-            backgroundColor: `${accent || '#dc0f54'}20`,
-            border: `1px solid ${accent || '#dc0f54'}40`,
-            color: accent || '#dc0f54',
-            padding: '8px 20px',
-            borderRadius: '9999px',
-            fontSize: '18px',
-            fontWeight: '600',
-            textTransform: 'uppercase',
-            letterSpacing: '0.05em',
-            width: 'fit-content',
-          }"
-        >
-          {{ chip }}
-        </div>
-
-        <!-- Title -->
-        <div
-          :style="{
-            fontSize: '72px',
-            fontWeight: '800',
-            lineHeight: '1.1',
-            color: '#ffffff',
-            maxWidth: '900px',
-          }"
-        >
-          {{ title }}
-        </div>
-
-        <!-- Description -->
-        <div
-          :style="{
-            fontSize: '28px',
-            lineHeight: '1.4',
-            color: '#a1a1aa',
-            maxWidth: '800px',
-          }"
-        >
-          {{ description }}
-        </div>
-      </div>
-
-      <!-- Bottom section with logo and site name -->
-      <div
-        :style="{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }"
-      >
-        <!-- Cider logo and text -->
-        <div :style="{ display: 'flex', alignItems: 'center', gap: '16px' }">
-          <!-- Cider icon (simplified circle with play icon concept) -->
-          <svg
-            width="48"
-            height="48"
-            viewBox="0 0 48 48"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <circle cx="24" cy="24" r="24" :fill="accent || '#dc0f54'" />
-            <circle cx="24" cy="24" r="18" fill="#09090a" />
-            <circle cx="24" cy="24" r="10" :fill="accent || '#dc0f54'" />
-          </svg>
-
-          <div
-            :style="{
-              fontSize: '24px',
-              fontWeight: '600',
-              color: '#ffffff',
-            }"
-          >
-            {{ site || 'cider' }}
-          </div>
-        </div>
-
-        <!-- URL -->
-        <div
-          :style="{
-            fontSize: '20px',
-            color: '#71717a',
-          }"
-        >
-          cider.sh
-        </div>
-      </div>
+  <div :style="{ width: '1200px', height: '630px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '48px 72px', backgroundColor: '#09090a', backgroundImage: `radial-gradient(circle at 85% 15%, ${accent}59 0%, transparent 55%)`, color: '#fff', fontFamily: 'Inter, sans-serif', position: 'relative' }">
+    <div :style="{ position: 'absolute', top: '0', left: '0', right: '0', height: '6px', background: `linear-gradient(90deg, ${accent}, ${accent}26)` }" />
+    <div :style="{ display: 'flex', alignItems: 'center', gap: '20px' }">
+      <img src="/icon.png" width="64" height="64" :style="{ borderRadius: '14px' }" />
+      <div :style="{ fontSize: '28px', fontWeight: '600' }">Cider</div>
     </div>
+    <div :style="{ display: 'flex', flexDirection: 'column', gap: '20px' }">
+      <div v-if="chip" :style="{ display: 'flex', alignSelf: 'flex-start', padding: '8px 16px', borderRadius: '999px', fontSize: '16px', fontWeight: '600', letterSpacing: '0.04em', textTransform: 'uppercase', color: accent, backgroundColor: `${accent}2e`, border: `1px solid ${accent}8c` }">{{ chip }}</div>
+      <div :style="{ fontSize: '54px', fontWeight: '700', lineHeight: '1.1', maxWidth: '980px' }">{{ title }}</div>
+      <div v-if="description" :style="{ fontSize: '26px', fontWeight: '400', color: '#a1a1aa', maxWidth: '900px', lineHeight: '1.35' }">{{ description }}</div>
+    </div>
+    <div :style="{ fontSize: '18px', fontWeight: '500', color: '#52525b' }">cider.sh</div>
   </div>
 </template>
-
-<script setup lang="ts">
-defineProps<{
-  title: string
-  description: string
-  chip?: string
-  site?: string
-  accent?: string
-}>()
-</script>

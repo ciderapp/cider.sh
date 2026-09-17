@@ -123,6 +123,8 @@ export default defineNuxtConfig({
     "/changelogs": { prerender: true },
     "/changelogs/**": { isr: 60 },
     "/downloads/remote": { prerender: true },
+    "/learn-more": { prerender: true },
+    "/about": { prerender: true },
     "/remote": { redirect: "/downloads/remote" },
     "/marketplace": { redirect: "https://marketplace.cider.sh" },
     "/taproom": { redirect: "https://taproom.cider.sh" },
@@ -154,7 +156,12 @@ export default defineNuxtConfig({
   },
 
   ogImage: {
-    enabled: false,
+    enabled: true,
+    defaults: {
+      component: 'OgShareCard',
+      width: 1200,
+      height: 630,
+    },
   },
 
   schemaOrg: {

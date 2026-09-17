@@ -9,10 +9,13 @@
     twitterTitle: "Cider — Cross-Platform Apple Music Client",
     twitterDescription: "Cider is a community-run Apple Music client for Windows, macOS, and Linux — fast, customizable, and built for listeners.",
     ogUrl: "https://cider.sh",
-    ogImage: "https://cider.sh/og/home.png",
-    ogImageWidth: 1200,
-    ogImageHeight: 630,
-    twitterImage: "https://cider.sh/og/home.png",
+  });
+
+  defineOgImageComponent('OgShareCard', {
+    title: 'Cider',
+    description: 'A powerful, customizable Apple Music client for every platform.',
+    chip: 'HOME',
+    site: 'cider',
   });
 
   interface RiseChangelogDetail {

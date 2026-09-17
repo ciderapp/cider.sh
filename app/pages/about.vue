@@ -106,10 +106,13 @@
     twitterTitle: "About Cider Collective",
     twitterDescription: "Meet the Cider Collective — the team building a better cross-platform Apple Music experience.",
     ogUrl: "https://cider.sh/about",
-    ogImage: "https://cider.sh/og/about.png",
-    ogImageWidth: 1200,
-    ogImageHeight: 630,
-    twitterImage: "https://cider.sh/og/about.png",
+  });
+
+  defineOgImageComponent('OgShareCard', {
+    title: 'About Cider',
+    description: 'The story behind Cider and the community building it.',
+    chip: 'ABOUT',
+    site: 'cider',
   });
 
   const headline = "About Us";
