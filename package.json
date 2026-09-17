@@ -8,7 +8,7 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare && mkdir -p node_modules/.pnpm/unenv@2.0.0-rc.24/node_modules/unenv/dist/runtime/runtime && ln -sf ../mock node_modules/.pnpm/unenv@2.0.0-rc.24/node_modules/unenv/dist/runtime/runtime/mock || true"
   },
   "dependencies": {
     "@morev/vue-transitions": "^3.0.5",
