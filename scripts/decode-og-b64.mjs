@@ -28,7 +28,7 @@ let meshB64;
 if (existsSync(join(dir, 'cider.png.b64'))) meshB64 = readB64('cider.png.b64');
 else {
   meshB64 = '';
-  for (let i = 1; i <= 5; i++) meshB64 += readB64(`cider.png.b64.p${i}`);
+  for (let i = 1; i <= 10; i++) meshB64 += readB64(`cider.png.b64.p${i}`);
 }
 const mesh = Buffer.from(meshB64, 'base64');
 if (mesh.length !== 75669) throw new Error(`mesh: got ${mesh.length}`);
