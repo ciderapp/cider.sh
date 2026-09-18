@@ -16,6 +16,7 @@ export interface DiscordButton {
 export interface DiscordComponentEmbedOptions {
   title?: string;
   description?: string;
+  thumbnailUrl?: string;
   buttons: DiscordButton[];
 }
 
@@ -27,7 +28,7 @@ export interface DiscordComponentEmbedOptions {
 export function useDiscordComponentEmbed(options: DiscordComponentEmbedOptions) {
   const components: any[] = [];
 
-  // Add Text Display component if title or description provided
+  // Add Section with Text Display and optional Thumbnail accessory
   if (options.title || options.description) {
     const parts: string[] = [];
     if (options.title) {
@@ -36,10 +37,31 @@ export function useDiscordComponentEmbed(options: DiscordComponentEmbedOptions) 
     if (options.description) {
       parts.push(options.description);
     }
-    components.push({
-      type: 10, // Text Display
-      content: parts.join('\n'),
-    });
+
+    // Prefer Section (type 9) with Text Display + Thumbnail accessory when thumbnailUrl is provided
+    if (options.thumbnailUrl) {
+      components.push({
+        type: 9, // Section
+        components: [
+          {
+            type: 10, // Text Display
+            content: parts.join('\n'),
+          },
+        ],
+        accessory: {
+          type: 11, // Thumbnail
+          media: {
+            url: options.thumbnailUrl,
+          },
+        },
+      });
+    } else {
+      // Fall back to standalone Text Display for backward compatibility
+      components.push({
+        type: 10, // Text Display
+        content: parts.join('\n'),
+      });
+    }
   }
 
   // Add Action Row with link buttons

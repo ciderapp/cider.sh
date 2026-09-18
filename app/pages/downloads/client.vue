@@ -134,12 +134,13 @@
   });
 
   useDiscordComponentEmbed({
-    title: "Download Cider",
-    description: "Get the desktop client for Windows, macOS, and Linux. Fast, customizable, and built for listeners.",
+    title: "Get Cider",
+    description: "Desktop client for Windows, macOS, and Linux. Fast, customizable, and built for listeners.",
+    thumbnailUrl: `${site.url}/icon.png`,
     buttons: [
-      { label: "Download", url: `${site.url}/downloads/client` },
       { label: "Buy", url: "https://taproom.cider.sh/purchase" },
       { label: "Discord", url: "https://discord.gg/applemusic" },
+      { label: "Website", url: site.url },
     ],
   });
 
