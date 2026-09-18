@@ -184,20 +184,21 @@ const defaultFooter = (site: string, footer: string) =>
       }"
     >
       <!-- Larger bare lockup -->
-      <div
-        :style="{
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'flex-start',
-          alignSelf: 'flex-start',
-          gap: '16px',
-          width: 'auto',
-        }"
-      >
-        <img :src="mark || defaultMark(site)" width="68" height="68" />
+      <div :style="{ position: 'relative', height: '68px', width: '420px' }">
+        <img
+          :src="mark || defaultMark(site)"
+          width="68"
+          height="68"
+          :style="{ position: 'absolute', left: '0', top: '0' }"
+        />
         <div
           :style="{
+            position: 'absolute',
+            left: '84px',
+            top: '0',
+            height: '68px',
+            display: 'flex',
+            alignItems: 'center',
             fontSize: '42px',
             fontWeight: '650',
             letterSpacing: '-0.02em',
@@ -209,7 +210,17 @@ const defaultFooter = (site: string, footer: string) =>
       </div>
 
       <!-- Nucleo + title block -->
-      <div :style="{ display: 'flex', alignItems: 'flex-start', gap: '22px', marginBottom: '48px' }">
+      <div
+        :style="{
+          display: 'flex',
+          flexDirection: 'row',
+          flexWrap: 'nowrap',
+          alignItems: 'flex-start',
+          gap: '22px',
+          marginBottom: '48px',
+          width: '100%',
+        }"
+      >
         <img
           v-if="icon"
           :src="icon"
@@ -217,7 +228,15 @@ const defaultFooter = (site: string, footer: string) =>
           height="58"
           :style="{ marginTop: '8px', flexShrink: '0' }"
         />
-        <div :style="{ display: 'flex', flexDirection: 'column', gap: '16px', maxWidth: '920px' }">
+        <div
+          :style="{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '16px',
+            maxWidth: '920px',
+            flexShrink: '1',
+          }"
+        >
           <div
             :style="{
               fontSize: '64px',
