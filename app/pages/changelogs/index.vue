@@ -77,6 +77,8 @@
 
 <script lang="ts" setup>
   definePageMeta({ title: "Changelogs" });
+  const site = useSiteConfig();
+
   useSeoMeta({
     title: "Changelogs",
     description: "Stay up to date with the latest Cider releases, news, updates, and resources.",
@@ -84,11 +86,11 @@
     ogDescription: "Stay up to date with the latest Cider releases, news, updates, and resources.",
     twitterTitle: "Changelogs",
     twitterDescription: "Stay up to date with the latest Cider releases, news, updates, and resources.",
-    ogUrl: "https://cider.sh/changelogs",
-    ogImage: "https://cider.sh/og/changelogs.png",
+    ogUrl: `${site.url}/changelogs`,
+    ogImage: `${site.url}/og/changelogs.png`,
     ogImageWidth: 1200,
     ogImageHeight: 630,
-    twitterImage: "https://cider.sh/og/changelogs.png",
+    twitterImage: `${site.url}/og/changelogs.png`,
   });
 
   defineOgImageComponent('OgShareCard', {

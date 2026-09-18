@@ -1,5 +1,6 @@
 <script lang="ts" setup>
   const { t, locale } = useI18n();
+  const site = useSiteConfig();
 
   useSeoMeta({
     title: "Cider: Cross-Platform Apple Music Client",
@@ -8,11 +9,11 @@
     ogDescription: "Cider is a community-run Apple Music client for Windows, macOS, and Linux. Fast, customizable, and built for listeners.",
     twitterTitle: "Cider: Cross-Platform Apple Music Client",
     twitterDescription: "Cider is a community-run Apple Music client for Windows, macOS, and Linux. Fast, customizable, and built for listeners.",
-    ogUrl: "https://cider.sh",
-    ogImage: "https://cider.sh/og/home.png",
+    ogUrl: site.url,
+    ogImage: `${site.url}/og/home.png`,
     ogImageWidth: 1200,
     ogImageHeight: 630,
-    twitterImage: "https://cider.sh/og/home.png",
+    twitterImage: `${site.url}/og/home.png`,
   });
 
   useHead({

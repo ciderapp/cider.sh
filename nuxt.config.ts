@@ -151,7 +151,7 @@ export default defineNuxtConfig({
   },
 
   site: {
-    url: 'https://cider.sh',
+    url: process.env.NUXT_SITE_URL || process.env.CF_PAGES_URL || 'https://cider.sh',
     name: 'Cider Collective',
   },
 
