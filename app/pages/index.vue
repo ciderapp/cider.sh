@@ -16,6 +16,17 @@
     twitterImage: `${site.url}/og/home.png`,
   });
 
+  useDiscordComponentEmbed({
+    title: "Cider: Cross-Platform Apple Music Client",
+    description: "A community-run Apple Music client for Windows, macOS, and Linux. Fast, customizable, and built for listeners.",
+    buttons: [
+      { label: "Download", url: `${site.url}/downloads` },
+      { label: "Website", url: site.url },
+      { label: "Discord", url: "https://discord.gg/applemusic" },
+    ],
+    imageUrl: `${site.url}/og/home.png`,
+  });
+
   useHead({
     script: [
       {

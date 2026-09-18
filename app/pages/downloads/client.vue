@@ -133,6 +133,17 @@
     twitterImage: `${site.url}/og/downloads-client.png`,
   });
 
+  useDiscordComponentEmbed({
+    title: "Download Cider",
+    description: "Get the desktop client for Windows, macOS, and Linux. Fast, customizable, and built for listeners.",
+    buttons: [
+      { label: "Download", url: `${site.url}/downloads/client` },
+      { label: "Buy", url: "https://taproom.cider.sh" },
+      { label: "Discord", url: "https://discord.gg/applemusic" },
+    ],
+    imageUrl: `${site.url}/og/downloads-client.png`,
+  });
+
   defineOgImageComponent('OgShareCard', {
     layout: 'secondary',
     title: 'Download Cider',
