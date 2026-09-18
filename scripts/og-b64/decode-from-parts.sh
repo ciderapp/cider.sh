@@ -6,8 +6,10 @@ for name in downloads about changelogs remote; do
   base64 -d "$ROOT/${name}.png.b64" > "public/og-icons/${name}.png"
   echo "$name $(wc -c < public/og-icons/${name}.png)"
 done
-# mesh from parts or single file
-if [[ -f "$ROOT/cider.png.b64" ]]; then
+# mesh from parts, chunks, or single file
+if [[ -f "$ROOT/cider.png.b64.chunk01" ]]; then
+  cat "$ROOT"/cider.png.b64.chunk?? | tr -d '\n' | base64 -d > public/og-mesh/cider.png
+elif [[ -f "$ROOT/cider.png.b64" ]]; then
   base64 -d "$ROOT/cider.png.b64" > public/og-mesh/cider.png
 elif [[ -f "$ROOT/mesh.part1" ]]; then
   cat "$ROOT"/mesh.part{1..5} | base64 -d > public/og-mesh/cider.png
