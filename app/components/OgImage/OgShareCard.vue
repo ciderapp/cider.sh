@@ -191,14 +191,14 @@ const defaultFooter = (site: string, footer: string) =>
           alignItems: 'center',
           justifyContent: 'flex-start',
           alignSelf: 'flex-start',
-          gap: '14px',
+          gap: '16px',
           width: 'auto',
         }"
       >
-        <img :src="mark || defaultMark(site)" width="64" height="64" />
+        <img :src="mark || defaultMark(site)" width="68" height="68" />
         <div
           :style="{
-            fontSize: '34px',
+            fontSize: '42px',
             fontWeight: '650',
             letterSpacing: '-0.02em',
             lineHeight: '1',
