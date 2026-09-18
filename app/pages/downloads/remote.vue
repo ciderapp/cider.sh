@@ -132,16 +132,29 @@
 
 <script lang="ts" setup>
   definePageMeta({ title: "Remote" });
+  const site = useSiteConfig();
+
   useSeoMeta({
-    title: "Remote",
+    title: "Cider Remote",
     description: "Take full control of Cider with Remote, a native iOS app.",
-    ogTitle: "Remote",
+    ogTitle: "Cider Remote",
     ogDescription: "Take full control of Cider with Remote, a native iOS app.",
-    ogImage: "/og-remote.png",
-    ogUrl: "https://cider.sh/remote",
-    twitterTitle: "Remote",
+    twitterTitle: "Cider Remote",
     twitterDescription: "Take full control of Cider with Remote, a native iOS app.",
-    twitterImage: "/og-remote.png",
+    ogUrl: `${site.url}/downloads/remote`,
+    ogImage: `${site.url}/og/downloads-remote.png`,
+    ogImageWidth: 1200,
+    ogImageHeight: 630,
+    twitterImage: `${site.url}/og/downloads-remote.png`,
+  });
+
+  defineOgImageComponent('OgShareCard', {
+    layout: 'secondary',
+    title: 'Cider Remote',
+    description: 'Control your music from your phone.',
+    footer: 'cider.sh/downloads/remote',
+    icon: '/og-icons/remote.png',
+    site: 'cider',
   });
 
   const headlines = [[

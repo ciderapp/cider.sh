@@ -33,6 +33,7 @@ export default defineNuxtConfig({
     "radix-vue/nuxt",
     "@vueuse/motion/nuxt",
     "@nuxtjs/i18n",
+    "@nuxtjs/seo",
     // Override the Tailwind PostCSS plugin to point directly at tailwind.config.js
     // instead of the generated .nuxt/tailwind/postcss.mjs, which uses import.meta
     // and breaks when jiti loads it in a non-module context.
@@ -122,6 +123,8 @@ export default defineNuxtConfig({
     "/changelogs": { prerender: true },
     "/changelogs/**": { isr: 60 },
     "/downloads/remote": { prerender: true },
+    "/learn-more": { prerender: true },
+    "/about": { prerender: true },
     "/remote": { redirect: "/downloads/remote" },
     "/marketplace": { redirect: "https://marketplace.cider.sh" },
     "/taproom": { redirect: "https://taproom.cider.sh" },
@@ -145,6 +148,36 @@ export default defineNuxtConfig({
     globalName: "__NUXT_COLOR_MODE__",
     componentName: "ColorScheme",
     storageKey: "nuxt-color-mode",
+  },
+
+  site: {
+    url: process.env.NUXT_SITE_URL || process.env.CF_PAGES_URL || 'https://cider.sh',
+    name: 'Cider Collective',
+  },
+
+  robots: {
+    enabled: true,
+  },
+
+  sitemap: {
+    enabled: true,
+  },
+
+  linkChecker: {
+    enabled: false,
+  },
+
+  ogImage: {
+    enabled: true,
+    defaults: {
+      component: 'OgShareCard',
+      width: 1200,
+      height: 630,
+    },
+  },
+
+  schemaOrg: {
+    enabled: false,
   },
 
   runtimeConfig: {

@@ -117,11 +117,40 @@
       },
     },
   });
+  const site = useSiteConfig();
+
   useSeoMeta({
-    description: "Download Cider for Windows, macOS, and Linux",
-    ogDescription: "Download Cider for Windows, macOS, and Linux",
-    ogImage: "/client-images/immersive.png",
-    ogUrl: "https://cider.sh/downloads",
+    title: "Download Cider",
+    description: "Get the desktop client for Windows, macOS, and Linux.",
+    ogTitle: "Download Cider",
+    ogDescription: "Get the desktop client for Windows, macOS, and Linux.",
+    twitterTitle: "Download Cider",
+    twitterDescription: "Get the desktop client for Windows, macOS, and Linux.",
+    ogUrl: `${site.url}/downloads/client`,
+    ogImage: `${site.url}/og/downloads-client.png`,
+    ogImageWidth: 1200,
+    ogImageHeight: 630,
+    twitterImage: `${site.url}/og/downloads-client.png`,
+  });
+
+  useDiscordComponentEmbed({
+    title: "Get Cider",
+    description: "Desktop client for Windows, macOS, and Linux. Fast, customizable, and built for listeners.",
+    thumbnailUrl: `${site.url}/icon.png`,
+    buttons: [
+      { label: "Buy", url: "https://taproom.cider.sh/purchase" },
+      { label: "Website", url: site.url },
+      { label: "Discord", url: "https://discord.gg/applemusic" },
+    ],
+  });
+
+  defineOgImageComponent('OgShareCard', {
+    layout: 'secondary',
+    title: 'Download Cider',
+    description: 'Get the desktop client for Windows, macOS, and Linux.',
+    footer: 'cider.sh/downloads',
+    icon: '/og-icons/downloads.png',
+    site: 'cider',
   });
 
   useHead({

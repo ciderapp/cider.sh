@@ -98,6 +98,31 @@
 </style>
 
 <script lang="ts" setup>
+  const site = useSiteConfig();
+
+  useSeoMeta({
+    title: "About Cider Collective",
+    description: "Meet the Cider Collective: the team building a better cross-platform Apple Music experience.",
+    ogTitle: "About Cider Collective",
+    ogDescription: "Meet the Cider Collective: the team building a better cross-platform Apple Music experience.",
+    twitterTitle: "About Cider Collective",
+    twitterDescription: "Meet the Cider Collective: the team building a better cross-platform Apple Music experience.",
+    ogUrl: `${site.url}/about`,
+    ogImage: `${site.url}/og/about.png`,
+    ogImageWidth: 1200,
+    ogImageHeight: 630,
+    twitterImage: `${site.url}/og/about.png`,
+  });
+
+  defineOgImageComponent('OgShareCard', {
+    layout: 'secondary',
+    title: 'About Cider Collective',
+    description: 'The story behind Cider and the community building it.',
+    footer: 'cider.sh/about',
+    icon: '/og-icons/about.png',
+    site: 'cider',
+  });
+
   const headline = "About Us";
   const title = "Meet the Team";
   const description =

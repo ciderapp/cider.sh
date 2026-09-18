@@ -28,8 +28,7 @@
           </div>
         </template>
       </div>
-      <!-- eslint-disable-next-line vue/html-self-closing -->
-      <NuxtImg
+      <img
         src="/og.png"
         alt="Share team inboxes feature"
         class="h-[300px] w-full rounded-lg object-cover shadow-sm lg:h-[520px]"
@@ -135,6 +134,30 @@
 </template>
 
 <script lang="ts" setup>
+  const site = useSiteConfig();
+
+  useSeoMeta({
+    title: "Learn More",
+    description: "Features, platforms, and why people choose Cider.",
+    ogTitle: "Learn More",
+    ogDescription: "Features, platforms, and why people choose Cider.",
+    twitterTitle: "Learn More",
+    twitterDescription: "Features, platforms, and why people choose Cider.",
+    ogUrl: `${site.url}/learn-more`,
+    ogImage: `${site.url}/og/learn-more.png`,
+    ogImageWidth: 1200,
+    ogImageHeight: 630,
+    twitterImage: `${site.url}/og/learn-more.png`,
+  });
+
+  defineOgImageComponent('OgShareCard', {
+    layout: 'secondary',
+    title: 'Learn more',
+    description: 'Features, platforms, and why people choose Cider.',
+    footer: 'cider.sh/learn-more',
+    site: 'cider',
+  });
+
   const features = [
     {
       name: "iCloud Library",
