@@ -80,7 +80,7 @@ export function useDiscordComponentEmbed(options: DiscordComponentEmbedOptions) 
   const payload = {
     component: {
       type: 17, // Component Embed
-      accent_color: 14425780, // #dc0f54
+      accent_color: 15218775, // #e83057
       spoiler: false,
       components,
     },
