@@ -172,6 +172,39 @@ const defaultFooter = (site: string, footer: string) =>
       }"
     />
 
+    <!-- Larger bare lockup -->
+    <div
+      :style="{
+        position: 'absolute',
+        top: '52px',
+        left: '72px',
+        zIndex: '2',
+        width: '420px',
+        height: '68px',
+      }"
+    >
+      <img
+        :src="mark || defaultMark(site)"
+        width="68"
+        height="68"
+        :style="{ position: 'absolute', left: '0', top: '0' }"
+      />
+      <div
+        :style="{
+          position: 'absolute',
+          left: '84px',
+          top: '10px',
+          fontSize: '42px',
+          fontWeight: '650',
+          letterSpacing: '-0.02em',
+          lineHeight: '1',
+        }"
+      >
+        {{ brand(site) }}
+      </div>
+    </div>
+
+    <!-- Content column -->
     <div
       :style="{
         position: 'relative',
@@ -180,35 +213,12 @@ const defaultFooter = (site: string, footer: string) =>
         flexDirection: 'column',
         justifyContent: 'space-between',
         height: '630px',
-        padding: '52px 72px 52px 72px',
+        paddingTop: '148px',
+        paddingLeft: '72px',
+        paddingRight: '72px',
+        paddingBottom: '52px',
       }"
     >
-      <!-- Larger bare lockup -->
-      <div :style="{ position: 'relative', height: '68px', width: '420px' }">
-        <img
-          :src="mark || defaultMark(site)"
-          width="68"
-          height="68"
-          :style="{ position: 'absolute', left: '0', top: '0' }"
-        />
-        <div
-          :style="{
-            position: 'absolute',
-            left: '84px',
-            top: '0',
-            height: '68px',
-            display: 'flex',
-            alignItems: 'center',
-            fontSize: '42px',
-            fontWeight: '650',
-            letterSpacing: '-0.02em',
-            lineHeight: '1',
-          }"
-        >
-          {{ brand(site) }}
-        </div>
-      </div>
-
       <!-- Nucleo + title block -->
       <div
         :style="{
