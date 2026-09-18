@@ -139,8 +139,8 @@
     thumbnailUrl: `${site.url}/icon.png`,
     buttons: [
       { label: "Buy", url: "https://taproom.cider.sh/purchase" },
-      { label: "Discord", url: "https://discord.gg/applemusic" },
       { label: "Website", url: site.url },
+      { label: "Discord", url: "https://discord.gg/applemusic" },
     ],
   });
 
