@@ -138,10 +138,9 @@
     description: "Get the desktop client for Windows, macOS, and Linux. Fast, customizable, and built for listeners.",
     buttons: [
       { label: "Download", url: `${site.url}/downloads/client` },
-      { label: "Buy", url: "https://taproom.cider.sh" },
+      { label: "Buy", url: "https://taproom.cider.sh/purchase" },
       { label: "Discord", url: "https://discord.gg/applemusic" },
     ],
-    imageUrl: `${site.url}/og/downloads-client.png`,
   });
 
   defineOgImageComponent('OgShareCard', {

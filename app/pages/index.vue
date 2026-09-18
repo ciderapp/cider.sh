@@ -24,7 +24,6 @@
       { label: "Website", url: site.url },
       { label: "Discord", url: "https://discord.gg/applemusic" },
     ],
-    imageUrl: `${site.url}/og/home.png`,
   });
 
   useHead({

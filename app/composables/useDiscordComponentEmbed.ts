@@ -17,54 +17,41 @@ export interface DiscordComponentEmbedOptions {
   title?: string;
   description?: string;
   buttons: DiscordButton[];
-  imageUrl?: string;
 }
 
 /**
  * Adds a Discord component embed to the page head (SSR-only).
  * 
- * @param options - Configuration for the embed: title, description, buttons, and optional imageUrl
+ * @param options - Configuration for the embed: title, description, buttons
  */
 export function useDiscordComponentEmbed(options: DiscordComponentEmbedOptions) {
-  const site = useSiteConfig();
-  
   const components: any[] = [];
 
   // Add Text Display component if title or description provided
   if (options.title || options.description) {
+    const parts: string[] = [];
+    if (options.title) {
+      parts.push(`# ${options.title}`);
+    }
+    if (options.description) {
+      parts.push(options.description);
+    }
     components.push({
-      type: 1, // Text Display
-      text: [
-        options.title && { content: options.title, tag: 'heading' },
-        options.description && { content: options.description },
-      ].filter(Boolean),
+      type: 10, // Text Display
+      content: parts.join('\n'),
     });
   }
 
   // Add Action Row with link buttons
   if (options.buttons.length > 0) {
     components.push({
-      type: 2, // Action Row
+      type: 1, // Action Row
       components: options.buttons.map(button => ({
         type: 2, // Button
         style: 5, // Link style
         label: button.label,
         url: button.url,
       })),
-    });
-  }
-
-  // Optional: Add Media Gallery if imageUrl provided
-  if (options.imageUrl) {
-    components.push({
-      type: 16, // Media Gallery
-      items: [
-        {
-          media: {
-            url: options.imageUrl.startsWith('http') ? options.imageUrl : `${site.url}${options.imageUrl}`,
-          },
-        },
-      ],
     });
   }
 
