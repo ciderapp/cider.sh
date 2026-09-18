@@ -31,7 +31,8 @@
     script: [
       {
         type: 'application/ld+json',
-        children: JSON.stringify({
+        key: 'structured-data',
+        innerHTML: JSON.stringify({
           '@context': 'https://schema.org',
           '@graph': [
             {
@@ -65,11 +66,11 @@
               applicationCategory: 'MultimediaApplication',
               offers: {
                 '@type': 'Offer',
-                price: '4.00',
+                price: '8.49',
                 priceCurrency: 'USD',
               },
               description: 'A powerful, customizable Apple Music client for every platform.',
-              softwareVersion: '2.0',
+              softwareVersion: '4.0',
               author: {
                 '@id': 'https://cider.sh/#organization',
               },
