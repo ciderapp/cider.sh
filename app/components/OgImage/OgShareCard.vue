@@ -184,13 +184,24 @@ const defaultFooter = (site: string, footer: string) =>
       }"
     >
       <!-- Larger bare lockup -->
-      <div :style="{ display: 'flex', alignItems: 'center', gap: '14px' }">
+      <div
+        :style="{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'flex-start',
+          alignSelf: 'flex-start',
+          gap: '14px',
+          width: 'auto',
+        }"
+      >
         <img :src="mark || defaultMark(site)" width="64" height="64" />
         <div
           :style="{
             fontSize: '34px',
             fontWeight: '650',
             letterSpacing: '-0.02em',
+            lineHeight: '1',
           }"
         >
           {{ brand(site) }}
