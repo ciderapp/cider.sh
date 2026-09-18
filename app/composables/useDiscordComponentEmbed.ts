@@ -67,11 +67,11 @@ export function useDiscordComponentEmbed(options: DiscordComponentEmbedOptions) 
   useHead({
     script: [
       {
+        key: 'discord-component-embed',
         id: 'discord:component-embed',
         type: 'application/json',
         tagPriority: 'high',
-        // CRITICAL: children must be raw JSON string of the payload object
-        children: JSON.stringify(payload),
+        innerHTML: JSON.stringify(payload),
       },
     ],
   });
