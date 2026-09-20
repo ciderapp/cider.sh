@@ -150,8 +150,12 @@ export default defineNuxtConfig({
     storageKey: "nuxt-color-mode",
   },
 
+  // Canonical host for sitemap/robots/OG. Do not fall back to CF_PAGES_URL:
+  // Cloudflare Pages sets that to the per-deploy *.pages.dev URL, which GSC
+  // (property cider.sh) will not count as discovered pages.
+  // Production may also set NUXT_SITE_URL=https://cider.sh (or NUXT_PUBLIC_SITE_URL).
   site: {
-    url: process.env.NUXT_SITE_URL || process.env.CF_PAGES_URL || 'https://cider.sh',
+    url: process.env.NUXT_SITE_URL || 'https://cider.sh',
     name: 'Cider Collective',
   },
 
