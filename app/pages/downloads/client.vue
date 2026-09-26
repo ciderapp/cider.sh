@@ -10,7 +10,7 @@
       <SiteDeviceNudge
         device="android"
         title="On Android? Cider runs right on your phone"
-        description="Cider for Android is in beta for supporters. The options below are for your computer."
+        description="Cider for Android is in beta for pre-orders and supporters. The options below are for your computer."
         to="/downloads/android"
         icon="mdi:android"
         class="mb-6 md:mb-8"

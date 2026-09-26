@@ -1,6 +1,9 @@
 // Cider for Android, shared by its product page and the home page.
 
-export const androidDownloadUrl = "https://taproom.cider.sh/downloads";
+// Cider for Android's page on Taproom takes pre-orders and lets owners and supporters into
+// the beta; the download page is where they get the app.
+export const androidTaproomUrl = "https://taproom.cider.sh/android";
+export const androidDownloadUrl = "https://taproom.cider.sh/android/download";
 
 // Screenshots live in public/android/ (720 x 1603 WebP from a Pixel). An empty src shows a
 // labelled placeholder frame. The Quest capture is a 12.6s muted loop at 1600 x 900: AV1 WebM

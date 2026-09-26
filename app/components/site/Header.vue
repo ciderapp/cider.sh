@@ -101,7 +101,7 @@
     },
     {
       title: "Cider for Android",
-      description: "Apple Music on Android phones and VR headsets. In beta for supporters.",
+      description: "Apple Music on Android phones and VR headsets. In beta for pre-orders and supporters.",
       to: "/downloads/android",
     },
     {

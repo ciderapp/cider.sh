@@ -145,6 +145,10 @@
       <p class="mt-5 max-w-[620px] text-pretty text-[17px] leading-relaxed text-chalk-dim md:text-lg">
         {{ copy.betaDescription }}
       </p>
+      <p class="mt-4 flex max-w-[620px] items-start gap-2.5 text-pretty text-[15px] leading-relaxed text-chalk-dim">
+        <Icon name="lucide:construction" class="mt-[3px] h-4 w-4 shrink-0 text-signal" aria-hidden="true" />
+        {{ copy.betaCaveat }}
+      </p>
 
       <ol class="mt-10 grid gap-4 md:grid-cols-3 lg:mt-14 lg:gap-6">
         <li
@@ -215,7 +219,7 @@
   definePageMeta({ title: "Cider for Android" });
   const site = useSiteConfig();
 
-  const taproomUrl = androidDownloadUrl;
+  const taproomUrl = androidTaproomUrl;
   const shots = androidShots;
 
   const copy = {
@@ -227,12 +231,14 @@
     questDescription:
       "On Quest and Frame, Cider opens as a panel you can resize, with the player floating along the bottom.",
     betaDescription:
-      "Cider for Android is in beta for Cider supporters while we finish it. You sign in with your Taproom account, and new builds arrive right inside the app.",
+      "Cider for Android is in beta while we finish it. Pre-order it on Taproom and you can use it today, and Cider supporters get in too. You sign in with your Taproom account, and new builds arrive right inside the app.",
+    betaCaveat:
+      "It's early: some features are still missing, and tablets and foldables aren't polished yet. Their layouts arrive later in the beta.",
   };
 
   const specs = [
     { label: "Requires", value: "Android 13 or later" },
-    { label: "Access", value: "Supporter beta, through Taproom" },
+    { label: "Access", value: "Beta for pre-orders and supporters" },
     { label: "You need", value: "An Apple Music subscription" },
     { label: "Also on", value: "Meta Quest & Steam Frame" },
   ];
@@ -328,9 +334,11 @@
 
   const steps = [
     {
-      title: "Become a supporter",
-      description: "Support Cider on any of these platforms. A donation of $8.49 or more gets you supporter access.",
+      title: "Pre-order, or become a supporter",
+      description:
+        "Pre-order Cider for Android on Taproom and the beta is yours right away. Supporters who give $8.49 or more on any of these platforms get in too.",
       actions: [
+        { label: "Pre-order", url: taproomUrl, icon: "mdi:android", primary: true },
         { label: "Patreon", url: "https://www.patreon.com/cidercollective", icon: "simple-icons:patreon" },
         { label: "Open Collective", url: "https://opencollective.com/ciderapp", icon: "simple-icons:opencollective" },
         { label: "GitHub Sponsors", url: "https://github.com/sponsors/ciderapp", icon: "simple-icons:githubsponsors" },
@@ -340,7 +348,7 @@
       title: "Download from Taproom",
       description:
         "Sign in to Taproom and download the app, or the VR build for a headset. Android will ask you to allow the install.",
-      actions: [{ label: "Open Taproom", url: taproomUrl, primary: true }],
+      actions: [{ label: "Open Taproom", url: androidDownloadUrl }],
     },
     {
       title: "Sign in and listen",
@@ -355,7 +363,13 @@
     },
     {
       question: "Which devices does it run on?",
-      answer: "Phones and tablets running Android 13 or later, plus Meta Quest 2, Quest Pro, Quest 3, Quest 3S, and Steam Frame.",
+      answer:
+        "Phones and tablets running Android 13 or later, plus Meta Quest 2, Quest Pro, Quest 3, Quest 3S, and Steam Frame. Tablets and foldables work, but their layouts aren't finished until later in the beta.",
+    },
+    {
+      question: "How do I get into the beta?",
+      answer:
+        "Pre-order Cider for Android on Taproom, or be a Cider supporter. When you pre-order, Taproom asks you to confirm your email and that you understand the beta is unfinished.",
     },
     {
       question: "Do I need Cider on my computer too?",
@@ -369,24 +383,24 @@
     },
     {
       question: "Is it on Google Play?",
-      answer: "Not right now. During the beta, supporters download it from Taproom.",
+      answer: "Not right now. During the beta, you download it from Taproom.",
     },
   ];
 
   useSeoMeta({
     title: "Cider for Android",
-    description: "Apple Music on your Android phone and Meta Quest & Steam Frame. In beta for Cider supporters.",
+    description: "Apple Music on your Android phone and Meta Quest & Steam Frame. In beta for pre-orders and supporters.",
     ogTitle: "Cider for Android",
-    ogDescription: "Apple Music on your Android phone and Meta Quest & Steam Frame. In beta for Cider supporters.",
+    ogDescription: "Apple Music on your Android phone and Meta Quest & Steam Frame. In beta for pre-orders and supporters.",
     twitterTitle: "Cider for Android",
-    twitterDescription: "Apple Music on your Android phone and Meta Quest & Steam Frame. In beta for Cider supporters.",
+    twitterDescription: "Apple Music on your Android phone and Meta Quest & Steam Frame. In beta for pre-orders and supporters.",
     ogUrl: `${site.url}/downloads/android`,
   });
 
   defineOgImageComponent("OgShareCard", {
     layout: "secondary",
     title: "Cider for Android",
-    description: "Apple Music on your Android phone and Meta Quest & Steam Frame. In beta for supporters.",
+    description: "Apple Music on your Android phone and Meta Quest & Steam Frame. In beta for pre-orders and supporters.",
     footer: "cider.sh/downloads/android",
     icon: "/og-icons/downloads.png",
     site: "cider",
