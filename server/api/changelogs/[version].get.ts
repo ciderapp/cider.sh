@@ -1,4 +1,4 @@
-export default defineEventHandler(async (event) => {
+export default defineCachedEventHandler(async (event) => {
   const version = getRouterParam(event, 'version');
   const riseApiBaseUrl = 'https://rise.cider.sh';
   
@@ -18,4 +18,9 @@ export default defineEventHandler(async (event) => {
       statusMessage: `Changelog for version ${version} not found`
     });
   }
-}); 
+}, {
+  // Release pages render on the server now; cache so link-heavy pages do not hammer Rise.
+  name: "rise-changelog",
+  maxAge: 60 * 5,
+  getKey: (event) => getRouterParam(event, "version") ?? "none",
+});

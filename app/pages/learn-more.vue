@@ -1,136 +1,150 @@
 <template>
-  <UiContainer class="py-16">
-    <p class="mb-3 text-center font-semibold text-primary lg:text-left">Learn More</p>
-    <h3 class="mb-4 text-center text-3xl font-semibold lg:mb-5 lg:text-left lg:text-4xl">
-      The perfect client for Apple Music users
-    </h3>
-    <p
-      class="mb-10 max-w-[760px] text-center text-lg text-muted-foreground lg:mb-16 lg:text-left lg:text-xl"
+  <main class="bg-ink text-chalk">
+    <SitePageHeader
+      eyebrow="Learn more"
+      title="The perfect client for Apple Music users"
+      description="Cider not only provides a refreshing alternative to Apple's official music client, it transforms your entire music experience with its emphasis on design and user experience."
     >
-      Cider not only provides a refreshing alternative to Apple's official music client, but it also
-      transforms your entire music experience with its emphasis on design and user experience.
-    </p>
-    <div class="grid grid-cols-1 lg:grid-cols-2 lg:py-16">
-      <div
-        class="grid grid-cols-1 place-items-center gap-5 gap-y-10 py-10 text-center md:grid-cols-2 lg:text-left"
-      >
-        <template v-for="(s, i) in stats" :key="i">
-          <div>
-            <h4 class="mb-2 text-5xl font-bold text-primary lg:mb-3 lg:text-6xl">
-              {{ s.value }}
-            </h4>
-            <p class="text-lg font-medium">
-              {{ s.text }}
-            </p>
-            <p class="mt-2 line-clamp-2 hidden text-muted-foreground lg:block">
-              {{ s.description }}
-            </p>
-          </div>
-        </template>
-      </div>
-      <img
-        src="/og.png"
-        alt="Share team inboxes feature"
-        class="h-[300px] w-full rounded-lg object-cover shadow-sm lg:h-[520px]"
-      />
-    </div>
+      <NuxtLink to="/downloads" class="sg-btn sg-btn--primary sm:min-w-[220px]">
+        Get Cider
+        <Icon name="lucide:arrow-right" class="sg-arrow h-4 w-4" aria-hidden="true" />
+      </NuxtLink>
+    </SitePageHeader>
 
-    <div class="flex max-w-screen-2xl flex-col items-center">
-      <h2 class="mx-auto mb-4 mt-2 text-4xl font-bold lg:mb-6 lg:mt-3 lg:text-5xl">
-        Feature Comparison
-      </h2>
-      <p class="mx-auto max-w-[800px] text-lg text-muted-foreground lg:text-xl">
-        Check how Cider stacks up against the competition.
-      </p>
-      <div class="my-10 w-full overflow-x-auto rounded-md border">
-        <UiTable>
-          <UiTableHeader>
-            <UiTableRow>
-              <UiTableHead>Feature</UiTableHead>
-              <UiTableHead>Cider</UiTableHead>
-              <UiTableHead>Cider Classic</UiTableHead>
-              <UiTableHead>AM Web</UiTableHead>
-              <UiTableHead>macOS AM App</UiTableHead>
-              <UiTableHead>Windows AM App</UiTableHead>
-            </UiTableRow>
-          </UiTableHeader>
-          <UiTableBody class="last:border-b">
-            <template v-for="(f, i) in features" :key="f.name">
-              <UiTableRow>
-                <UiTableCell class="text-md font-semibold">
-                  {{ f.name }}
-                  <sup :id="'fnref-' + f.footnote"
-                    ><a :href="'#fn-' + f.footnote">{{ f.footnote }}</a></sup
-                  >
-                </UiTableCell>
-                <UiTableCell class="text-center font-medium">
-                  <BooleanIcon :value="f.cider2" />
-                </UiTableCell>
-                <UiTableCell class="text-center font-medium">
-                  <BooleanIcon :value="f.cider1" />
-                </UiTableCell>
-                <UiTableCell>
-                  <BooleanIcon :value="f.musicWeb" />
-                </UiTableCell>
-                <UiTableCell>
-                  <BooleanIcon :value="f.musicMac" />
-                </UiTableCell>
-                <UiTableCell>
-                  <BooleanIcon :value="f.musicWin" />
-                </UiTableCell>
-              </UiTableRow>
-            </template>
-          </UiTableBody>
-        </UiTable>
-      </div>
-    </div>
-
-    <UiContainer class="py-16 text-center lg:py-24">
-      <h2 class="mb-4 mt-2 text-4xl font-bold lg:mb-6 lg:mt-3 lg:text-5xl">
-        Frequently Asked Questions
-      </h2>
-
-      <p class="mx-auto max-w-[800px] text-lg text-muted-foreground lg:text-xl">
-        Everything you need to know about the product.
-      </p>
-    </UiContainer>
-    <section class="mx-auto max-w-full">
-      <UiAccordion :default-value="['item-4']" type="multiple">
-        <template v-for="(i, k) in items">
-          <UiAccordionItem :value="'item-' + k">
-            <UiAccordionHeader>
-              <UiAccordionTrigger class="text-lg">{{ i.title }}</UiAccordionTrigger>
-            </UiAccordionHeader>
-            <UiAccordionContent>
-              <p class="text-base text-muted-foreground">{{ i.content }}</p>
-            </UiAccordionContent>
-          </UiAccordionItem>
-        </template>
-      </UiAccordion>
-    </section>
-
-    <section
-      class="mx-auto mt-16 flex flex-col items-center gap-6 rounded-lg bg-muted/50 py-8 text-center dark:bg-muted/20"
-    >
-      <p class="text-lg font-semibold">Still have questions?</p>
-      <p class="text-muted-foreground">
-        Can't find the answer you're looking for? Feel free to contact our Support Team.
-      </p>
-      <UiButton to="https://discord.gg/applemusic">
-        <Icon name="simple-icons:discord" size="20px" /> Get in touch on Discord
-      </UiButton>
-    </section>
-
-    <section class="mt-4">
-      <p id="footnote-label" class="sr-only">Footnotes</p>
-      <ol class="text-xs text-muted-foreground">
-        <li id="fn-1">
-          1. Support for Adjustable Vocals not currently included.
-          <a href="#fnref-1" aria-label="Back to reference">↩</a>
+    <section class="sg-shell py-12 md:py-16 lg:py-20" aria-label="Cider in numbers">
+      <ul class="grid grid-cols-[repeat(2,minmax(0,1fr))] gap-x-4 gap-y-8 lg:grid-cols-[repeat(4,minmax(0,1fr))] lg:gap-x-6">
+        <li v-for="stat in stats" :key="stat.text" class="border-t border-ink-line pt-5">
+          <p class="text-[32px] font-extrabold leading-none tracking-[-0.045em] text-signal sm:text-[44px] md:text-[64px]">
+            {{ stat.value }}
+          </p>
+          <p class="mt-2 text-lg font-semibold">{{ stat.text }}</p>
+          <p class="mt-2 hidden text-pretty text-[15px] leading-relaxed text-chalk-dim md:block">{{ stat.description }}</p>
         </li>
-      </ol>
+      </ul>
+      <div class="mt-12 md:mt-16">
+        <SiteShowcase
+          src="/client/immersive.webp"
+          alt="Cider immersive mode with full-screen artwork and synced lyrics"
+          :width="2395"
+          :height="1065"
+          bleed
+        />
+      </div>
     </section>
-  </UiContainer>
+
+    <section aria-labelledby="learn-compare" class="bg-bone text-ink">
+      <div class="sg-shell py-14 md:py-[72px] lg:py-24">
+        <h2
+          id="learn-compare"
+          class="text-5xl font-extrabold uppercase leading-[0.9] tracking-[-0.045em] md:text-[72px] lg:text-[88px]"
+        >
+          Feature comparison
+        </h2>
+        <p class="mt-5 max-w-[560px] text-[17px] leading-relaxed text-bone-mute md:text-lg">
+          Check how Cider stacks up against the competition.
+        </p>
+
+        <div class="relative mt-10 overflow-x-auto rounded-[20px] border border-bone-line bg-[#F4F2EE] lg:mt-14">
+          <table class="w-full min-w-[760px] border-collapse text-left">
+            <thead>
+              <tr class="border-b border-bone-line font-label text-xs text-bone-mute">
+                <th scope="col" class="sticky left-0 bg-[#F4F2EE] px-5 py-4 font-medium">Feature</th>
+                <th
+                  v-for="column in columns"
+                  :key="column.key"
+                  scope="col"
+                  class="px-4 py-4 text-center font-medium"
+                  :class="column.key === 'cider2' ? 'bg-ink text-chalk' : ''"
+                >
+                  {{ column.label }}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="feature in features" :key="feature.name" class="border-b border-bone-line last:border-b-0">
+                <th scope="row" class="sticky left-0 bg-[#F4F2EE] px-5 py-4 text-[15px] font-semibold">
+                  {{ feature.name }}
+                  <sup v-if="feature.footnote" :id="`fnref-${feature.footnote}`">
+                    <a :href="`#fn-${feature.footnote}`" class="text-signal-deep" :aria-label="`Footnote ${feature.footnote}`">{{
+                      feature.footnote
+                    }}</a>
+                  </sup>
+                </th>
+                <td
+                  v-for="column in columns"
+                  :key="column.key"
+                  class="px-4 py-4 text-center"
+                  :class="column.key === 'cider2' ? 'bg-ink text-signal' : ''"
+                >
+                  <Icon
+                    :name="feature[column.key] ? 'lucide:check' : 'lucide:minus'"
+                    class="mx-auto h-5 w-5"
+                    :class="feature[column.key] ? '' : column.key === 'cider2' ? 'text-chalk-mute' : 'text-bone-mute'"
+                    aria-hidden="true"
+                  />
+                  <span class="sr-only">{{ feature[column.key] ? "Yes" : "No" }}</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="learn-faq" class="sg-shell py-14 md:py-20 lg:py-24">
+      <div class="grid gap-10 lg:grid-cols-12 lg:gap-6">
+        <div class="lg:col-span-4">
+          <h2 id="learn-faq" class="text-[40px] font-extrabold uppercase leading-[0.9] tracking-[-0.045em] md:text-[56px]">
+            Frequently asked questions
+          </h2>
+          <p class="mt-4 text-[17px] leading-relaxed text-chalk-dim">Everything you need to know about Cider.</p>
+        </div>
+        <div class="lg:col-span-8">
+          <details v-for="item in faq" :key="item.title" class="group border-b border-ink-line first:border-t">
+            <summary
+              class="sg-focus flex min-h-[64px] cursor-pointer list-none items-center justify-between gap-4 py-4 text-lg font-semibold tracking-[-0.01em] [&::-webkit-details-marker]:hidden"
+            >
+              {{ item.title }}
+              <Icon
+                name="lucide:plus"
+                class="h-5 w-5 shrink-0 transition-transform duration-300 group-open:rotate-45 group-open:text-signal"
+                aria-hidden="true"
+              />
+            </summary>
+            <p class="pb-6 pr-10 text-pretty text-[15px] leading-relaxed text-chalk-dim md:text-base">{{ item.content }}</p>
+          </details>
+
+          <div
+            class="mt-10 flex flex-col gap-5 rounded-[20px] border border-ink-line bg-ink-panel p-6 md:flex-row md:items-center md:justify-between md:p-8"
+          >
+            <div>
+              <p class="text-xl font-bold tracking-[-0.02em]">Still have questions?</p>
+              <p class="mt-1 text-[15px] text-chalk-dim">Can't find the answer you're looking for? Our community can help.</p>
+            </div>
+            <a href="https://discord.gg/applemusic" target="_blank" rel="noopener" class="sg-btn sg-btn--ghost shrink-0">
+              <span class="flex items-center gap-2.5">
+                <Icon name="simple-icons:discord" class="h-4 w-4" aria-hidden="true" />
+                Ask on Discord
+              </span>
+            </a>
+          </div>
+
+          <ol class="mt-8 text-xs text-chalk-mute">
+            <li id="fn-1">
+              1. Support for Adjustable Vocals not currently included.
+              <a
+                href="#fnref-1"
+                class="sg-focus inline-flex align-middle text-chalk-dim hover:text-chalk"
+                aria-label="Back to reference"
+              >
+                <Icon name="lucide:arrow-up" class="h-3.5 w-3.5" aria-hidden="true" />
+              </a>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+  </main>
 </template>
 
 <script lang="ts" setup>
@@ -158,9 +172,25 @@
     site: 'cider',
   });
 
-  const features = [
+  const columns = [
+    { key: "cider2", label: "Cider" },
+    { key: "cider1", label: "Cider Classic" },
+    { key: "musicWeb", label: "Apple Music web" },
+    { key: "musicMac", label: "Apple Music for Mac" },
+    { key: "musicWin", label: "Apple Music for Windows" },
+  ] as const;
+
+  const features: Array<{
+    name: string;
+    footnote?: number;
+    cider1: boolean;
+    cider2: boolean;
+    musicWeb: boolean;
+    musicMac: boolean;
+    musicWin: boolean;
+  }> = [
     {
-      name: "iCloud Library",
+      name: "iCloud library",
       cider1: true,
       cider2: true,
       musicWeb: true,
@@ -168,7 +198,7 @@
       musicWin: true,
     },
     {
-      name: "Community Driven",
+      name: "Community driven",
       cider1: true,
       cider2: true,
       musicWeb: false,
@@ -192,7 +222,7 @@
       musicWin: true,
     },
     {
-      name: "Built-in Integrations with Last.fm and Discord",
+      name: "Built-in Last.fm and Discord integrations",
       cider1: true,
       cider2: true,
       musicWeb: false,
@@ -210,7 +240,7 @@
       musicWin: false,
     },
     {
-      name: "Seamless Library Browsing",
+      name: "Seamless library browsing",
       cider1: false,
       cider2: true,
       musicWeb: false,
@@ -218,7 +248,7 @@
       musicWin: false,
     },
     {
-      name: "Visual Customization",
+      name: "Visual customization",
       cider1: true,
       cider2: true,
       musicWeb: false,
@@ -226,7 +256,7 @@
       musicWin: false,
     },
     {
-      name: "Audio Enhancements",
+      name: "Audio enhancements",
       cider1: true,
       cider2: true,
       musicWeb: false,
@@ -234,7 +264,7 @@
       musicWin: false,
     },
     {
-      name: "Custom Themes and Plugins",
+      name: "Custom themes and plugins",
       cider1: true,
       cider2: true,
       musicWeb: false,
@@ -242,7 +272,7 @@
       musicWin: false,
     },
     {
-      name: "Constant Updates and New Features",
+      name: "Constant updates and new features",
       cider1: false,
       cider2: true,
       musicWeb: false,
@@ -251,7 +281,7 @@
     },
   ];
 
-  const items: { title: string; content: string }[] = [
+  const faq: { title: string; content: string }[] = [
     {
       title: "Is lossless audio supported?",
       content:
@@ -265,7 +295,7 @@
     {
       title: "Is it free to use?",
       content:
-        "Cider is a paid application, itch.io, donation or Microsoft Store. Purchasing through itch.io or through donation will allow you to get the latest updates and features through Taproom.",
+        "Cider is a paid application, available through Taproom, itch.io, donation, or the Microsoft Store. Purchasing through itch.io or through donation will allow you to get the latest updates and features through Taproom.",
     },
     {
       title: "Can I customize with my own theme?",
@@ -283,7 +313,7 @@
     {
       title: "Can I transfer my Cider license from one store to another?",
       content:
-        "No, unfortunately, we do not support transferring licenses between stores. If you have purchased Cider from itch.io, you will need to purchase it again from the Microsoft Store and vice versa; so make sure you purchase from the store you want to use it on. (Itch.io will give you the best available builds).",
+        "No, unfortunately, we do not support transferring licenses between stores. If you have purchased Cider from itch.io, you will need to purchase it again from the Microsoft Store and vice versa, so make sure you purchase from the store you want to use it on. itch.io will give you the best available builds.",
     },
   ];
 
@@ -294,12 +324,12 @@
       description: "Cider Classic has earned over 7.1K stars on GitHub. We know our stuff.",
     },
     {
-      text: "Enjoyment Factor",
+      text: "Enjoyment factor",
       value: "600%",
       description: "Cider is filled with cool quirks and features. Many more yet to come.",
     },
     {
-      text: "Open-Source Integrations",
+      text: "Open-source integrations",
       value: "10+",
       description:
         "We offer first-party integrations for Discord and Last.fm with much more available through plugins made by the community.",
@@ -308,7 +338,7 @@
       text: "Customization",
       value: "Unlimited",
       description:
-        "Your Client, Your Style. Don't let large companies dictate how your apps should look and feel.",
+        "Your client, your style. Don't let large companies dictate how your apps should look and feel.",
     },
   ];
 </script>

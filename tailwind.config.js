@@ -2,6 +2,7 @@ import defaultTheme from "tailwindcss/defaultTheme.js";
 import tailwindcssAnimate from "tailwindcss-animate";
 import tailwindcssForms from "@tailwindcss/forms";
 import tailwindcssTypography from "@tailwindcss/typography";
+import plugin from "tailwindcss/plugin.js";
 
 /**@type {import('tailwindcss').Config} */
 export default {
@@ -31,13 +32,12 @@ export default {
         },
       },
       fontFamily: {
-        sans: [
-          `Inter, ${defaultTheme.fontFamily.sans.join(", ")}`,
-          {
-            fontFeatureSettings: '"cv02","cv03","cv04","cv11"',
-          },
-        ],
+        sans: ['"Host Grotesk"', ...defaultTheme.fontFamily.sans],
         mono: ["'Fira Code'", ...defaultTheme.fontFamily.mono],
+        // Small labels, buttons and nav in the redesign
+        label: ['"Martian Mono"', ...defaultTheme.fontFamily.mono],
+        // The "Cider" wordmark only, matched against public/og.png
+        wordmark: ["Inter", ...defaultTheme.fontFamily.sans],
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -104,6 +104,27 @@ export default {
       },
       colors: {
         cider: "#F32C56",
+        ink: {
+          DEFAULT: "#0A0A0B",
+          panel: "#111113",
+          raised: "#17171A",
+          line: "#26262B",
+          edge: "#3A3A40",
+        },
+        chalk: {
+          DEFAULT: "#F3F1EE",
+          dim: "#B0AEB3",
+          mute: "#8A888E",
+        },
+        bone: {
+          DEFAULT: "#ECEAE5",
+          line: "#CFCCC5",
+          mute: "#56545A",
+        },
+        signal: {
+          DEFAULT: "#FF2B5E",
+          deep: "#C40D3A",
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -156,5 +177,11 @@ export default {
     tailwindcssAnimate,
     tailwindcssForms({ strategy: "class" }),
     tailwindcssTypography,
+    // `android:` and `ios:` style by the visitor's device. The data-device attribute is set on
+    // <html> before first paint by the script in app/app.vue; without it, only base styles apply.
+    plugin(({ addVariant }) => {
+      addVariant("android", ':is([data-device="android"] &)');
+      addVariant("ios", ':is([data-device="ios"] &)');
+    }),
   ],
 };

@@ -1,4 +1,4 @@
-export default defineEventHandler(async (event) => {
+export default defineCachedEventHandler(async (event) => {
   const riseApiBaseUrl = 'https://rise.cider.sh';
   
   try {
@@ -10,4 +10,7 @@ export default defineEventHandler(async (event) => {
       statusMessage: 'Failed to fetch changelogs list'
     });
   }
-}); 
+}, {
+  name: "rise-changelog-list",
+  maxAge: 60 * 5,
+});
