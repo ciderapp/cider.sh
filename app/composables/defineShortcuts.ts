@@ -30,7 +30,9 @@ interface Shortcut {
   // keyCode?: number
 }
 
-export const defineShortcuts = (config: ShortcutsConfig, options: ShortcutsOptions = {}) => {
+// Kept as a function declaration: when this was an exported arrow function, the dev-time
+// auto-import scanner misread its second parameter as a separate export and broke the app.
+export function defineShortcuts(config: ShortcutsConfig, options: ShortcutsOptions = {}) {
   // Use getCurrentInstance to check if we're in a valid component context
   if (!getCurrentInstance()) {
     console.warn('defineShortcuts must be called within a Vue component setup function');
@@ -181,4 +183,4 @@ export const defineShortcuts = (config: ShortcutsConfig, options: ShortcutsOptio
     .filter(Boolean) as Shortcut[];
 
   useEventListener("keydown", onKeyDown);
-};
+}

@@ -8,7 +8,7 @@
     "subtitle": "Redefined",
     "description": "Immerse yourself in a beautifully crafted, wildly fast Apple Music app. Built from the ground up for true music lovers, offering unparalleled performance and customization.",
     "get_cider": "Get Cider",
-    "learn_more": "Learn More"
+    "learn_more": "Learn more"
   },
   "features_section": {
     "label": "Features",
@@ -18,7 +18,7 @@
   "features": {
     "seamless_integrations": {
       "title": "Seamless Integrations",
-      "description": "Cider comes with out-of-the-box integration with services like Discord, Last.fm, Spotify, and many more."
+      "description": "Cider comes with out-of-the-box integration with services like Discord, Last.fm, and many more."
     },
     "audio_enhancements": {
       "title": "Audio Enhancements",

@@ -1,78 +1,80 @@
 <template>
-  <UiContainer class="py-16 lg:py-24">
-    <div class="text-center">
-      <p class="mb-3 font-semibold text-primary">User Resources</p>
-      <h1 class="mb-4 text-4xl font-semibold lg:mb-6 lg:text-5xl">Changelogs</h1>
-      <p class="text-lg text-muted-foreground lg:text-xl">
-        Stay up to date with the latest Cider releases, news, updates, and resources.
-      </p>
-    </div>
+  <main class="bg-ink text-chalk">
+    <SitePageHeader
+      eyebrow="Changelog"
+      title="What's new in Cider"
+      description="Stay up to date with the latest Cider releases, news, updates, and resources."
+    />
 
-    <!-- Latest Release -->
-    <div v-if="latest" class="mt-10 lg:mt-24">
-      <div class="mx-auto max-w-md md:max-w-2xl lg:grid lg:max-w-none lg:grid-cols-2 lg:gap-8 lg:items-center">
-        <div class="relative">
-          <NuxtLink :to="latest.path">
-            <NuxtImg
-              v-if="latest.image"
-              :src="latest.image"
-              :alt="latest.title"
-              class="mb-5 h-[280px] w-full rounded-lg object-cover shadow lg:mb-0 lg:h-[360px]"
-            />
-          </NuxtLink>
-          <UiBadge class="absolute left-3 top-3 bg-primary px-3 py-1 text-sm font-semibold text-primary-foreground">
+    <section class="sg-shell py-12 md:py-16 lg:py-20" aria-label="Releases">
+      <NuxtLink
+        v-if="latest"
+        :to="latest.path"
+        class="sg-focus group grid overflow-hidden rounded-[20px] border border-ink-line bg-ink-panel transition-colors hover:border-ink-edge lg:grid-cols-2"
+      >
+        <div class="relative aspect-[16/9] overflow-hidden bg-ink-raised lg:aspect-auto lg:min-h-[380px]">
+          <SiteReleaseArt
+            :image="latest.image"
+            :version="latest.version"
+            :alt="latest.title"
+            loading="eager"
+            class="absolute inset-0"
+          />
+          <span class="absolute left-4 top-4 rounded-full bg-signal px-3 py-1.5 font-label text-[11px] font-semibold text-ink">
             Latest
-          </UiBadge>
+          </span>
         </div>
-        <div class="lg:pl-4">
-          <p v-if="latest.date" class="mb-2 text-sm font-semibold text-primary lg:text-base">
-            {{ latest.date }}
-          </p>
-          <NuxtLink :to="latest.path">
-            <h2 class="mb-3 text-xl font-semibold lg:text-3xl xl:text-4xl">{{ latest.title }}</h2>
-          </NuxtLink>
-          <p v-if="latest.summary" class="mb-4 text-muted-foreground lg:text-lg">
+        <div class="flex flex-col p-6 md:p-10">
+          <p v-if="latest.date" class="font-label text-xs text-chalk-mute">{{ latest.date }}</p>
+          <h2 class="mt-3 text-[40px] font-extrabold uppercase leading-[0.9] tracking-[-0.045em] md:text-[56px]">
+            {{ latest.title }}
+          </h2>
+          <p v-if="latest.summary" class="mt-4 text-pretty text-[17px] leading-relaxed text-chalk-dim md:text-lg">
             {{ latest.summary }}
           </p>
-          <div class="flex flex-wrap items-center gap-2">
-            <template v-for="t in latest.tags" :key="t">
-              <UiBadge class="px-3 py-1 text-sm" variant="outline">{{ t }}</UiBadge>
-            </template>
-          </div>
+          <ul v-if="latest.tags.length" class="mt-5 flex flex-wrap gap-2">
+            <li
+              v-for="tag in latest.tags"
+              :key="tag"
+              class="inline-flex h-7 items-center rounded-full border border-ink-edge px-3 font-label text-[11px] text-chalk-dim"
+            >
+              {{ tag }}
+            </li>
+          </ul>
+          <span
+            class="mt-auto inline-flex items-center gap-2 pt-8 font-label text-xs text-chalk transition-colors group-hover:text-signal"
+          >
+            Read the release notes
+            <Icon name="lucide:arrow-right" class="h-3.5 w-3.5" aria-hidden="true" />
+          </span>
         </div>
-      </div>
-    </div>
+      </NuxtLink>
 
-    <!-- Changelogs -->
-    <section class="mt-12 grid grid-cols-1 gap-x-8 gap-y-12 md:grid-cols-2 lg:mt-16 lg:grid-cols-3">
-      <template v-for="r in releases.slice(1)" :key="r.path">
-        <div>
-          <NuxtLink :to="r.path">
-            <NuxtImg
-              v-if="r.image"
-              :src="r.image"
-              :alt="r.title"
-              class="mb-5 h-[240px] w-full rounded-lg object-cover shadow"
-            />
-          </NuxtLink>
-          <p v-if="r.date" class="mb-2 text-sm font-semibold text-primary">
-            {{ r.date }}
-          </p>
-          <NuxtLink :to="r.path">
-            <p class="mb-2 text-xl font-semibold lg:text-2xl">{{ r.title }}</p>
-          </NuxtLink>
-          <p v-if="r.summary" class="mb-3 line-clamp-2 text-ellipsis text-muted-foreground">
-            {{ r.summary }}
-          </p>
-          <div class="flex flex-wrap items-center gap-2">
-            <template v-for="t in r.tags" :key="t">
-              <UiBadge class="px-3 py-1 text-sm" variant="outline">{{ t }}</UiBadge>
-            </template>
-          </div>
-        </div>
+      <template v-if="earlier.length">
+        <h2 class="mt-14 font-label text-xs text-chalk-mute md:mt-20">Earlier releases</h2>
+        <ul class="mt-5 grid gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+          <li v-for="release in earlier" :key="release.path">
+            <NuxtLink
+              :to="release.path"
+              no-prefetch
+              class="sg-focus group flex h-full flex-col overflow-hidden rounded-[20px] border border-ink-line bg-ink-panel transition-colors hover:border-ink-edge"
+            >
+              <div class="aspect-[16/9] overflow-hidden bg-ink-raised">
+                <SiteReleaseArt :image="release.image" :version="release.version" :alt="release.title" />
+              </div>
+              <div class="flex flex-1 flex-col p-5 md:p-6">
+                <p v-if="release.date" class="font-label text-xs text-chalk-mute">{{ release.date }}</p>
+                <h3 class="mt-2 text-xl font-bold tracking-[-0.02em] md:text-2xl">{{ release.title }}</h3>
+                <p v-if="release.summary" class="mt-2 line-clamp-2 text-[15px] leading-relaxed text-chalk-dim">
+                  {{ release.summary }}
+                </p>
+              </div>
+            </NuxtLink>
+          </li>
+        </ul>
       </template>
     </section>
-  </UiContainer>
+  </main>
 </template>
 
 <script lang="ts" setup>
@@ -93,15 +95,14 @@
     twitterImage: `${site.url}/og/changelogs.png`,
   });
 
-  defineOgImageComponent('OgShareCard', {
-    layout: 'secondary',
-    title: 'Changelogs',
+  defineOgImageComponent("OgShareCard", {
+    layout: "secondary",
+    title: "Changelogs",
     description: "What's new in Cider: releases and notes.",
-    footer: 'cider.sh/changelogs',
-    icon: '/og-icons/changelogs.png',
-    site: 'cider',
+    footer: "cider.sh/changelogs",
+    icon: "/og-icons/changelogs.png",
+    site: "cider",
   });
-
 
   interface RiseChangelogListItem {
     version: string;
@@ -129,7 +130,6 @@
   }
 
   interface Release {
-    author: string;
     date: string;
     title: string;
     summary: string;
@@ -139,62 +139,40 @@
     version: string;
   }
 
+  const { data: changelogsList } = await useAsyncData("changelogs-list", () =>
+    $fetch<RiseChangelogListResponse>("/api/changelogs/list")
+  );
 
-  const { data: changelogsList } = await useAsyncData('changelogs-list', async () => {
-    const response = await $fetch<RiseChangelogListResponse>('/api/changelogs/list');
-    return response;
-  });
-
-
-  const { data: latestChangelog } = await useAsyncData('latest-changelog', async () => {
+  const { data: latestChangelog } = await useAsyncData("latest-changelog", async () => {
     try {
-      const response = await $fetch<RiseChangelogDetail>('/api/changelogs/latest');
-      return response;
+      return await $fetch<RiseChangelogDetail>("/api/changelogs/latest");
     } catch (error) {
-      console.error('Failed to fetch latest changelog:', error);
+      console.error("Failed to fetch latest changelog:", error);
       return null;
     }
   });
 
-  const releases = computed<Release[]>(() => {
-    if (!changelogsList.value?.changelogs) return [];
-    
-    return changelogsList.value.changelogs.map((changelog: RiseChangelogListItem) => {
-
-      const date = new Date(changelog.lastUpdated).toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-      });
-
-      return {
-        author: 'Cider Collective',
-        date,
-        title: `Cider ${changelog.version}`,
-        summary: changelog.shortDesc,
-        image: changelog.thumbnail,
-        path: `/changelogs/${changelog.version}`,
-        tags: [],
-        version: changelog.version,
-      };
-    });
-  });
+  const releases = computed<Release[]>(() =>
+    (changelogsList.value?.changelogs ?? []).map((changelog) => ({
+      date: new Date(changelog.lastUpdated).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      }),
+      title: `Cider ${changelog.version}`,
+      summary: changelog.shortDesc,
+      image: changelog.thumbnail,
+      path: `/changelogs/${changelog.version}`,
+      tags: [],
+      version: changelog.version,
+    }))
+  );
 
   const latest = computed<Release | undefined>(() => {
-    if (!releases.value.length || !latestChangelog.value) return undefined;
-    
-    const latestRelease = releases.value[0];
-    if (!latestRelease) return undefined;
-    
-    return {
-      author: latestRelease.author,
-      date: latestRelease.date,
-      title: latestRelease.title,
-      summary: latestRelease.summary,
-      image: latestRelease.image,
-      path: latestRelease.path,
-      version: latestRelease.version,
-      tags: latestChangelog.value.highlights?.map((h: {name: string, desc: string, icon: string}) => h.name) || [],
-    };
+    const first = releases.value[0];
+    if (!first || !latestChangelog.value) return undefined;
+    return { ...first, tags: latestChangelog.value.highlights?.map((h) => h.name) ?? [] };
   });
+
+  const earlier = computed(() => (latest.value ? releases.value.slice(1) : releases.value));
 </script>

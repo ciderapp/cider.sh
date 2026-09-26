@@ -1,133 +1,142 @@
 <template>
-  <UiContainer class="py-16 lg:py-24">
-    <div class="mx-auto max-w-[760px]">
-      <div class="text-center">
-        <UiBadge variant="outline" class="gap-2 px-3 py-1.5 text-sm font-normal"
-          ><Icon name="material-symbols:nest-remote" class="h-4 w-4 text-primary" />Remote</UiBadge
-        >
-      </div>
-      <h2 class="mb-4 mt-3 text-center text-3xl font-semibold lg:mb-5 lg:mt-7 lg:text-4xl">
-        Take full control, right from your phone
-      </h2>
-      <p class="mx-auto max-w-[760px] text-center text-lg text-muted-foreground lg:text-xl">
-        Seamlessly control your Cider Devices without interruptions or delays.
-      </p>
-      <div class="mt-8 flex justify-center gap-8">
-        <NuxtLink to="https://apps.apple.com/us/app/cider-remote/id6670149407">
-          <UiButton variant="outline">
-            <Icon name="logos:apple-app-store" />
-            Get from the App Store
-          </UiButton>
-        </NuxtLink>
-        <NuxtLink to="#android">
-          <UiButton variant="outline">
-            <Icon name="logos:android-icon" />
-            About Android
-          </UiButton>
-        </NuxtLink>
-      </div>
-    </div>
-
-    <div class="grid grid-cols-1 gap-y-12 p-10 md:grid-cols-2 lg:grid-cols-3 lg:gap-x-16">
-      <div class="flex flex-col gap-10 lg:gap-12">
-        <template v-for="(f, i) in headlines[0]" :key="i">
-          <div class="group flex flex-col">
-            <div class="flex h-12 w-12 items-center justify-center rounded-md border">
-              <Icon
-                :name="f.icon"
-                class="h-5 w-5 transition-colors group-hover:text-primary lg:h-6 lg:w-6"
-              />
-            </div>
-            <h3
-              class="mt-4 text-balance text-lg font-semibold lg:mt-5 lg:text-xl"
-              v-text="f.title"
-            />
-            <p class="mt-1 text-balance text-muted-foreground lg:mt-2" v-text="f.description" />
-            <a :href="f.link.url" v-if="f.link" class="font-semibold text-primary mt-2">{{ f.link.text }}</a>
+  <main class="bg-ink text-chalk">
+    <section aria-labelledby="remote-title" class="border-b border-ink-line">
+      <div class="sg-shell grid items-center gap-12 py-14 md:py-20 lg:grid-cols-12 lg:gap-6 lg:py-24">
+        <div class="lg:col-span-7">
+          <SiteDeviceNudge
+            device="android"
+            title="On Android? Get the full Cider app instead"
+            description="Cider Remote is for iPhone. On Android, Cider for Android plays your music and controls Cider on your computer."
+            to="/downloads/android"
+            icon="mdi:android"
+            class="mb-10"
+          />
+          <p class="font-label text-xs text-signal">Cider Remote</p>
+          <h1
+            id="remote-title"
+            class="mt-4 max-w-[12em] text-balance text-[44px] font-extrabold uppercase leading-[0.92] tracking-[-0.045em] md:mt-5 md:text-[72px] lg:text-[88px]"
+          >
+            Take full control, right from your phone
+          </h1>
+          <p class="mt-5 max-w-[560px] text-pretty text-[17px] leading-normal text-chalk-dim md:mt-6 md:text-lg lg:text-xl">
+            Seamlessly control your Cider devices without interruptions or delays.
+          </p>
+          <div class="mt-7 flex flex-col gap-2.5 sm:flex-row lg:mt-9">
+            <a
+              href="https://apps.apple.com/us/app/cider-remote/id6670149407"
+              target="_blank"
+              rel="noopener"
+              class="sg-btn sg-btn--primary android:hidden sm:min-w-[260px]"
+            >
+              <span class="flex items-center gap-2.5">
+                <Icon name="simple-icons:appstore" class="h-4 w-4" aria-hidden="true" />
+                Download on the App Store
+              </span>
+              <Icon name="lucide:arrow-up-right" class="sg-arrow h-4 w-4" aria-hidden="true" />
+            </a>
+            <NuxtLink to="/downloads/android" class="sg-btn sg-btn--primary hidden android:inline-flex sm:min-w-[260px]">
+              <span class="flex items-center gap-2.5">
+                <Icon name="mdi:android" class="h-4 w-4" aria-hidden="true" />
+                Get Cider for Android
+              </span>
+              <Icon name="lucide:arrow-right" class="sg-arrow h-4 w-4" aria-hidden="true" />
+            </NuxtLink>
+            <a href="#android" class="sg-btn sg-btn--ghost android:hidden">Using Android?</a>
           </div>
-        </template>
+          <SiteSpecList :rows="specs" class="mt-10 max-w-[560px] lg:mt-12" />
+        </div>
+        <div class="flex justify-center lg:col-span-5">
+          <img
+            src="/remote_player.png"
+            alt="Cider Remote on iPhone, showing the now-playing screen"
+            width="1350"
+            height="2760"
+            decoding="async"
+            class="h-auto w-[220px] md:w-[280px] lg:w-[340px]"
+          />
+        </div>
       </div>
-      <div class="order-last col-span-full lg:order-none lg:col-span-1">
-        <img
-          src="/remote_player.png"
-          alt="Features section nine image"
-          class="mx-auto w-[400px] object-contain object-top lg:h-[640px] lg:w-full"
-          draggable="false"
-        />
-      </div>
-      <div class="flex flex-col gap-10 lg:gap-12">
-        <template v-for="(f, i) in headlines[1]" :key="i">
-          <div class="group flex flex-col">
-            <div class="flex h-12 w-12 items-center justify-center rounded-md border">
-              <Icon
-                :name="f.icon"
-                class="h-5 w-5 transition-colors group-hover:text-primary lg:h-6 lg:w-6"
-              />
-            </div>
-            <h3
-              class="mt-4 text-balance text-lg font-semibold lg:mt-5 lg:text-xl"
-              v-text="f.title"
-            />
-            <p class="mt-1 text-balance text-muted-foreground lg:mt-2" v-text="f.description" />
-            <a :href="f.link.url" v-if="f.link" class="font-semibold text-primary mt-2">{{ f.link.text }}</a>
-          </div>
-        </template>
-      </div>
-    </div>
+    </section>
 
-    <BuiltUsing :isDesktop="false" />
-
-    <div class="mx-auto max-w-[760px] mt-16">
-      <p class="text-center font-semibold text-primary">Features</p>
-      <h2 class="mb-4 mt-3 text-center text-3xl font-semibold lg:mb-5 lg:text-4xl">
-        Whatever you need, Remote has it
-      </h2>
-    </div>
-    <div class="mt-6">
-      <swiper-container
-        :autoplay="{ delay: 3500 }"
-        :speed="800"
-        grab-cursor
-        loop
-        slides-per-view="auto"
-        space-between="30"
-        style="overflow: hidden; width: 100%;"
+    <section aria-label="Highlights" class="sg-shell py-14 md:py-20 lg:py-24">
+      <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+        <li
+          v-for="item in highlights"
+          :key="item.title"
+          class="flex flex-col rounded-[20px] border border-ink-line bg-ink-panel p-6 lg:p-7"
         >
-        <template v-for="feature in features" :key="feature.title">
-          <swiper-slide class="w-96">
-              <div class="group border bg-gray-500/10 border-white/20 p-4 rounded-lg w-96 h-60">
-                <div class="flex h-12 w-12 items-center justify-center rounded-md border">
-                  <Icon
-                  :name="feature.icon"
-                  class="h-5 w-5 transition-colors group-hover:text-primary lg:h-6 lg:w-6"
-                  />  
-                </div>
-                <h3 class="mt-4 text-balance text-lg font-semibold lg:mt-5 lg:text-xl">{{ feature.title }}</h3>
-                <p class="mt-1 text-balance text-muted-foreground lg:mt-2">{{ feature.description }}</p>
-              </div>
-            </swiper-slide>
-        </template>
-      </swiper-container>
-    </div>
+          <span class="flex h-12 w-12 items-center justify-center rounded-[12px] border border-ink-edge" aria-hidden="true">
+            <Icon :name="item.icon" class="h-5 w-5" />
+          </span>
+          <h2 class="mt-6 text-xl font-bold tracking-[-0.02em] lg:text-[22px]">{{ item.title }}</h2>
+          <p class="mt-2 text-pretty text-[15px] leading-relaxed text-chalk-dim">{{ item.description }}</p>
+          <a
+            v-if="item.link"
+            :href="item.link.url"
+            target="_blank"
+            rel="noopener"
+            class="sg-focus mt-auto inline-flex items-center gap-2 pt-5 font-label text-xs text-chalk transition-colors hover:text-signal"
+          >
+            {{ item.link.text }}
+            <Icon name="lucide:arrow-up-right" class="h-3.5 w-3.5" aria-hidden="true" />
+          </a>
+        </li>
+      </ul>
+    </section>
 
-    <div class="mx-auto max-w-[760px] mt-16">
-      <p class="text-center font-semibold text-primary" id="android">Android</p>
-      <h2 class="mb-4 mt-3 text-center text-3xl font-semibold lg:mb-5 lg:text-4xl">
-        About Remote on Android
-      </h2>
-      <p class="text-muted-foreground">
-        An Android version for Cider Remote is planned at some point, but we are currently focused on the iOS version.
-        <br /><br />
-        Also, the team working only on Cider Remote only has iOS developers and would require Android developers for a potential Android version to come out.
-      </p>
-    </div>
+    <section aria-labelledby="remote-features" class="bg-bone text-ink">
+      <div class="sg-shell py-14 md:py-[72px] lg:py-24">
+        <p class="font-label text-xs text-signal-deep">Features</p>
+        <h2
+          id="remote-features"
+          class="mt-4 max-w-[10em] text-balance text-5xl font-extrabold uppercase leading-[0.9] tracking-[-0.045em] md:mt-5 md:text-[72px] lg:text-[88px]"
+        >
+          Whatever you need, Remote has it
+        </h2>
+        <ul class="mt-10 border-t-2 border-ink lg:mt-14">
+          <li
+            v-for="feature in features"
+            :key="feature.title"
+            class="grid gap-3 border-b border-bone-line py-6 md:grid-cols-12 md:gap-6 md:py-8"
+          >
+            <div class="flex items-center gap-4 md:col-span-5">
+              <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-[12px] border border-ink" aria-hidden="true">
+                <Icon :name="feature.icon" class="h-5 w-5" />
+              </span>
+              <h3 class="text-xl font-bold tracking-[-0.02em] md:text-2xl">{{ feature.title }}</h3>
+            </div>
+            <p class="text-pretty text-[15px] leading-relaxed text-bone-mute md:col-span-7 md:text-base">
+              {{ feature.description }}
+            </p>
+          </li>
+        </ul>
+      </div>
+    </section>
 
-    <div>
-      <p class="text-center text-sm text-gray-500 pt-10">
-        Cider Remote requires Cider v2.5.0 or later, and iOS 17 or later.
-      </p>
-    </div>
-  </UiContainer>
+    <section id="android" aria-labelledby="remote-android" class="sg-shell scroll-mt-24 py-14 md:py-20 lg:py-24">
+      <div class="rounded-[20px] border border-ink-line bg-ink-panel p-6 md:p-10 lg:grid lg:grid-cols-12 lg:gap-6">
+        <div class="lg:col-span-5">
+          <h2
+            id="remote-android"
+            class="text-[40px] font-extrabold uppercase leading-[0.9] tracking-[-0.045em] md:text-[56px]"
+          >
+            Using Android?
+          </h2>
+        </div>
+        <div class="mt-6 flex flex-col gap-4 text-pretty text-[17px] leading-relaxed text-chalk-dim lg:col-span-7 lg:mt-0">
+          <p>Cider Remote is for iPhone, and it isn't coming to Android.</p>
+          <p>
+            Instead, Cider for Android brings the full app to your phone. It plays Apple Music on its own, and it can
+            pair with Cider on your computer so you can control it or move playback between the two.
+          </p>
+          <NuxtLink to="/downloads/android" class="sg-btn sg-btn--ghost mt-2 w-full sm:w-auto sm:self-start">
+            Cider for Android
+            <Icon name="lucide:arrow-right" class="sg-arrow h-4 w-4" aria-hidden="true" />
+          </NuxtLink>
+        </div>
+      </div>
+    </section>
+  </main>
 </template>
 
 <script lang="ts" setup>
@@ -148,83 +157,89 @@
     twitterImage: `${site.url}/og/downloads-remote.png`,
   });
 
-  defineOgImageComponent('OgShareCard', {
-    layout: 'secondary',
-    title: 'Cider Remote',
-    description: 'Control your music from your phone.',
-    footer: 'cider.sh/downloads/remote',
-    icon: '/og-icons/remote.png',
-    site: 'cider',
+  defineOgImageComponent("OgShareCard", {
+    layout: "secondary",
+    title: "Cider Remote",
+    description: "Control your music from your phone.",
+    footer: "cider.sh/downloads/remote",
+    icon: "/og-icons/remote.png",
+    site: "cider",
   });
 
-  const headlines = [[
+  const specs = [
+    { label: "Requires", value: "Cider v2.5.0 or later" },
+    { label: "Platform", value: "iOS 17 or later" },
+    { label: "Built with", value: "SwiftUI · Socket.io" },
+    { label: "Source", value: "Open source on GitHub", href: "https://github.com/ciderapp/Cider-Remote" },
+  ];
+
+  const highlights = [
     {
-      icon: "heroicons:puzzle-piece-solid",
+      icon: "lucide:layout-template",
       title: "Native UI",
       description:
         "Leverage the power and performance of native UI for iOS. Writing natively allows for a more seamless experience and a cohesive design language.",
     },
     {
-      icon: "heroicons:rectangle-group-solid",
+      icon: "lucide:layers",
       title: "Multi-instance support",
       description:
-        "Have multiple Cider instances? No problem. Remote allows you to switch between instances with ease, so you can control all your music from one place.",
+        "Have multiple Cider instances? No problem. Remote lets you switch between instances with ease, so you can control all your music from one place.",
     },
-  ], [
     {
-      icon: "heroicons:adjustments-horizontal",
+      icon: "lucide:zap",
       title: "Real-time control",
-      description: `No more delays or interruptions. With Remote, you can control your Cider instance with speed and precision, right from your phone.`,
+      description:
+        "No more delays or interruptions. With Remote, you can control your Cider instance with speed and precision, right from your phone.",
     },
     {
-      icon: "heroicons:code-bracket",
-      title: "Open Source",
+      icon: "lucide:code",
+      title: "Open source",
       description:
         "The whole codebase is open source, so you can inspect it, contribute to it, report bugs or ask for new features.",
-      link: { text: "Learn more", url: "https://github.com/ciderapp/Cider-Remote" },
+      link: { text: "View on GitHub", url: "https://github.com/ciderapp/Cider-Remote" },
     },
-  ]];
+  ];
 
-  var features = [
+  const features = [
     {
-      icon: "heroicons:rectangle-stack",
+      icon: "lucide:lock",
       title: "Live Activity",
       description:
-        "See your currently playing track right on your lock screen, without having to unlock your phone. And play or pause your music with just a tap.",
+        "See your currently playing track right on your lock screen, without having to unlock your phone. Play or pause your music with just a tap.",
     },
     {
-      icon: "heroicons:squares-2x2",
-      title: "Library Browser",
-      description:
-        "Get a hold of your Apple Music library, including your playlists and albums. Tap a track to play it.",
+      icon: "lucide:library",
+      title: "Library browser",
+      description: "Get a hold of your Apple Music library, including your playlists and albums. Tap a track to play it.",
     },
     {
-      icon: "heroicons:identification",
-      title: "Horizontal Layout",
+      icon: "lucide:rectangle-horizontal",
+      title: "Horizontal layout",
       description:
         "Portrait or landscape, Remote adapts to your iPhone's orientation. Leave your phone on the side and it'll never turn off.",
-      image: "/remote/Horizontal.png",
     },
     {
-      icon: "heroicons:numbered-list",
-      title: "Queue Management",
+      icon: "lucide:list-ordered",
+      title: "Queue management",
       description: "Manage your playback queue with ease. Remove and reorder tracks in your queue, all from the Remote app.",
     },
     {
-      icon: "heroicons:microphone",
-      title: "Sing along the lyrics",
-      description: "Remote supports Apple Music lyrics as well as 3rd party lyrics providers like Musixmatch. Use the Horizontal Layout to activate Immersive Lyrics.",
-    },
-    {
-      icon: "heroicons:play-pause",
-      title: "Playback Control Center",
+      icon: "lucide:mic-vocal",
+      title: "Sing along with lyrics",
       description:
-        "With iOS 18, you can add playback controls to your Control Center. Play, pause, skip tracks, and more, everything you'd need to control your music quickly.",
+        "Remote supports Apple Music lyrics as well as third-party lyrics providers like Musixmatch. Use the horizontal layout to turn on Immersive Lyrics.",
     },
     {
-      icon: "heroicons:magnifying-glass",
+      icon: "lucide:sliders-horizontal",
+      title: "Playback in Control Center",
+      description:
+        "With iOS 18, you can add playback controls to your Control Center. Play, pause, skip tracks and more, everything you need to control your music quickly.",
+    },
+    {
+      icon: "lucide:droplet",
       title: "Liquid Glass",
-      description: "With iOS 26, Remote gets a fresh coat of paint with the new Liquid Glass design, offered by the latest operating systems.",
-    }
-  ]
+      description: "With iOS 26, Remote gets a fresh coat of paint with the new Liquid Glass design.",
+    },
+  ];
 </script>

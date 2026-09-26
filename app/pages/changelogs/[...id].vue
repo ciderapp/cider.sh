@@ -1,95 +1,109 @@
 <template>
-  <div class="flex flex-col items-center">
-    <!-- Embedded Content -->
-    <div v-if="embedded" class="prose prose-lg prose-rose dark:prose-invert scroll-smooth">
-      <div v-if="page?.image">
-        <NuxtImg
-          :src="image"
-          :alt="page.title"
-          class="mb-5 w-full overflow-hidden rounded-md border border-foreground/60 object-cover shadow-lg"
-        />
-      </div>
-      <!-- Render markdown content as HTML -->
-      <div v-if="renderedContent" v-html="renderedContent"></div>
-    </div>
-    <!-- Main content -->
-    <main v-else class="container grid grid-cols-1 lg:grid-cols-[290px_minmax(0,1fr)] lg:gap-10">
-      <!-- Left sidebar with page links -->
-      <div
-        class="sticky top-14 z-20 hidden h-[calc(100dvh-57px)] border-r text-card-foreground lg:block"
-      >
-        <UiScrollArea class="h-[calc(100dvh-57px)] bg-background px-2 py-5" orientation="vertical">
-          <p class="text-md mb-8 font-semibold">Client Releases</p>
-          <Suspense>
-            <LazyDocsNavlink :links="navigationData" />
-            <template #fallback>
-              <UiSkeleton class="h-[calc(100dvh-57px)] w-full" />
-            </template>
-          </Suspense>
-        </UiScrollArea>
-      </div>
-      <!-- Page content -->
-      <div class="xl:grid xl:grid-cols-[1fr,250px] xl:gap-5">
-        <!-- Page content -->
-        <div
-          class="prose prose-lg prose-rose mx-auto w-full min-w-0 max-w-none py-5 dark:prose-invert lg:prose-base prose-headings:scroll-mt-16 prose-headings:tracking-tight prose-h2:mt-6 prose-h2:border-b prose-h2:pb-3 first:prose-h2:mt-10 prose-a:decoration-primary prose-a:underline-offset-2 hover:prose-a:text-primary prose-pre:text-lg lg:prose-pre:text-base scroll-smooth"
-        >
-          <div v-if="page?.image">
-            <NuxtImg
-              :src="image"
-              :alt="page.title"
-              class="mb-5 w-full overflow-hidden rounded-md border border-foreground/60 object-cover shadow-lg"
-            />
-          </div>
-          <!-- Render markdown content as HTML -->
-          <div v-if="renderedContent" v-html="renderedContent"></div>
-        </div>
-        <!-- Table of contents for current page -->
-        <aside
-          v-if="tableOfContents.length > 0"
-          class="sticky top-14 z-20 hidden h-[calc(100dvh-57px)] overflow-y-auto border-l bg-background text-card-foreground xl:block"
-        >
-          <div class="p-5">
-            <p class="mb-5 text-sm font-semibold">Page contents</p>
-            <Suspense>
-              <LazyDocsToclink
-                :set-active="setActive"
-                :active-id="activeId"
-                :links="tableOfContents"
-              />
-              <template #fallback>
-                <UiSkeleton class="h-[calc(100dvh-57px)] w-full" />
-              </template>
-            </Suspense>
-            <NuxtLink to="https://cidercollective.itch.io/cider">
-              <NuxtImg src="/itchio-color.svg" alt="itch.io" class="my-2 w-full p-3" />
-            </NuxtLink>
-            <!-- <div v-if="p.download.html" class="" v-html="p.download.html" />
-                  <NuxtLink v-else :to="p.download.url">
-                    <NuxtImg
-                      :src="p.download.image"
-                      alt="itch.io"
-                      class="transition-[duration]-[1000ms] max-w-xs transform-gpu transition-all hover:-translate-y-1"
-                    />
-                  </NuxtLink>
-                </div> -->
-          </div>
-        </aside>
-      </div>
-    </main>
+  <!-- Embedded view (e.g. inside the Cider app): release notes only -->
+  <div v-if="embedded" class="bg-ink p-4 text-chalk md:p-6">
+    <img v-if="release?.thumbnail" :src="release.thumbnail" :alt="title" class="mb-6 w-full rounded-[12px] border border-ink-line" />
+    <SiteProse>
+      <div class="[&>h1:first-child]:hidden" v-html="renderedContent" />
+    </SiteProse>
   </div>
+
+  <main v-else class="bg-ink text-chalk">
+    <div
+      class="sg-shell grid gap-10 py-10 md:py-14 lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-12 lg:py-16 xl:grid-cols-[220px_minmax(0,1fr)_200px]"
+    >
+      <nav aria-label="Releases" class="hidden lg:block">
+        <div class="sticky top-[100px] max-h-[calc(100dvh-120px)] overflow-y-auto pr-2">
+          <p class="font-label text-xs text-chalk-mute">Releases</p>
+          <ul class="mt-3 flex flex-col gap-0.5">
+            <li v-for="item in releases" :key="item.path">
+              <NuxtLink
+                :to="item.path"
+                no-prefetch
+                class="sg-focus flex flex-col rounded-[10px] px-3 py-2 transition-colors hover:bg-ink-panel"
+                :class="item.version === release?.version ? 'bg-ink-panel text-chalk' : 'text-chalk-dim'"
+                :aria-current="item.version === release?.version ? 'page' : undefined"
+              >
+                <span class="text-[15px] font-semibold">{{ item.title }}</span>
+                <span class="font-label text-[11px] text-chalk-mute">{{ item.date }}</span>
+              </NuxtLink>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <article class="min-w-0">
+        <NuxtLink
+          to="/changelogs"
+          class="sg-focus inline-flex items-center gap-2 font-label text-xs text-chalk-mute transition-colors hover:text-chalk"
+        >
+          <Icon name="lucide:arrow-left" class="h-3.5 w-3.5" aria-hidden="true" />
+          All releases
+        </NuxtLink>
+        <p v-if="date" class="mt-8 font-label text-xs text-signal">{{ date }}</p>
+        <h1
+          class="mt-3 text-[44px] font-extrabold uppercase leading-[0.92] tracking-[-0.045em] md:text-[72px] lg:text-[88px]"
+        >
+          {{ title }}
+        </h1>
+        <p v-if="release?.shortDesc" class="mt-5 max-w-[680px] text-pretty text-[17px] leading-relaxed text-chalk-dim md:text-lg">
+          {{ release.shortDesc }}
+        </p>
+        <ul v-if="release?.highlights?.length" class="mt-5 flex flex-wrap gap-2">
+          <li
+            v-for="highlight in release.highlights"
+            :key="highlight.name"
+            class="inline-flex h-7 items-center rounded-full border border-ink-edge px-3 font-label text-[11px] text-chalk-dim"
+          >
+            {{ highlight.name }}
+          </li>
+        </ul>
+        <img
+          v-if="release?.thumbnail"
+          :src="release.thumbnail"
+          :alt="title"
+          class="mt-8 w-full rounded-[12px] border border-ink-line"
+        />
+        <SiteProse class="mt-10">
+          <!-- The notes open with their own "# Cider x.y.z" heading; the page title already says it -->
+          <div class="[&>h1:first-child]:hidden" v-html="renderedContent" />
+        </SiteProse>
+      </article>
+
+      <aside v-if="tableOfContents.length" class="hidden xl:block">
+        <div class="sticky top-[100px]">
+          <p class="font-label text-xs text-chalk-mute">On this page</p>
+          <ul class="mt-3 flex flex-col gap-1 border-l border-ink-line">
+            <li v-for="heading in tableOfContents" :key="heading.id">
+              <a
+                :href="`#${heading.id}`"
+                class="sg-focus -ml-px block border-l py-1 text-sm transition-colors hover:text-chalk"
+                :class="[
+                  heading.id === activeId ? 'border-signal text-chalk' : 'border-transparent text-chalk-dim',
+                  heading.depth > 2 ? 'pl-6' : 'pl-3',
+                ]"
+                @click="setActive(heading.id)"
+              >
+                {{ heading.text }}
+              </a>
+            </li>
+          </ul>
+          <div class="mt-8 rounded-[16px] border border-ink-line bg-ink-panel p-5">
+            <p class="text-[15px] font-semibold">Get this update</p>
+            <p class="mt-1 text-sm text-chalk-dim">Available now on Windows, macOS, and Linux.</p>
+            <NuxtLink to="/downloads" class="sg-btn sg-btn--primary sg-btn--sm mt-4 w-full">
+              Get Cider
+              <Icon name="lucide:arrow-right" class="sg-arrow h-3.5 w-3.5" aria-hidden="true" />
+            </NuxtLink>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
 </template>
 
 <script lang="ts" setup>
   import { useActiveScroll } from "vue-use-active-scroll";
-  import { marked } from 'marked';
-  
-  type ChangelogItem = {
-    version: string;
-    shortDesc: string;
-    lastUpdated: number;
-  };
-
+  import { marked } from "marked";
 
   interface RiseChangelogDetail {
     shortDesc: string;
@@ -116,190 +130,116 @@
     total: number;
   }
 
+  definePageMeta({
+    title: "Cider Changelog",
+  });
 
-  const embedded = ref(false);
-  const page = ref<any>(null);
-
-
-  const data = ref<RiseChangelogListResponse | null>(null);
-
-
-  onMounted(async () => {
-    const route = useRoute();
-    embedded.value = route.query.embedded === "true";
-    
+  const route = useRoute();
+  const embedded = computed(() => route.query.embedded === "true");
+  const version = computed(() => {
     const id = route.params.id;
-    const version = Array.isArray(id) ? id.join('/') : (id || 'latest');
-    
-          try {      
-        const [pageResponse, navResponse] = await Promise.all([
-          $fetch<RiseChangelogDetail>(`/api/changelogs/${version}`),
-          $fetch<RiseChangelogListResponse>('/api/changelogs/list')
-        ]);
-      
-      page.value = {
-        title: `Cider ${pageResponse.version}`,
-        description: pageResponse.shortDesc,
-        image: pageResponse.thumbnail,
-        version: pageResponse.version,
-        longDesc: pageResponse.longDesc,
-        highlights: pageResponse.highlights,
-        lastUpdated: pageResponse.lastUpdated
-      };
-      
-      data.value = navResponse;
-    } catch (error) {
-      console.error('Failed to fetch changelog:', error);
-      throw createError({ statusCode: 404, statusMessage: `Changelog for version ${version} not found` });
-    }
+    return Array.isArray(id) ? id.join("/") : id || "latest";
   });
 
+  const formatDate = (timestamp: number) =>
+    new Date(timestamp).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
 
-  const image = computed(() => {
-    return page.value?.image || '';
-  });
+  const { data: release, error } = await useAsyncData(
+    () => `changelog-${version.value}`,
+    () => $fetch<RiseChangelogDetail>(`/api/changelogs/${version.value}`)
+  );
+  if (error.value || !release.value) {
+    throw createError({
+      statusCode: 404,
+      statusMessage: `Changelog for version ${version.value} not found`,
+      fatal: true,
+    });
+  }
 
-  
-  const navigationData = computed(() => {
-    if (!data.value?.changelogs) return [];
-    
-    return data.value.changelogs.map((changelog: RiseChangelogListItem) => ({
+  const { data: list } = await useAsyncData("changelogs-list", () =>
+    $fetch<RiseChangelogListResponse>("/api/changelogs/list")
+  );
+
+  const title = computed(() => (release.value ? `Cider ${release.value.version}` : "Cider Changelog"));
+  const date = computed(() => (release.value ? formatDate(release.value.lastUpdated) : ""));
+
+  const releases = computed(() =>
+    (list.value?.changelogs ?? []).map((changelog) => ({
       title: `Cider ${changelog.version}`,
-      _path: `/changelogs/${changelog.version}`,
-      navigation: {
-        date: new Date(changelog.lastUpdated).toLocaleDateString('en-US', {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric'
-        })
-      },
-      version: changelog.version
-    }));
-  });
-
+      path: `/changelogs/${changelog.version}`,
+      date: formatDate(changelog.lastUpdated),
+      version: changelog.version,
+    }))
+  );
 
   marked.setOptions({
     breaks: true,
     gfm: true,
   });
 
-
-  const generateHeadingId = (text: string) => {
-    return text.toLowerCase()
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/^-+|-+$/g, '');
-  };
-
+  function generateHeadingId(text: string) {
+    return text
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+  }
 
   const renderedContent = computed(() => {
-    if (!page.value?.longDesc) return '';
+    const longDesc = release.value?.longDesc;
+    if (!longDesc) return "";
     try {
-      let markdown = page.value.longDesc;
-      
-      // Preprocess markdown to fix common formatting issues
-      // Fix bullet points that might be improperly formatted
-      markdown = markdown.replace(/^-\s+/gm, '- ');
-      
-      // Handle the specific case where multiple bullet points are on one line
-      // Split entries that end with " - " followed by bold text
-      markdown = markdown.replace(/([^-\n]+)\s+-\s+(\*\*[^*]+\*\*:)/g, '$1\n- $2');
-      
-      // Ensure proper line breaks between bullet points
-      markdown = markdown.replace(/(\*\*[^*]+\*\*:[^-]+)-\s+\*\*/g, '$1\n- **');
-      
-      // Fix bullet points mixed with other content on same line
-      markdown = markdown.replace(/(\*\*[^*]+\*\*:[^-]+)\s+-\s+(\*\*[^*]+\*\*:)/g, '$1\n- $2');
-      
-      // Ensure proper spacing around bold text in lists
-      markdown = markdown.replace(/^-\s*(\*\*[^*]+\*\*)/gm, '- $1');
-      
-      // Fix lines that start with content and have bullet points mixed in
-      markdown = markdown.replace(/^([^-\n]*)-\s+(\*\*[^*]+\*\*:)/gm, '- $1\n- $2');
-      
-      // Add heading IDs
-      markdown = markdown.replace(/^(#{1,6})\s+(.+)$/gm, (match: string, hashes: string, text: string) => {
-        const id = generateHeadingId(text.trim());
+      let markdown = longDesc;
+
+      // Preprocess markdown to fix common formatting issues in Rise's notes
+      markdown = markdown.replace(/^-\s+/gm, "- ");
+      markdown = markdown.replace(/([^-\n]+)\s+-\s+(\*\*[^*]+\*\*:)/g, "$1\n- $2");
+      markdown = markdown.replace(/(\*\*[^*]+\*\*:[^-]+)-\s+\*\*/g, "$1\n- **");
+      markdown = markdown.replace(/(\*\*[^*]+\*\*:[^-]+)\s+-\s+(\*\*[^*]+\*\*:)/g, "$1\n- $2");
+      markdown = markdown.replace(/^-\s*(\*\*[^*]+\*\*)/gm, "- $1");
+      markdown = markdown.replace(/^([^-\n]*)-\s+(\*\*[^*]+\*\*:)/gm, "- $1\n- $2");
+
+      // Give headings stable ids for the table of contents
+      markdown = markdown.replace(/^(#{1,6})\s+(.+)$/gm, (_match: string, hashes: string, text: string) => {
         const level = hashes.length;
-        return `<h${level} id="${id}" style="scroll-margin-top: 80px;">${text.trim()}</h${level}>`;
+        return `<h${level} id="${generateHeadingId(text.trim())}">${text.trim()}</h${level}>`;
       });
-      
-      return marked(markdown);
-    } catch (error) {
-      console.error('Failed to render markdown:', error);
-      return page.value.longDesc;
+
+      return marked(markdown) as string;
+    } catch (renderError) {
+      console.error("Failed to render markdown:", renderError);
+      return longDesc;
     }
   });
 
-
+  // Section headings only: the notes' own h1 duplicates the page title.
   const tableOfContents = computed(() => {
-    if (!page.value?.longDesc) return [];
-    
-    const headingRegex = /^(#{1,6})\s+(.+)$/gm;
-    const headings = [];
-    let match;
-    
-    while ((match = headingRegex.exec(page.value.longDesc)) !== null) {
-      if (match[1] && match[2]) {
-        const level = match[1].length;
-        const text = match[2].trim();
-        const id = generateHeadingId(text);
-        
-        headings.push({
-          id,
-          text,
-          depth: level,
-          children: []
-        });
-      }
+    const longDesc = release.value?.longDesc;
+    if (!longDesc) return [];
+    const headings: Array<{ id: string; text: string; depth: number }> = [];
+    for (const match of longDesc.matchAll(/^(#{2,3})\s+(.+)$/gm)) {
+      const text = match[2]!.trim();
+      headings.push({ id: generateHeadingId(text), text, depth: match[1]!.length });
     }
-    
     return headings;
   });
 
-  const targets: any = computed(() =>
-    tableOfContents.value.flatMap(({ id, children = [] }: any) => [
-      id,
-      ...children.map(({ id }: { id: string }) => id),
-    ])
-  );
-
+  const targets = computed(() => tableOfContents.value.map((heading) => heading.id));
   const { activeId, setActive } = useActiveScroll(targets, {
     replaceHash: true,
-    overlayHeight: 80,
+    overlayHeight: 100,
   });
 
-
-  definePageMeta({ 
-    title: 'Cider Changelog'
+  useSeoMeta({
+    title: () => title.value,
+    description: () => release.value?.shortDesc || "Cider changelog",
+    ogTitle: () => title.value,
+    ogDescription: () => release.value?.shortDesc || "Cider changelog",
+    ogImage: () => release.value?.thumbnail || undefined,
   });
-
-
-  useHead({
-    title: computed(() => page.value?.title || 'Cider Changelog'),
-    meta: [
-      {
-        name: 'description',
-        content: computed(() => page.value?.description || 'Cider changelog')
-      },
-      {
-        property: 'og:title',
-        content: computed(() => page.value?.title || 'Cider Changelog')
-      },
-      {
-        property: 'og:description', 
-        content: computed(() => page.value?.description || 'Cider changelog')
-      },
-      {
-        property: 'og:image',
-        content: computed(() => image.value || '')
-      }
-    ]
-  });
-
 
   useHead({
     htmlAttrs: {
-      style: 'scroll-behavior: smooth;'
-    }
+      style: "scroll-behavior: smooth;",
+    },
   });
 </script>

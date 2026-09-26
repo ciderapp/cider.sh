@@ -1,42 +1,45 @@
 <template>
-  <div class="relative flex h-screen items-center">
-    <div
-      class="absolute inset-0 bg-[linear-gradient(to_right,theme(colors.border/80%)_1px,transparent_1px),linear-gradient(to_bottom,theme(colors.border/80%)_1px,transparent_1px)] bg-[size:60px_60px] [mask-image:radial-gradient(ellipse_50%_70%_at_50%_0%,#000_70%,transparent_110%)]"
-    />
-    <div class="container relative z-[1]">
-      <p class="mb-5 font-bold tracking-tight text-primary">{{ statusCode }} error</p>
-      <h1 class="text-4xl font-bold tracking-tight lg:text-5xl">{{ title }}</h1>
-      <UiButton class="mt-5" @click="clearError({ redirect: '/' })">Take me home</UiButton>
-    </div>
-  </div>
+  <NuxtLayout>
+    <main class="bg-ink text-chalk">
+      <div class="sg-shell flex min-h-[70vh] flex-col justify-center py-20">
+        <p aria-hidden="true" class="sg-tk sg-outline text-[120px] leading-[0.8] md:text-[200px] lg:text-[260px]">
+          {{ statusCode }}
+        </p>
+        <h1
+          class="mt-8 max-w-[14em] text-balance text-[40px] font-extrabold uppercase leading-[0.9] tracking-[-0.045em] md:text-[64px]"
+        >
+          {{ title }}
+        </h1>
+        <p class="mt-5 max-w-[520px] text-pretty text-[17px] leading-relaxed text-chalk-dim md:text-lg">{{ detail }}</p>
+        <div class="mt-8 flex flex-col gap-2.5 sm:flex-row">
+          <button type="button" class="sg-btn sg-btn--primary sm:min-w-[220px]" @click="clearError({ redirect: '/' })">
+            Take me home
+            <Icon name="lucide:arrow-right" class="sg-arrow h-4 w-4" aria-hidden="true" />
+          </button>
+          <a href="https://discord.gg/applemusic" target="_blank" rel="noopener" class="sg-btn sg-btn--ghost">
+            Ask on Discord
+          </a>
+        </div>
+      </div>
+    </main>
+  </NuxtLayout>
 </template>
 
 <script lang="ts" setup>
-  const props = withDefaults(
-    defineProps<{
-      statusCode?: number;
-      fatal?: boolean;
-      unhandled?: boolean;
-      statusMessage?: string;
-      message?: string;
-      data?: unknown;
-      cause?: unknown;
-    }>(),
-    {
-      statusCode: 404,
-      fatal: false,
-      unhandled: false,
-      statusMessage: "",
-      message: "We can't find this page",
-      data: undefined,
-      cause: undefined,
-    }
-  );
+  import type { NuxtError } from "#app";
 
-  const title = computed(() => {
-    if (!props.message) return "Error";
-    return props.message;
-  });
+  // Nuxt hands the error page a single `error` object.
+  const props = defineProps<{ error: NuxtError }>();
+
+  const statusCode = computed(() => props.error?.statusCode ?? 500);
+  const title = computed(() =>
+    statusCode.value === 404 ? "We can't find this page" : "Something went wrong on our end"
+  );
+  const detail = computed(() =>
+    statusCode.value === 404
+      ? "The link may be broken, or the page may have moved."
+      : "Try again in a moment. If it keeps happening, let us know on Discord."
+  );
 
   useSeoMeta({ title });
 </script>

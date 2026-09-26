@@ -1,101 +1,87 @@
 <template>
-  <main class="overflow-hidden">
-    <div
-      class="relative mx-auto flex h-max w-max items-center justify-center opacity-50 blur-[120px] filter"
-    >
-      <div class="absolute inset-0 flex items-center justify-center">
-        <div
-          class="circle absolute h-[40rem] w-[40rem] rounded-full"
-          :style="{ backgroundColor: circleColor }"
-        ></div>
-      </div>
-    </div>
-    <UiContainer class="relative pb-10">
-      <UiContainer class="py-16 text-center lg:py-24">
-        <slot name="headline">
-          <p v-if="headline" class="font-semibold text-primary">{{ headline }}</p>
-        </slot>
-        <slot name="title">
-          <h2 class="mb-4 mt-2 text-4xl font-bold lg:mb-6 lg:mt-3 lg:text-5xl">{{ title }}</h2>
-        </slot>
-        <slot name="description">
-          <p class="mx-auto max-w-[768px] text-lg text-muted-foreground lg:text-xl">
-            {{ description }}
-          </p>
-        </slot>
-        <div class="mt-5 flex w-full flex-col-reverse justify-center gap-3 lg:w-auto lg:flex-row">
-          <slot />
-        </div>
-      </UiContainer>
-      <section class="flex w-full flex-wrap items-center justify-center gap-x-5 gap-y-10">
-        <template v-for="member in members" :key="member.name">
-          <div class="flex w-44 flex-col items-center">
-            <UiAvatar
-              class="coloredShadow mb-5 h-24 w-24 transition-all"
-              :src="member.avatar"
-              @mouseenter="handleHover(member)"
-              @mouseleave="handleHover()"
-              :style="{
-                '--tw-shadow-color': member.color,
-              }"
-            />
-            <p class="text-lg font-bold">{{ member.name }}</p>
-            <p class="text-sm">{{ member.role.toUpperCase() }}</p>
-            <div class="mt-2 flex gap-2">
-              <NuxtLink :to="member.github" v-if="member.github">
-                <Icon name="mdi:github" class="h-6 w-6 transform-gpu hover:scale-110" />
-              </NuxtLink>
-              <NuxtLink :to="member.twitter" v-if="member.twitter">
-                <Icon name="mdi:twitter" class="h-6 w-6 transform-gpu hover:scale-110" />
-              </NuxtLink>
-              <NuxtLink :to="`mailto:${member.email}`" v-if="member.email">
-                <Icon name="mdi:email" class="h-6 w-6 transform-gpu hover:scale-110" />
-              </NuxtLink>
-            </div>
-          </div>
-        </template>
+  <main class="bg-ink text-chalk">
+    <SitePageHeader
+      eyebrow="About us"
+      title="Meet the team"
+      description="The Cider team is a group of passionate developers who are dedicated to making the best experience for Apple Music on every platform."
+    />
 
-        <!-- <template v-for="member in members" :key="member.name">
-        <div class="flex w-44 flex-col items-center">
-          <UiAvatar class="mb-5 h-24 w-24 ring-1 ring-ring/20" :src="member.avatar" />
-          <p class="text-lg font-semibold">{{ member.name }}</p>
-          <p class="text-primary">{{ member.role }}</p>
-          <div class="mt-2 flex gap-2">
-            <NuxtLink :to="member.github" v-if="member.github">
-              <Icon name="mdi:github" class="h-5 w-5" />
-            </NuxtLink>
-            <NuxtLink :to="member.twitter" v-if="member.twitter">
-              <Icon name="mdi:twitter" class="h-5 w-5" />
-            </NuxtLink>
-            <NuxtLink :to="`mailto:${member.email}`" v-if="member.email">
-              <Icon name="mdi:email" class="h-5 w-5" />
-            </NuxtLink>
+    <section class="sg-shell py-12 md:py-16 lg:py-20" aria-label="Team">
+      <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6 xl:grid-cols-4">
+        <li
+          v-for="member in members"
+          :key="member.name"
+          class="group flex flex-col rounded-[20px] border border-ink-line bg-ink-panel p-6 transition-colors hover:border-ink-edge"
+          :style="{ '--member': member.color ?? '#FF2B5E' }"
+        >
+          <img
+            :src="member.avatar"
+            alt=""
+            width="64"
+            height="64"
+            loading="lazy"
+            class="h-16 w-16 rounded-full bg-ink-raised ring-2 ring-transparent ring-offset-2 ring-offset-ink-panel transition-shadow group-hover:ring-[var(--member)]"
+          />
+          <p class="mt-5 text-xl font-bold tracking-[-0.02em]">{{ member.name }}</p>
+          <p class="mt-1 font-label text-xs text-signal">{{ member.role }}</p>
+          <p v-if="member.quote" class="mt-4 text-pretty text-[15px] leading-relaxed text-chalk-dim">&ldquo;{{ member.quote }}&rdquo;</p>
+          <div class="mt-auto flex gap-2 pt-6">
+            <a
+              v-if="member.github"
+              :href="member.github"
+              target="_blank"
+              rel="noopener"
+              class="sg-ibtn"
+              :aria-label="`${member.name} on GitHub`"
+            >
+              <Icon name="simple-icons:github" class="h-4 w-4" aria-hidden="true" />
+            </a>
+            <a
+              v-if="member.twitter"
+              :href="member.twitter"
+              target="_blank"
+              rel="noopener"
+              class="sg-ibtn"
+              :aria-label="`${member.name} on X`"
+            >
+              <Icon name="simple-icons:x" class="h-4 w-4" aria-hidden="true" />
+            </a>
+            <a v-if="member.email" :href="`mailto:${member.email}`" class="sg-ibtn" :aria-label="`Email ${member.name}`">
+              <Icon name="lucide:mail" class="h-4 w-4" aria-hidden="true" />
+            </a>
           </div>
-        </div>
-      </template> -->
-      </section>
-      <section class="pt-20">
-        <p class="mb-8 text-center text-lg text-muted-foreground">
-          We also want to give special thanks to our contributors in GitHub.
+        </li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="about-contributors" class="border-t border-ink-line">
+      <div class="sg-shell py-12 md:py-16 lg:py-20">
+        <h2
+          id="about-contributors"
+          class="text-[40px] font-extrabold uppercase leading-[0.9] tracking-[-0.045em] md:text-[56px]"
+        >
+          Contributors
+        </h2>
+        <p class="mt-4 max-w-[560px] text-[17px] leading-relaxed text-chalk-dim">
+          We also want to give special thanks to our contributors on GitHub.
         </p>
-        <NuxtLink to="https://github.com/ciderapp/cider/graphs/contributors" target="_blank">
-          <img src="https://contrib.rocks/image?repo=ciderapp/cider&columns=20" />
-        </NuxtLink>
-      </section>
-    </UiContainer>
+        <a
+          href="https://github.com/ciderapp/cider/graphs/contributors"
+          target="_blank"
+          rel="noopener"
+          class="sg-focus mt-8 block rounded-[20px] border border-ink-line bg-ink-panel p-4 transition-colors hover:border-ink-edge md:p-6"
+        >
+          <img
+            src="https://contrib.rocks/image?repo=ciderapp/cider&columns=20"
+            alt="Avatars of everyone who has contributed to Cider on GitHub"
+            loading="lazy"
+            class="w-full"
+          />
+        </a>
+      </div>
+    </section>
   </main>
 </template>
-
-<style scoped>
-  .circle {
-    transition: ease-in-out 0.2s;
-  }
-  .coloredShadow:hover {
-    box-shadow:
-      0 4px 6px -1px var(--tw-shadow-color),
-      0 10px 15px -3px var(--tw-shadow-color);
-  }
-</style>
 
 <script lang="ts" setup>
   const site = useSiteConfig();
@@ -122,27 +108,6 @@
     icon: '/og-icons/about.png',
     site: 'cider',
   });
-
-  const headline = "About Us";
-  const title = "Meet the Team";
-  const description =
-    "The Cider team is a group of passionate developers who are dedicated to making the best experience for Apple Music on every platform.";
-
-  const sponsors = [
-    { text: "JetBrains", icon: "logos:jetbrains" },
-    {
-      text: "MacStadium",
-      icon: "MacStadiumLogo",
-    },
-    { text: "Company Three", icon: "logos:airbnb" },
-    { text: "Company Four", icon: "logos:akamai" },
-  ];
-
-  const circleColor = ref("#f32c56");
-
-  function handleHover(member: CollectiveMember | undefined) {
-    circleColor.value = member?.color ?? "#f32c56";
-  }
 
   const rolePriority = {
     Founder: 1,
@@ -331,6 +296,6 @@
   ]
     .slice()
     .sort((a, b) => {
-      return rolePriority[a.role] - rolePriority[b.role];
+      return (rolePriority[a.role as keyof typeof rolePriority] ?? 99) - (rolePriority[b.role as keyof typeof rolePriority] ?? 99);
     });
 </script>

@@ -4,6 +4,20 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+ * Outlined display text (-webkit-text-stroke) traces every contour, and the variable
+ * Host Grotesk keeps overlapping glyph parts, which shows up as lines inside M, W, A, X.
+ * This is a static 800 instance with overlaps merged (fontTools instancer, OverlapMode.REMOVE),
+ * subset to Latin. Host Grotesk is OFL-1.1; the license stays in the font's name table.
+ */
+@font-face {
+  font-family: "Host Grotesk Outline";
+  src: url("/fonts/host-grotesk-outline-800.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -38,11 +52,11 @@
   }
 
   .dark {
-    --background: 0 0% 0%;
+    --background: 240 5% 4%;
     --foreground: 0 0% 95%;
-    --card: 0 0% 5%;
+    --card: 240 6% 7%;
     --card-foreground: 0 0% 95%;
-    --popover: 0 0% 5%;
+    --popover: 240 6% 7%;
     --popover-foreground: 0 0% 95%;
     --primary: 346.8 77.2% 49.8%;
     --primary-foreground: 355.7 100% 97.3%;
@@ -78,6 +92,551 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+}
+
+/*
+ * Signal: shared styles for the site header, footer and home page.
+ * Colors match the ink / chalk / bone / signal tokens in tailwind.config.js.
+ * Kept in the components layer so utilities (hidden, lg:hidden, ...) still win.
+ */
+@layer components {
+  .sg-shell {
+    width: 100%;
+    max-width: 1440px;
+    margin-inline: auto;
+    padding-inline: 16px;
+  }
+  @media (min-width: 768px) {
+    .sg-shell {
+      padding-inline: 32px;
+    }
+  }
+  @media (min-width: 1024px) {
+    .sg-shell {
+      padding-inline: 48px;
+    }
+  }
+
+  /* Buttons */
+  .sg-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    height: 56px;
+    padding: 0 18px 0 20px;
+    border-radius: 12px;
+    font-family: "Martian Mono", ui-monospace, monospace;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1;
+    white-space: nowrap;
+    text-decoration: none;
+    transition:
+      background-color 0.2s,
+      color 0.2s,
+      border-color 0.2s;
+  }
+  @media (min-width: 1024px) {
+    .sg-btn {
+      height: 60px;
+      gap: 28px;
+      padding: 0 20px 0 24px;
+      font-size: 14px;
+    }
+  }
+  .sg-btn.sg-btn--sm {
+    height: 44px;
+    gap: 12px;
+    padding: 0 16px;
+    font-size: 12px;
+  }
+  .sg-btn--center {
+    justify-content: center;
+  }
+  .sg-btn--primary {
+    background: #ff2b5e;
+    color: #0a0a0b;
+  }
+  .sg-btn--primary:hover {
+    background: #f3f1ee;
+    color: #0a0a0b;
+  }
+  .sg-btn--ghost {
+    border: 1px solid #3a3a40;
+    color: #f3f1ee;
+  }
+  .sg-btn--ghost:hover {
+    border-color: #f3f1ee;
+    color: #f3f1ee;
+  }
+  .sg-btn--ink {
+    background: #0a0a0b;
+    color: #ff2b5e;
+  }
+  .sg-btn--ink:hover {
+    background: #f3f1ee;
+    color: #0a0a0b;
+  }
+  .sg-btn--outline-ink {
+    border: 1px solid #0a0a0b;
+    color: #0a0a0b;
+  }
+  .sg-btn--outline-ink:hover {
+    background: #0a0a0b;
+    color: #ff2b5e;
+  }
+  .sg-btn .sg-arrow {
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .sg-btn:hover .sg-arrow {
+    transform: translateX(4px);
+  }
+
+  .sg-ibtn {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid #26262b;
+    border-radius: 12px;
+    background: transparent;
+    color: #f3f1ee;
+    transition: border-color 0.2s;
+  }
+  .sg-ibtn:hover {
+    border-color: #f3f1ee;
+  }
+  .sg-ibtn--lg {
+    width: 48px;
+    height: 48px;
+  }
+  .sg-ibtn:disabled {
+    cursor: not-allowed;
+    opacity: 0.35;
+  }
+  .sg-ibtn:disabled:hover {
+    border-color: #26262b;
+  }
+
+  .sg-btn:focus-visible,
+  .sg-ibtn:focus-visible,
+  .sg-focus:focus-visible {
+    outline: 2px solid #ff2b5e;
+    outline-offset: 3px;
+  }
+  .sg-on-signal .sg-btn:focus-visible {
+    outline-color: #0a0a0b;
+  }
+
+  /* Kinetic type: runs on regardless of the pointer, and can't be selected or hovered */
+  .sg-marquee {
+    display: flex;
+    width: max-content;
+    animation: sg-marquee 50s linear infinite;
+    pointer-events: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  .sg-marquee > * {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+  }
+  .sg-marquee--slow {
+    animation-duration: 60s;
+  }
+  .sg-marquee--reverse {
+    animation-direction: reverse;
+    animation-duration: 44s;
+  }
+
+  .sg-tk {
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.045em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .sg-outline {
+    font-family: "Host Grotesk Outline", "Host Grotesk", ui-sans-serif, system-ui, sans-serif;
+    color: transparent;
+    -webkit-text-stroke: 1.25px #f3f1ee;
+  }
+  @media (min-width: 1024px) {
+    .sg-outline {
+      -webkit-text-stroke-width: 2px;
+    }
+  }
+  .sg-dot {
+    display: block;
+    flex-shrink: 0;
+    border-radius: 9999px;
+    background: #ff2b5e;
+  }
+  .sg-dot--ink {
+    background: #0a0a0b;
+  }
+
+  /* Hazard band */
+  .sg-hazard {
+    background-image: repeating-linear-gradient(-45deg, #0a0a0b 0 10px, #ff2b5e 10px 20px);
+    background-size: 28.284px 28.284px;
+    animation: sg-hazard 1.2s linear infinite;
+  }
+
+  /*
+   * Showcase: the photo stays sharp, inset inside a #0A0A0A frame that matches the Cider
+   * window's own background. The frame carries the only gray outline. Corners follow
+   * Windows 11: 8px on the frame (window radius), 4px on the photo (control radius).
+   */
+  .sg-showcase {
+    position: relative;
+    isolation: isolate;
+    transform-origin: 50% 0%;
+  }
+  .sg-showcase__glow {
+    position: absolute;
+    top: 10%;
+    left: -3%;
+    z-index: -1;
+    width: 106%;
+    max-width: none;
+    height: 98%;
+    border-radius: 48px;
+    object-fit: cover;
+    opacity: 0.6;
+    filter: blur(40px) saturate(1.8) brightness(1.7);
+    pointer-events: none;
+  }
+  .sg-showcase__frame {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding: 8px;
+    border-radius: 8px;
+    background: #0a0a0a;
+    box-shadow: 0 40px 80px -32px rgba(0, 0, 0, 0.85);
+  }
+  /* The frame's single gray outline, on its outer edge */
+  .sg-showcase__frame::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    border-radius: inherit;
+    box-shadow:
+      inset 0 0 0 1px rgba(243, 241, 238, 0.16),
+      inset 0 1px 0 rgba(243, 241, 238, 0.22);
+    pointer-events: none;
+  }
+  @media (min-width: 768px) {
+    .sg-showcase__frame {
+      padding: 12px;
+    }
+  }
+  @media (min-width: 1024px) {
+    .sg-showcase__glow {
+      filter: blur(80px) saturate(1.8) brightness(1.7);
+    }
+    .sg-showcase__frame {
+      padding: 16px;
+    }
+  }
+  /* Full-screen captures sit edge to edge, with only the frame's gray outline on top */
+  .sg-showcase__frame.sg-showcase__frame--bleed {
+    padding: 0;
+  }
+  /* Decorative, so no fallback: the frame starts tipped back and settles flat as it scrolls in */
+  @media (prefers-reduced-motion: no-preference) {
+    @supports ((animation-timeline: view()) and (animation-range: entry)) {
+      .sg-showcase {
+        animation: sg-showcase-settle auto linear both;
+        animation-timeline: view();
+        animation-range: entry 0% cover 40%;
+      }
+    }
+  }
+
+  /* Screenshots: sharp, with a 1px dark inner edge that hides capture artifacts */
+  .sg-shot {
+    position: relative;
+    overflow: hidden;
+  }
+  .sg-showcase .sg-shot {
+    z-index: 1;
+    box-shadow:
+      0 0 0 1px rgba(10, 10, 11, 0.35),
+      0 12px 32px -12px rgba(0, 0, 0, 0.75);
+  }
+  .sg-showcase .sg-shot > img {
+    /* Nudge the capture's own window edges out of the rounded clip */
+    transform: scale(1.012);
+  }
+  /* Pause/play for a showcase video, in the frame's corner */
+  .sg-showcase__toggle {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(243, 241, 238, 0.18);
+    border-radius: 999px;
+    background: rgba(10, 10, 11, 0.72);
+    color: #f3f1ee;
+    cursor: pointer;
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    transition: background-color 0.2s, border-color 0.2s;
+  }
+  .sg-showcase__toggle:hover {
+    border-color: #f3f1ee;
+  }
+  .sg-showcase__toggle:focus-visible {
+    outline: 2px solid #ff2b5e;
+    outline-offset: 3px;
+  }
+  .sg-shot__bezel {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: inset 0 0 0 1px rgba(10, 10, 11, 0.45);
+    pointer-events: none;
+  }
+
+  /* Carousel tab: fills while the slide plays (duration set inline) */
+  .sg-progress {
+    animation: sg-progress 6s linear forwards;
+  }
+
+  /* Phone screenshots: the same #0A0A0A frame and outline, with corners that follow the screen */
+  .sg-phone {
+    position: relative;
+    isolation: isolate;
+  }
+  .sg-phone__frame {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding: 6px;
+    border-radius: 34px;
+    background: #0a0a0a;
+    box-shadow: 0 40px 80px -32px rgba(0, 0, 0, 0.85);
+  }
+  .sg-phone__frame::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    border-radius: inherit;
+    box-shadow:
+      inset 0 0 0 1px rgba(243, 241, 238, 0.16),
+      inset 0 1px 0 rgba(243, 241, 238, 0.22);
+    pointer-events: none;
+  }
+  .sg-phone__screen {
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    aspect-ratio: 9 / 20;
+    border-radius: 28px;
+    background: #17171a;
+  }
+
+  /*
+   * A fan of phones. Each phone sets --w, --top, --x and --r (width, offset from the top of the
+   * stage, horizontal offset from center, tilt). As the stage scrolls in they spread out from a
+   * stack in the middle.
+   */
+  .sg-fan {
+    position: relative;
+    view-timeline: --sg-fan block;
+  }
+  .sg-fan__phone {
+    position: absolute;
+    left: 50%;
+    top: var(--top, 0px);
+    width: var(--w);
+    translate: calc(-50% + var(--x, 0px)) 0;
+    rotate: var(--r, 0deg);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    @supports ((animation-timeline: view()) and (animation-range: entry)) {
+      .sg-fan__phone {
+        animation: sg-fan-in auto cubic-bezier(0.2, 0.7, 0.2, 1) both;
+        animation-timeline: --sg-fan;
+        animation-range: entry 10% cover 50%;
+      }
+    }
+  }
+
+  /* Split-flap counter */
+  .sg-flap {
+    position: relative;
+    display: block;
+    width: 40px;
+    height: 56px;
+    overflow: hidden;
+    border: 1px solid #26262b;
+    border-radius: 6px;
+    background: #131316;
+  }
+  .sg-flap::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 50% 0;
+    z-index: 1;
+    background: rgba(255, 255, 255, 0.03);
+    pointer-events: none;
+  }
+  .sg-flap::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    z-index: 2;
+    height: 2px;
+    margin-top: -1px;
+    background: #0a0a0b;
+  }
+  .sg-flap__roll {
+    display: flex;
+    flex-direction: column;
+    animation: sg-flap 8s infinite both;
+  }
+  .sg-flap__glyph {
+    display: block;
+    height: 54px;
+    font-size: 46px;
+    font-weight: 800;
+    line-height: 54px;
+    letter-spacing: -0.04em;
+    text-align: center;
+    color: #f3f1ee;
+  }
+  @media (min-width: 1024px) {
+    .sg-flap {
+      width: 68px;
+      height: 92px;
+      border-radius: 8px;
+    }
+    .sg-flap__glyph {
+      height: 90px;
+      font-size: 76px;
+      line-height: 90px;
+    }
+  }
+
+  /* EQ bars */
+  .sg-eq-bar {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background:
+      repeating-linear-gradient(to top, transparent 0 5px, #111113 5px 8px),
+      linear-gradient(to top, #f3f1ee 0 66%, #ff2b5e 66% 100%);
+  }
+
+  .sg-spin {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: sg-spin 30s linear infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sg-marquee,
+    .sg-hazard,
+    .sg-spin,
+    .sg-eq-bar,
+    .sg-flap__roll {
+      animation: none !important;
+    }
+    .sg-flap__roll {
+      transform: translateY(-83.3333%);
+    }
+    .sg-eq-bar {
+      clip-path: var(--eq-rest, inset(30% 0 0 0));
+    }
+  }
+}
+
+/* Keyframes live outside the layer so Tailwind never drops them as unused. */
+@keyframes sg-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes sg-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+@keyframes sg-fan-in {
+  from {
+    translate: -50% 10%;
+    rotate: 0deg;
+  }
+}
+@keyframes sg-hazard {
+  to {
+    background-position: 28.284px 0;
+  }
+}
+@keyframes sg-flap {
+  0% {
+    transform: translateY(0);
+    animation-timing-function: steps(5, end);
+  }
+  14%,
+  100% {
+    transform: translateY(-83.3333%);
+  }
+}
+@keyframes sg-eq-a {
+  0% {
+    clip-path: inset(74% 0 0 0);
+  }
+  100% {
+    clip-path: inset(16% 0 0 0);
+  }
+}
+@keyframes sg-eq-b {
+  0% {
+    clip-path: inset(58% 0 0 0);
+  }
+  50% {
+    clip-path: inset(6% 0 0 0);
+  }
+  100% {
+    clip-path: inset(44% 0 0 0);
+  }
+}
+@keyframes sg-eq-c {
+  0% {
+    clip-path: inset(84% 0 0 0);
+  }
+  100% {
+    clip-path: inset(38% 0 0 0);
+  }
+}
+@keyframes sg-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes sg-showcase-settle {
+  from {
+    transform: perspective(1800px) rotateX(14deg) scale(0.94);
   }
 }

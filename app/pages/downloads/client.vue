@@ -1,111 +1,87 @@
 <template>
-  <DownloadItem.define v-slot="{ download }">
-    <div class="w-full px-2" v-if="download.type != 'multiple'">
-      <NuxtLink v-if="download.type == 'html'" v-html="download.html" />
+  <main class="bg-ink text-chalk">
+    <SitePageHeader
+      eyebrow="Get Cider"
+      title="Drink up!"
+      description="Now for the fun part: pick your flavor of Cider. There are a few ways to get it."
+    />
 
-      <NuxtLink v-else-if="download.type == 'image'" :to="download.url">
-        <NuxtImg
-          :src="download.image"
-          :alt="download.alt"
-          class="transition-[duration]-[1000ms] w-full transform-gpu transition-all hover:-translate-y-1"
-        />
-      </NuxtLink>
-    </div>
-
-    <div v-else-if="download.type == 'multiple'" class="flex gap-4">
-      <div v-for="dl in download.downloads" class="grow">
-        <UiTooltip>
-          <UiTooltipTrigger class="w-full">
-            <UiButton class="w-full py-7 text-lg" variant="outline" :href="dl.url">
-              <Icon :name="dl.icon" class="mr-2 h-10 w-10 shrink-0" />
-            </UiButton>
-          </UiTooltipTrigger>
-
-          <UiTooltipContent align="center">
-            {{ dl.text }}
-          </UiTooltipContent>
-        </UiTooltip>
-      </div>
-    </div>
-  </DownloadItem.define>
-
-  <UiContainer class="relative py-16 lg:py-24">
-    <div class="mx-auto max-w-[760px] text-center">
-      <p class="font-semibold text-primary">Get the Cider Client</p>
-      <h2 class="mb-4 mt-3 text-3xl font-black lg:mb-6 lg:text-6xl">Drink Up!</h2>
-      <p class="text-lg text-muted-foreground lg:text-xl">
-        Now for the fun part, pick your flavor of Cider. We have a few options for you to choose
-        from.
-      </p>
-    </div>
-
-    <div
-      class="mx-auto mt-5 flex flex-wrap justify-center gap-y-10 lg:mt-7 lg:gap-8 lg:gap-y-12 lg:py-0"
-    >
-      <template v-for="p in downloads">
-        <UiCard
-          class="min-w-[300px] max-w-[600px] flex-1 overflow-hidden sm:basis-full md:basis-[80%] lg:basis-[48%]"
+    <section class="sg-shell py-12 md:py-16 lg:py-20" aria-label="Ways to get Cider">
+      <SiteDeviceNudge
+        device="android"
+        title="On Android? Cider runs right on your phone"
+        description="Cider for Android is in beta for supporters. The options below are for your computer."
+        to="/downloads/android"
+        icon="mdi:android"
+        class="mb-6 md:mb-8"
+      />
+      <SiteDeviceNudge
+        device="ios"
+        title="On iPhone? Pair it with Cider Remote"
+        description="Cider runs on your computer. Install it there, then control it from your phone with Cider Remote."
+        to="/downloads/remote"
+        icon="simple-icons:apple"
+        class="mb-6 md:mb-8"
+      />
+      <div class="grid gap-4 md:gap-6 lg:grid-cols-2">
+        <article
+          v-for="option in options"
+          :key="option.title"
+          class="flex flex-col rounded-[20px] border bg-ink-panel p-6 md:p-8"
+          :class="option.featured ? 'border-signal/60' : 'border-ink-line'"
         >
-          <UiCardTitle class="flex flex-wrap items-center justify-between gap-2 px-6 py-4">
-            <p class="text-lg font-semibold lg:text-2xl">{{ p.title }}</p>
-
-            <div v-if="p.sidenote || p.notice" class="flex flex-wrap items-center gap-2">
-              <UiBadge v-if="p.sidenote" class="border-primary/50 text-primary" variant="outline"
-                >{{ p.sidenote }}
-              </UiBadge>
-              <UiBadge
-                v-if="p.notice"
-                class="gap-1.5 border-amber-500/50 text-amber-600 dark:text-amber-400"
-                variant="outline"
+          <div class="flex items-start justify-between gap-4">
+            <h2 class="text-2xl font-bold tracking-[-0.02em] md:text-[28px]">{{ option.title }}</h2>
+            <div v-if="option.badges.length" class="flex flex-wrap justify-end gap-2 pt-0.5 md:pt-1">
+              <span
+                v-for="badge in option.badges"
+                :key="badge.label"
+                class="inline-flex h-7 items-center gap-1.5 whitespace-nowrap rounded-full border px-3 font-label text-[11px]"
+                :class="badge.tone === 'signal' ? 'border-signal/60 text-signal' : 'border-ink-edge text-chalk-dim'"
               >
-                <Icon name="heroicons:exclamation-triangle" class="h-3.5 w-3.5 shrink-0" />
-                {{ p.notice }}
-              </UiBadge>
+                <Icon v-if="badge.icon" :name="badge.icon" class="h-3.5 w-3.5" aria-hidden="true" />
+                {{ badge.label }}
+              </span>
             </div>
-          </UiCardTitle>
+          </div>
+          <p class="mt-3 text-pretty text-[15px] leading-relaxed text-chalk-dim md:text-base">{{ option.description }}</p>
 
-          <UiCardDescription class="flex grow items-center gap-4 px-6 py-4">
-            <p class="flex-[50%] text-muted-foreground">{{ p.description }}</p>
-            <DownloadItem.reuse
-              :download="p.download"
-              v-if="p.download.type != 'multiple'"
-              class="max-w-80 flex-[50%]"
-            />
-          </UiCardDescription>
-
-          <UiCardContent class="w-full px-0">
-            <ul class="grid w-full grid-cols-1 gap-4 px-5 pt-8 md:grid-cols-2 lg:py-8">
-              <li v-for="(perk, k) in p.features" :key="k" class="flex items-center gap-3">
-                <Icon name="heroicons:check-circle" class="h-6 w-6 shrink-0 text-primary" />
-                <span class="opacity-80">
-                  <NuxtLink v-html="perk" />
-                </span>
-              </li>
-            </ul>
-          </UiCardContent>
-
-          <UiCardFooter class="grid grid-rows-2 gap-4">
-            <p class="text-xs text-muted-foreground" v-html="p.footer" v-if="p.footer" />
-
-            <div class="flex justify-center">
-              <DownloadItem.reuse
-                :download="p.download"
-                v-if="p.download.type == 'multiple'"
-                class="flex-auto"
+          <ul class="mt-6 grid gap-x-6 gap-y-3 border-t border-ink-line pt-6 sm:grid-cols-2">
+            <li v-for="perk in option.perks" :key="perk" class="flex gap-3 text-[15px] leading-snug text-chalk-dim">
+              <Icon name="lucide:check" class="mt-0.5 h-4 w-4 shrink-0 text-signal" aria-hidden="true" />
+              <!-- Perks are trusted, hard-coded strings; some carry a link or footnote marker -->
+              <span
+                class="[&_a:hover]:underline [&_a]:text-signal [&_a]:underline-offset-2 [&_sup]:ml-0.5"
+                v-html="perk"
               />
-            </div>
-          </UiCardFooter>
-        </UiCard>
-      </template>
-    </div>
-  </UiContainer>
+            </li>
+          </ul>
 
-  <section class="m-4">
-    <p id="footnote-label" class="sr-only">Footnotes</p>
-    <ol class="text-xs text-muted-foreground">
-      <li id="fn-1">1. Performance may vary depending on your device.</li>
-    </ol>
-  </section>
+          <p v-if="option.note" class="mt-6 text-sm leading-relaxed text-chalk-mute">{{ option.note }}</p>
+
+          <div class="mt-auto flex flex-wrap gap-2.5 pt-8">
+            <a
+              v-for="action in option.actions"
+              :key="action.url"
+              :href="action.url"
+              target="_blank"
+              rel="noopener"
+              class="sg-btn"
+              :class="[action.primary ? 'sg-btn--primary' : 'sg-btn--ghost', option.actions.length > 1 ? 'sg-btn--sm' : 'w-full sm:w-auto']"
+            >
+              <span class="flex items-center gap-2.5">
+                <Icon v-if="action.icon" :name="action.icon" class="h-4 w-4" aria-hidden="true" />
+                {{ action.label }}
+              </span>
+              <Icon v-if="option.actions.length === 1" name="lucide:arrow-up-right" class="sg-arrow h-4 w-4" aria-hidden="true" />
+            </a>
+          </div>
+        </article>
+      </div>
+
+      <p id="fn-1" class="mt-8 text-xs text-chalk-mute">1. Performance may vary depending on your device.</p>
+    </section>
+  </main>
 </template>
 
 <script lang="ts" setup>
@@ -144,178 +120,117 @@
     ],
   });
 
-  defineOgImageComponent('OgShareCard', {
-    layout: 'secondary',
-    title: 'Download Cider',
-    description: 'Get the desktop client for Windows, macOS, and Linux.',
-    footer: 'cider.sh/downloads',
-    icon: '/og-icons/downloads.png',
-    site: 'cider',
+  defineOgImageComponent("OgShareCard", {
+    layout: "secondary",
+    title: "Download Cider",
+    description: "Get the desktop client for Windows, macOS, and Linux.",
+    footer: "cider.sh/downloads",
+    icon: "/og-icons/downloads.png",
+    site: "cider",
   });
 
-  useHead({
-    script: [
-      {
-        type: "module",
-        src: "https://get.microsoft.com/badge/ms-store-badge.bundled.js",
-      },
-    ],
-  });
-
-  type HTMLDownload = {
-    type: "html";
-    html: string;
-  };
-
-  type ImageDownload = {
-    type: "image";
-    url: string;
-    image: string;
-    alt: string;
-  };
-
-  type IconDownload = {
-    type: "icon";
-    icon: string;
-    text: string;
-    url: string;
-  };
-
-  type Multiple = {
-    type: "multiple";
-    downloads: IconDownload[];
-  };
-
-  type Download = {
+  interface Option {
     title: string;
     description: string;
-    sidenote?: string;
-    notice?: string;
-    features: string[];
-    download: HTMLDownload | ImageDownload | Multiple;
-    footer?: string;
-  };
+    featured?: boolean;
+    badges: Array<{ label: string; tone: "signal" | "muted"; icon?: string }>;
+    perks: string[];
+    note?: string;
+    actions: Array<{ label: string; url: string; icon?: string; primary?: boolean }>;
+  }
 
-  const DownloadItem = createReusableTemplate<{
-    download: Download["download"];
-  }>();
+  const taproom = "Access to <a href='https://taproom.cider.sh' target='_blank' rel='noopener'>Taproom</a>";
+  const fast = "Blazingly fast<sup><a href='#fn-1' aria-label='Footnote 1'>1</a></sup>";
 
-  const downloads: Download[] = [
+  const options: Option[] = [
     {
       title: "Direct",
+      featured: true,
       description:
         "Available for all users on Windows, macOS, and Linux. A full list of supported platforms can be found on Taproom.",
-      sidenote: "Recommended & New!",
-      features: [
+      badges: [
+        { label: "Recommended", tone: "signal" },
+        { label: "New", tone: "signal" },
+      ],
+      perks: [
         "Support us directly by purchasing Cider through Taproom",
         "Access to Windows, macOS, and Linux releases",
-        "Faster Client Updates Compared to Other Storefronts",
-        "Access to <a href='https://taproom.cider.sh' class='text-primary'>Taproom</a>",
-        "Community Themes and Plugins verified by Cider Collective",
-        "Over-the-air Updates",
+        "Faster client updates than other storefronts",
+        taproom,
+        "Community themes and plugins verified by Cider Collective",
+        "Over-the-air updates",
         "Access to features specific to each platform",
-        "Ton of customization options",
-        "Audio Enhancements through our cutting Audio Lab technology",
-        "Blazingly Fast <a class='inline-block align-top text-[0.5em] underline' href='#fn-1'>1</a>",
-        "Help and Support from the Cider Community and Collective Team",
+        "Tons of customization options",
+        "Audio enhancements from our Audio Lab",
+        fast,
+        "Help and support from the Cider community and Collective team",
       ],
-      download: {
-        type: "image",
-        url: "https://taproom.cider.sh/purchase",
-        image: "/taproom.svg",
-        alt: "taproom",
-      },
+      actions: [{ label: "Buy on Taproom", url: "https://taproom.cider.sh/purchase", primary: true }],
     },
     {
-      title: "Itch.io",
+      title: "itch.io",
       description:
-        "Available for all users on Windows, macOS, and Linux. A full list of supported platforms can be found on the Itch.io page.",
-      sidenote: "Recommended",
-      features: [
+        "Available for all users on Windows, macOS, and Linux. A full list of supported platforms can be found on the itch.io page.",
+      badges: [{ label: "Recommended", tone: "signal" }],
+      perks: [
         "Access to Windows, macOS, and Linux releases",
-        "Faster Client Updates Compared to Other Storefronts",
-        "Access to <a href='https://taproom.cider.sh' class='text-primary'>Taproom</a>",
-        "Community Themes and Plugins verified by Cider Collective",
-        "Over-the-air Updates",
+        "Faster client updates than other storefronts",
+        taproom,
+        "Community themes and plugins verified by Cider Collective",
+        "Over-the-air updates",
         "Access to features specific to each platform",
-        "Ton of customization options",
-        "Audio Enhancements through our cutting Audio Lab technology",
-        "Blazingly Fast <a class='inline-block align-top text-[0.5em] underline' href='#fn-1'>1</a>",
-        "Help and Support from the Cider Community and Collective Team",
+        "Tons of customization options",
+        "Audio enhancements from our Audio Lab",
+        fast,
+        "Help and support from the Cider community and Collective team",
       ],
-      download: {
-        type: "image",
-        url: "https://cidercollective.itch.io/cider",
-        image: "/itchio-black.svg",
-        alt: "itch.io",
-      },
+      actions: [
+        { label: "Get it on itch.io", url: "https://cidercollective.itch.io/cider", icon: "simple-icons:itchdotio" },
+      ],
     },
     {
       title: "Microsoft Store",
-      notice: "Currently on 3.1",
       description:
-        "Available on the Microsoft Store for Windows 10 and 11 users. Containing all stable features from the last major release. This version is currently held at 3.1 while we resolve storefront issues that prevent us from pushing 4.0.",
-      features: [
+        "Available on the Microsoft Store for Windows 10 and 11 users, with all stable features from the last major release. This version is held at 3.1 while we resolve storefront issues that prevent us from pushing 4.0.",
+      badges: [{ label: "Currently on 3.1", tone: "muted", icon: "lucide:triangle-alert" }],
+      perks: [
         "Windows 10 and 11 support",
-        "Microsoft Store Specific Features",
-        "Automatic Updates",
-        "Community Themes and Plugins verified by Cider Collective",
-        "Blazingly Fast <a class='inline-block align-top text-[0.5em] underline' href='#fn-1'>1</a>",
+        "Microsoft Store specific features",
+        "Automatic updates",
+        "Community themes and plugins verified by Cider Collective",
+        fast,
         "Access to features specific to each platform",
-        "Over-the-air Updates",
-        "Ton of customization options",
-        "Audio Enhancements through our cutting Audio Lab technology",
+        "Over-the-air updates",
+        "Tons of customization options",
+        "Audio enhancements from our Audio Lab",
       ],
-      download: {
-        type: "image",
-        url: "https://apps.microsoft.com/detail/9PL8WPH0QK9M?mode=direct",
-        image: "https://get.microsoft.com/images/en-us%20dark.svg",
-        alt: "Microsoft Store",
-      },
+      actions: [
+        {
+          label: "Get it from Microsoft",
+          url: "https://apps.microsoft.com/detail/9PL8WPH0QK9M?mode=direct",
+          icon: "mdi:microsoft-windows",
+        },
+      ],
     },
     {
       title: "Supporter Edition",
-      description:
-        "Support the development of Cider and get access to exclusive early access builds and features.",
-      features: [
-        "All features available in the Itch.io version",
+      description: "Support the development of Cider and get access to exclusive early access builds and features.",
+      badges: [],
+      perks: [
+        "All features available in the itch.io version",
         "Early access to new features and versions",
         "Support the development of Cider with beta testing",
-        "Access to <a href='https://taproom.cider.sh' class='text-primary'>Taproom</a>",
-        "Availble through a variety of platforms",
-        "Access to Supporter Channels on Discord, where you can chat with the developers and other supporters",
+        taproom,
+        "Available through a variety of platforms",
+        "Access to supporter channels on Discord, where you can chat with the developers and other supporters",
       ],
-      footer:
-        "Minimum $4 donation required for access to Cider Supporter Edition. Donations at or over $20 will grant you access to the Cider Alpha Channel, which contains even more bleeding-edge features.",
-      download: {
-        type: "multiple",
-        downloads: [
-          {
-            type: "icon",
-            url: "https://discord.gg/applemusic",
-            icon: "simple-icons:discord",
-            text: "Discord Sponsorship",
-          },
-          {
-            type: "icon",
-            url: "https://www.patreon.com/cidercollective",
-            icon: "simple-icons:patreon",
-            text: "Patreon Supporter",
-          },
-          {
-            type: "icon",
-            url: "https://opencollective.com/ciderapp",
-            icon: "simple-icons:opencollective",
-            text: "Open Collective",
-          },
-          {
-            type: "icon",
-            url: "https://github.com/sponsors/ciderapp",
-            icon: "simple-icons:github",
-            text: "GitHub Sponsorship",
-          },
-        ],
-      },
+      note: "Minimum $8.49 donation required for access to Cider Supporter Edition. Donations at or over $20 will grant you access to the Cider Alpha Channel, which contains even more bleeding-edge features.",
+      actions: [
+        { label: "Discord", url: "https://discord.gg/applemusic", icon: "simple-icons:discord" },
+        { label: "Patreon", url: "https://www.patreon.com/cidercollective", icon: "simple-icons:patreon" },
+        { label: "Open Collective", url: "https://opencollective.com/ciderapp", icon: "simple-icons:opencollective" },
+        { label: "GitHub Sponsors", url: "https://github.com/sponsors/ciderapp", icon: "simple-icons:githubsponsors" },
+      ],
     },
   ];
 </script>
