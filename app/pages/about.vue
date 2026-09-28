@@ -93,7 +93,6 @@
     ogDescription: "Meet the Cider Collective: the team building a better cross-platform Apple Music experience.",
     twitterTitle: "About Cider Collective",
     twitterDescription: "Meet the Cider Collective: the team building a better cross-platform Apple Music experience.",
-    ogUrl: `${site.url}/about`,
     ogImage: `${site.url}/og/about.png`,
     ogImageWidth: 1200,
     ogImageHeight: 630,

@@ -150,7 +150,6 @@
     ogDescription: "Take full control of Cider with Remote, a native iOS app.",
     twitterTitle: "Cider Remote",
     twitterDescription: "Take full control of Cider with Remote, a native iOS app.",
-    ogUrl: `${site.url}/downloads/remote`,
     ogImage: `${site.url}/og/downloads-remote.png`,
     ogImageWidth: 1200,
     ogImageHeight: 630,

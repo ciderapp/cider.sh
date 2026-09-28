@@ -157,7 +157,6 @@
     ogDescription: "Features, platforms, and why people choose Cider.",
     twitterTitle: "Learn More",
     twitterDescription: "Features, platforms, and why people choose Cider.",
-    ogUrl: `${site.url}/learn-more`,
     ogImage: `${site.url}/og/learn-more.png`,
     ogImageWidth: 1200,
     ogImageHeight: 630,
