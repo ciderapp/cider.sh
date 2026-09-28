@@ -31,7 +31,6 @@
         <SiteProse v-if="page">
           <ContentRenderer :value="page" />
         </SiteProse>
-        <p v-else class="py-12 text-chalk-dim">Document not found.</p>
       </div>
     </div>
   </main>
@@ -40,9 +39,13 @@
 <script lang="ts" setup>
   const $route = useRoute();
 
+  // Use the catch-all param so locale prefixes (/es/legal/privacy) resolve to
+  // the English content path (/legal/privacy). Do not look up /es/legal/...
   const currentPath = computed(() => {
-    const p = $route.path.replace(/\/$/, "");
-    return p === "/legal" ? "/legal/privacy" : p;
+    const slugParam = $route.params.slug;
+    const parts = Array.isArray(slugParam) ? slugParam : slugParam ? [String(slugParam)] : [];
+    const slug = parts.filter(Boolean).join("/");
+    return slug ? `/legal/${slug}` : "/legal/privacy";
   });
 
   const { data: page } = await useAsyncData(
@@ -50,9 +53,17 @@
     () => queryContent(currentPath.value).findOne()
   );
 
+  if (!page.value) {
+    throw createError({
+      statusCode: 404,
+      statusMessage: "Legal document not found",
+      fatal: true,
+    });
+  }
+
   useSeoMeta({
-    title: page.value?.title ? `${page.value.title} - Cider Collective` : "Legal - Cider Collective",
-    ogTitle: page.value?.title ? `${page.value.title} - Cider Collective` : "Legal - Cider Collective",
-    ogDescription: page.value?.description,
+    title: page.value.title ? `${page.value.title} - Cider Collective` : "Legal - Cider Collective",
+    ogTitle: page.value.title ? `${page.value.title} - Cider Collective` : "Legal - Cider Collective",
+    ogDescription: page.value.description,
   });
 </script>

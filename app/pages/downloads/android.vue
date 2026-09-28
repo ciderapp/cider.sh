@@ -394,7 +394,6 @@
     ogDescription: "Apple Music on your Android phone and Meta Quest & Steam Frame. In beta for pre-orders and supporters.",
     twitterTitle: "Cider for Android",
     twitterDescription: "Apple Music on your Android phone and Meta Quest & Steam Frame. In beta for pre-orders and supporters.",
-    ogUrl: `${site.url}/downloads/android`,
   });
 
   defineOgImageComponent("OgShareCard", {

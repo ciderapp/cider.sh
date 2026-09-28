@@ -8,6 +8,7 @@
 </template>
 <script setup lang="ts">
   const { locale } = useI18n();
+  const { canonicalUrl } = useEnglishCanonicalUrl();
 
   useSeoMeta({
     titleTemplate: "%s | Cider Collective",
@@ -17,12 +18,19 @@
     ogSiteName: "Cider Collective",
     themeColor: "#dc0f54",
     ogLocale: () => locale.value,
+    ogUrl: canonicalUrl,
   });
   useHead({
     htmlAttrs: {
       lang: () => locale.value,
     },
     link: [
+      {
+        rel: "canonical",
+        href: canonicalUrl,
+        key: "canonical",
+        tagPriority: "high",
+      },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "" },
       {

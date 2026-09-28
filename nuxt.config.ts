@@ -159,6 +159,7 @@ export default defineNuxtConfig({
   site: {
     url: process.env.NUXT_SITE_URL || 'https://cider.sh',
     name: 'Cider Collective',
+    trailingSlash: false,
   },
 
   robots: {
@@ -167,6 +168,24 @@ export default defineNuxtConfig({
 
   sitemap: {
     enabled: true,
+    // Locale JSON files other than en.json are empty and fall back to English, so
+    // auto i18n sitemaps + hreflang would advertise translations that do not exist.
+    // Opt out of the i18n sitemap integration for a single English urlset.
+    autoI18n: false,
+    sources: ['/api/__sitemap__/urls'],
+    exclude: [
+      '/api/**',
+      '/og/**',
+      '/__og-image__/**',
+      '/share/**',
+      // Non-default locale prefixes (keep the routes, omit them from the sitemap).
+      /^\/(es|fr|de|ja|ko|zh|ru|it|tr|pl|nl)(\/|$)/,
+    ],
+  },
+
+  seo: {
+    // Query strings must never appear on canonicals or og:url.
+    canonicalQueryWhitelist: [],
   },
 
   linkChecker: {

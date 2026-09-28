@@ -102,7 +102,6 @@
     ogDescription: "Get the desktop client for Windows, macOS, and Linux.",
     twitterTitle: "Download Cider",
     twitterDescription: "Get the desktop client for Windows, macOS, and Linux.",
-    ogUrl: `${site.url}/downloads/client`,
     ogImage: `${site.url}/og/downloads-client.png`,
     ogImageWidth: 1200,
     ogImageHeight: 630,

@@ -88,7 +88,6 @@
     ogDescription: "Stay up to date with the latest Cider releases, news, updates, and resources.",
     twitterTitle: "Changelogs",
     twitterDescription: "Stay up to date with the latest Cider releases, news, updates, and resources.",
-    ogUrl: `${site.url}/changelogs`,
     ogImage: `${site.url}/og/changelogs.png`,
     ogImageWidth: 1200,
     ogImageHeight: 630,
