@@ -1,6 +1,6 @@
 ---
 title: "Discord Bot Privacy Policy"
-description: "Privacy policy for Saki, Cider's Discord support agent, covering gateway intents, Rise-backed support, data retention, and deletion requests."
+description: "Privacy policy for Saki, Cider's Discord support agent, covering gateway intents, Rise-backed support, starboard, data retention, and deletion requests."
 ---
 
 # Discord Bot Privacy Policy
@@ -26,22 +26,25 @@ Saki is Cider Collective's Discord support agent for Cider community servers. Th
 
 The first message in a new support thread discloses that answers are AI generated via Cider's support service, that this bot does not use your messages to train models, and how to stop (`/resolved`, or stop replying).
 
-Staff may also use leftover tools that are still in the bot (`/report-bug` when enabled, `/dump-forum`, `/forum`). Those are staff-only and are not the consumer product.
+Support questions are processed by a language model hosted on Cider-controlled hardware (via Rise). That processing is inference only. It does not use third-party AI providers.
 
-This bot does not classify spam, operate a starboard, run keyword auto-replies, or send chat to a local language model.
+Saki also runs a starboard. When a message reaches the configured star reaction threshold, Saki copies its text and attachments into the server's starboard channel.
+
+Staff may also use leftover tools that are still in the bot (`/report-bug` when enabled, `/dump-forum`, `/forum`). Those are staff-only and are not the consumer product.
 
 ---
 
 ## 2. Gateway Intents and Why We Use Them
 
-Discord "gateway intents" are permissions that tell Discord which events a bot is allowed to receive. Saki uses four intents. Here is what each one is for, in plain language:
+Discord "gateway intents" are permissions that tell Discord which events a bot is allowed to receive. Saki uses these intents. Here is what each one is for, in plain language:
 
 * **Guilds:** Lets Saki see the servers it is in and their channels, so it can run where it is invited.
 * **Guild Messages:** Lets Saki receive messages in those servers, including mentions and support-thread replies.
-* **Message Content:** Lets Saki read the text (and optional images) of a question when you @Saki or reply in a Saki support thread. Discord hides that text unless this intent is approved. `/ask` does not need it, because the question is typed into the slash command.
+* **Message Content:** Lets Saki read message text and attachments when you @Saki, reply in a Saki support thread, or when a message is copied to the starboard. Discord hides that text unless this intent is approved. `/ask` does not need it, because the question is typed into the slash command.
+* **Guild Message Reactions:** Lets Saki see star reactions so it can copy a message to the starboard when the threshold is reached.
 * **Server Members (Guild Members):** Lets sticky roles restore a member's previous non-admin roles if they leave and rejoin. Support answers do not use this intent.
 
-Saki does not use Presence. It does not use Guild Message Reactions.
+Saki does not identify with Presence.
 
 ### A. Server Members Intent (`GUILD_MEMBERS` / `GuildUsers`)
 
@@ -68,25 +71,35 @@ Saki needs message text to:
 1. **@Saki mentions:** Read the question (and optional images), open a thread, and send the question to Cider's Rise support API.
 2. **Support-thread follow-ups:** Read later messages from that user in the Saki thread and send them as follow-ups to the same Rise session.
 3. **Support-channel heads-up:** In the designated support channel, notice a normal post and offer a heads-up. A reply to that heads-up is not sent to Rise. Ordinary chat is never forwarded. Use @Saki or `/ask` to start support.
+4. **Starboard:** When a message reaches the star threshold, copy its text and attachments into the starboard channel.
 
 `/ask` does not need this intent. The question is a slash-command option.
 
 Staff leftovers that also read message text if someone runs them: `/report-bug` (when enabled) and `/dump-forum`.
 
-#### What We Do Not Do:
-* We do not send chat to a spam classifier.
-* We do not send chat to a local language model.
-* We do not run keyword auto-replies or a starboard.
-* We do not keep a general chat archive in Saki's database.
-* We do not forward leftover channel text when you reply to a heads-up.
+---
+
+### C. Guild Message Reactions Intent (`GUILD_MESSAGE_REACTIONS`)
+
+Saki uses this intent for the starboard. When enough star reactions are added to a message, Saki copies that message's text and attachments into the configured starboard channel. The database stores only Discord snowflake ids for the source and starboard messages, not the message body.
+
+---
 
 #### Data Handling:
 * Support questions, optional images, and session metadata go to Cider's Rise support API. The metadata is only a source tag, Discord user id, and the relevant channel id, thread id, and parent channel id. Username is not sent.
-* Rise is Cider-hosted. Answers use Cider's knowledge base (retrieval plus inference). Discord messages are not used to train models in this bot.
+* Rise is Cider-hosted. Support questions are processed by a language model hosted on Cider-controlled hardware. That processing is inference only. It does not use third-party AI providers. Discord messages are not used to train models in this bot.
 * Rise session retention is not defined in the Saki bot. `/deleteactivity` does not delete Rise sessions.
 * Thread session ids are held in memory for about 24 hours. Heads-up message and user ids are held in memory for about 30 minutes. Original channel text is not stored for heads-up.
+* Starboard rows in Saki's database are Discord ids only. The copied text lives in the public Discord starboard channel.
 * Bot logs record command name, user id, and username, not general chat.
 * If staff confirm `/report-bug`, a transcript may be filed to GitHub via Rise.
+
+#### What We Do Not Do:
+* We do not send leftover channel text to Rise when you reply to a heads-up.
+* We do not send your Discord username to Rise as session metadata.
+* We do not send support questions to third-party AI providers.
+* We do not use Discord messages to train models.
+* We do not keep a general chat archive in Saki's database.
 
 ---
 
@@ -96,14 +109,16 @@ Active support state lives on Rise, not in Saki's SQLite file.
 
 The bot may still have leftover local tables from older features (timezones, donations, guild settings, casino, sticky-role snapshots). Those are not the support product. `/deleteactivity` can remove leftover local rows for your user id.
 
+Starboard mappings stored locally are Discord snowflake ids only (`GuildId`, source channel/message ids, starboard channel/message ids).
+
 ---
 
 ## 4. Third-Party Services & Data Sharing
 
 We do not sell, rent, trade, or monetize user data.
 
-* **Discord Inc.:** Gateway and REST under Discord's terms.
-* **Rise (Cider-hosted support API):** Questions, follow-ups, optional images, and session metadata (`source`, Discord user id, channel/thread/parent channel ids). Username is not sent. Staff bug-report drafts if that tool is enabled.
+* **Discord Inc.:** Gateway and REST under Discord's terms. Starboard copies remain on Discord.
+* **Rise (Cider-hosted support API):** Questions, follow-ups, optional images, and session metadata (`source`, Discord user id, channel/thread/parent channel ids). Username is not sent. Rise processes those questions with a language model hosted on Cider-controlled hardware, inference only. Staff bug-report drafts if that tool is enabled.
 
 GitHub receives an issue only if staff confirm `/report-bug`.
 
