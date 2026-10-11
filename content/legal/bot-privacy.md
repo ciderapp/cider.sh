@@ -1,6 +1,6 @@
 ---
 title: "Discord Bot Privacy Policy"
-description: "Privacy policy for Saki, Cider's Discord support agent, covering Message Content Intent, Rise-backed support, leftover data, and deletion rights."
+description: "Privacy policy for Saki, Cider's Discord support agent, covering gateway intents, Rise-backed support, data retention, and deletion requests."
 ---
 
 # Discord Bot Privacy Policy
@@ -21,25 +21,34 @@ Saki is Cider Collective's Discord support agent for Cider community servers. Th
 * The `/ask` slash command
 * An explicit @Saki mention, which can open a support thread
 * Follow-up messages from that user in a Saki support thread
-* A heads-up in the designated support channel, with an optional reply that starts a thread from what the user already typed
+* A heads-up in the designated support channel. A reply to that heads-up does not start a thread and does not send leftover chat to Rise. To start support, use @Saki or `/ask`.
 * `/resolved` to close a Saki support thread
+
+The first message in a new support thread discloses that answers are AI generated via Cider's support service, that this bot does not use your messages to train models, and how to stop (`/resolved`, or stop replying).
 
 Staff may also use leftover tools that are still in the bot (`/report-bug` when enabled, `/dump-forum`, `/forum`). Those are staff-only and are not the consumer product.
 
+This bot does not classify spam, operate a starboard, run keyword auto-replies, or send chat to a local language model.
+
 ---
 
-## 2. Privileged Gateway Intents & Data Collection
+## 2. Gateway Intents and Why We Use Them
 
-Saki identifies with Guilds, Guild Messages, Message Content, and (if sticky roles remain enabled) Server Members. Presence is not used. Guild Message Reactions are not required for support.
+Discord "gateway intents" are permissions that tell Discord which events a bot is allowed to receive. Saki uses four intents. Here is what each one is for, in plain language:
+
+* **Guilds:** Lets Saki see the servers it is in and their channels, so it can run where it is invited.
+* **Guild Messages:** Lets Saki receive messages in those servers, including mentions and support-thread replies.
+* **Message Content:** Lets Saki read the text (and optional images) of a question when you @Saki or reply in a Saki support thread. Discord hides that text unless this intent is approved. `/ask` does not need it, because the question is typed into the slash command.
+* **Server Members (Guild Members):** Lets sticky roles restore a member's previous non-admin roles if they leave and rejoin. Support answers do not use this intent.
+
+Saki does not use Presence. It does not use Guild Message Reactions.
 
 ### A. Server Members Intent (`GUILD_MEMBERS` / `GuildUsers`)
 
 #### Purpose & Usage:
-1. **Sticky Roles (leftover):** If left on, restore a member's previous non-admin roles after they leave and rejoin. Discord does not send old roles on leave, so Saki snapshots roles on join, on role change, and with a startup member-list backfill.
+1. **Sticky Roles:** If left on, restore a member's previous non-admin roles after they leave and rejoin. Discord does not send old roles on leave, so Saki snapshots roles on join, on role change, and with a startup member-list backfill.
 
 This intent is not used for support answers, `/ask`, mentions, or permission checks. Those use the member object on the interaction or a single-user REST lookup.
-
-If sticky roles are turned off in production and the handlers are retired, this intent can be dropped.
 
 #### Data Collected & Stored (when sticky roles run):
 * **Discord User ID**
@@ -54,27 +63,28 @@ Admins can disable sticky roles with `/config stickyroles`.
 
 ### B. Message Content Intent (`MESSAGE_CONTENT`)
 
-Discord hides message text, embeds, and attachments on ordinary guild messages unless this intent is approved. Saki needs those fields to:
+Saki needs message text to:
 
-1. **@Saki mentions:** Read the question on an @Saki mention (and optional images), open a thread, and send the question to Cider's Rise support API.
+1. **@Saki mentions:** Read the question (and optional images), open a thread, and send the question to Cider's Rise support API.
 2. **Support-thread follow-ups:** Read later messages from that user in the Saki thread and send them as follow-ups to the same Rise session.
-3. **Support-channel heads-up:** In the regulated support channel, notice a normal post, offer a heads-up, and (if the user replies to that heads-up) use the original message text as the question.
+3. **Support-channel heads-up:** In the designated support channel, notice a normal post and offer a heads-up. A reply to that heads-up is not sent to Rise. Ordinary chat is never forwarded. Use @Saki or `/ask` to start support.
 
 `/ask` does not need this intent. The question is a slash-command option.
 
 Staff leftovers that also read message text if someone runs them: `/report-bug` (when enabled) and `/dump-forum`.
 
-#### What We Do Not Do as the Active Product:
+#### What We Do Not Do:
 * We do not send chat to a spam classifier.
-* We do not send chat to a local language model. `/vibecheck` is not a supported product.
-* We do not run keyword auto-replies.
+* We do not send chat to a local language model.
+* We do not run keyword auto-replies or a starboard.
 * We do not keep a general chat archive in Saki's database.
+* We do not forward leftover channel text when you reply to a heads-up.
 
 #### Data Handling:
-* Support questions, optional images, and metadata (Discord user id, username, channel/thread ids, a source tag) go to Cider's Rise support API.
+* Support questions, optional images, and session metadata go to Cider's Rise support API. The metadata is only a source tag, Discord user id, and the relevant channel id, thread id, and parent channel id. Username is not sent.
 * Rise is Cider-hosted. Answers use Cider's knowledge base (retrieval plus inference). Discord messages are not used to train models in this bot.
 * Rise session retention is not defined in the Saki bot. `/deleteactivity` does not delete Rise sessions.
-* Thread session ids are held in memory for about 24 hours. Heads-up original text is held in memory for about 30 minutes.
+* Thread session ids are held in memory for about 24 hours. Heads-up message and user ids are held in memory for about 30 minutes. Original channel text is not stored for heads-up.
 * Bot logs record command name, user id, and username, not general chat.
 * If staff confirm `/report-bug`, a transcript may be filed to GitHub via Rise.
 
@@ -93,7 +103,7 @@ The bot may still have leftover local tables from older features (timezones, don
 We do not sell, rent, trade, or monetize user data.
 
 * **Discord Inc.:** Gateway and REST under Discord's terms.
-* **Rise (Cider-hosted support API):** Questions, follow-ups, optional images, session metadata, and staff bug-report drafts if that tool is enabled.
+* **Rise (Cider-hosted support API):** Questions, follow-ups, optional images, and session metadata (`source`, Discord user id, channel/thread/parent channel ids). Username is not sent. Staff bug-report drafts if that tool is enabled.
 
 GitHub receives an issue only if staff confirm `/report-bug`.
 
@@ -104,7 +114,7 @@ GitHub receives an issue only if staff confirm `/report-bug`.
 * **Retention Policy:**
   * Rise decides how long a support session is kept. The Discord bot has no session-delete call and no published TTL.
   * In-memory maps expire as noted above. That does not erase Rise.
-  * Leftover local rows can be cleared with `/deleteactivity`, or by emailing [privacy@cider.sh](mailto:privacy@cider.sh) / [support@cider.sh](mailto:support@cider.sh) with your Discord User ID.
+  * Leftover local rows can be cleared with `/deleteactivity`, or by emailing [privacy@cider.sh](mailto:privacy@cider.sh) or [support@cider.sh](mailto:support@cider.sh) with your Discord User ID.
 * **Security Measures:**
   * Local data is on Cider-controlled infrastructure.
   * Access is limited to authorized maintainers.
@@ -113,26 +123,20 @@ GitHub receives an issue only if staff confirm `/report-bug`.
 
 ## 6. User Rights, Opt-Out, and Data Deletion
 
-Under applicable privacy regulations (including GDPR and CCPA) and Discord Developer Policies, you have the right to access, rectify, opt-out of, or delete personal data associated with your Discord account.
+Under applicable privacy regulations (including GDPR and CCPA) and Discord Developer Policies, you have the right to access, rectify, or request deletion of personal data associated with your Discord account.
 
-### Active Support
-* There is no command that opts you out of AI processing if you @Saki or keep talking in a Saki thread.
-* You can choose not to use `/ask`, @Saki, or support-thread replies.
-* `/resolved` archives and locks your Saki thread. It does not delete the Rise session.
+### No Per-User Opt-Out Yet
+There is no per-user switch that turns off AI processing if you mention Saki or keep talking in a Saki support thread. New threads include an AI disclosure on the first message.
+
+To stop, do not mention the bot, do not use `/ask`, and do not reply in a Saki support thread. `/resolved` archives and locks a Saki thread you own. It does not delete the Rise session.
 
 ### Leftover Local Data
-* `/deleteactivity` clears timezone, sticky-role, donation, and casino rows only.
+`/deleteactivity` clears timezone, sticky-role, donation, and casino rows only. It does not delete Rise support sessions.
 
 ### How to Request Data Deletion
-1. **Instant Self-Service Command:**
-   * Run `/deleteactivity` for leftover local rows. This is immediate for those rows.
-2. **Direct Email Request:**
-   * Email **[privacy@cider.sh](mailto:privacy@cider.sh)** or **[support@cider.sh](mailto:support@cider.sh)**.
-   * **Subject Line:** `Discord Data Deletion Request - [Your Discord User ID]`
-3. **Discord Support Server / Ticket:**
-   * Open a ticket in the official [Cider Collective Discord Server](https://discord.gg/applemusic).
-4. **Processing Time:**
-   * `/deleteactivity` is immediate for local rows. Email and tickets are typically handled within 72 hours, and within 30 days. Rise session deletion needs a Rise-side action.
+Email **[support@cider.sh](mailto:support@cider.sh)** or **[privacy@cider.sh](mailto:privacy@cider.sh)** with subject `Discord Data Deletion Request - [Your Discord User ID]`, or open a ticket in the official [Cider Collective Discord Server](https://discord.gg/applemusic).
+
+`/deleteactivity` is immediate for leftover local rows. Email and tickets are typically handled within 72 hours, and within 30 days. Rise session deletion needs a Rise-side action. The bot cannot do it today.
 
 ---
 
