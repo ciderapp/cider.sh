@@ -237,7 +237,7 @@
   };
 
   const specs = [
-    { label: "Requires", value: "Android 13 or later" },
+    { label: "Requires", value: androidMinOs.requirement },
     { label: "Access", value: "Beta for pre-orders and supporters" },
     { label: "You need", value: "An Apple Music subscription" },
     { label: "Also on", value: "Meta Quest & Steam Frame" },
@@ -364,7 +364,7 @@
     {
       question: "Which devices does it run on?",
       answer:
-        "Phones and tablets running Android 13 or later, plus Meta Quest 2, Quest Pro, Quest 3, Quest 3S, and Steam Frame. Tablets and foldables work, but their layouts aren't finished until later in the beta.",
+        `Phones and tablets running ${androidMinOs.requirement}, plus Meta Quest 2, Quest Pro, Quest 3, Quest 3S, and Steam Frame. Tablets and foldables work, but their layouts aren't finished until later in the beta.`,
     },
     {
       question: "How do I get into the beta?",
@@ -403,5 +403,25 @@
     footer: "cider.sh/downloads/android",
     icon: "/og-icons/downloads.png",
     site: "cider",
+  });
+
+  useHead({
+    script: [
+      {
+        type: "application/ld+json",
+        key: "android-software",
+        innerHTML: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "MobileApplication",
+          name: "Cider for Android",
+          operatingSystem: androidMinOs.requirement,
+          softwareRequirements: androidMinOs.requirement,
+          applicationCategory: "MultimediaApplication",
+          url: "https://cider.sh/downloads/android",
+          description:
+            "Apple Music on your Android phone and Meta Quest & Steam Frame. In beta for pre-orders and supporters.",
+        }),
+      },
+    ],
   });
 </script>

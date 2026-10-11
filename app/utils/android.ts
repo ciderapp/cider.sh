@@ -5,6 +5,13 @@
 export const androidTaproomUrl = "https://taproom.cider.sh/android";
 export const androidDownloadUrl = "https://taproom.cider.sh/android/download";
 
+// Minimum OS for Cider for Android. Keep product copy, FAQ, and JSON-LD in sync.
+export const androidMinOs = {
+  name: "Android 10",
+  api: 29,
+  requirement: "Android 10 (API 29) and above",
+};
+
 // Screenshots live in public/android/ (720 x 1603 WebP from a Pixel). An empty src shows a
 // labelled placeholder frame. The Quest capture is a 12.6s muted loop at 1600 x 900: AV1 WebM
 // with an H.264 MP4 fallback, and its first frame as the poster.
