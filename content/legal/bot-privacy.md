@@ -1,12 +1,12 @@
 ---
 title: "Discord Bot Privacy Policy"
-description: "Privacy policy for Saki and Cider Discord Bots covering Guild Members Intent, Message Content Intent, data storage, and deletion rights."
+description: "Privacy policy for Saki, Cider's Discord support agent, covering Message Content Intent, Rise-backed support, leftover data, and deletion rights."
 ---
 
 # Discord Bot Privacy Policy
 
 **Last Updated:** October 11, 2026  
-**Effective Date:** August 17, 2026  
+**Effective Date:** October 11, 2026  
 
 This Privacy Policy applies to the **Saki** Discord bot (and related Cider Discord Bots, collectively referred to as "the Bot", "we", "us", or "our"), operated by the **Cider Collective** ([cider.sh](https://cider.sh)).
 
@@ -16,124 +16,129 @@ We are committed to protecting user privacy, ensuring transparency in data proce
 
 ## 1. Overview & Purpose
 
-The Bot is designed to provide community administration, automated moderation, spam & phishing protection, AI-assisted support ticketing, utilities (such as timezones and media helpers), and server engagement features for Cider community servers and authorized partner servers.
+Saki is Cider Collective's Discord support agent for Cider community servers. The active product is AI-assisted troubleshooting:
+
+* The `/ask` slash command
+* An explicit @Saki mention, which can open a support thread
+* Follow-up messages from that user in a Saki support thread
+* A heads-up in the designated support channel, with an optional reply that starts a thread from what the user already typed
+* `/resolved` to close a Saki support thread
+
+Staff may also use leftover tools that are still in the bot (`/report-bug` when enabled, `/dump-forum`, `/forum`). Those are staff-only and are not the consumer product.
 
 ---
 
 ## 2. Privileged Gateway Intents & Data Collection
 
-To perform essential moderation, security, and utility operations, the Bot requires access to specific **Discord Privileged Gateway Intents**.
+Saki identifies with Guilds, Guild Messages, Message Content, and (if sticky roles remain enabled) Server Members. Presence is not used. Guild Message Reactions are not required for support.
 
-### A. Guild Members Intent (`GUILD_MEMBERS` / `GuildUsers`)
+### A. Server Members Intent (`GUILD_MEMBERS` / `GuildUsers`)
 
 #### Purpose & Usage:
-1. **Sticky Roles (Role Persistence):** When enabled by server administrators, the Bot restores a user's previous non-administrative roles if they leave and rejoin the guild. Because Discord's member-remove events do not include historical role metadata, the Bot captures role snapshots while members are present or during startup synchronization.
-2. **Moderation Hierarchy & Safety Safeguards:** To inspect role positions and permissions before executing moderation actions (such as `/ban`, `/kick`, `/timeout`, `/unmute`, `/votekick`) to prevent unauthorized actions.
-3. **Supporter & Contributor Role Assignment:** To verify and assign donor and supporter roles across platforms (e.g., OpenCollective, Ko-fi, GitHub Sponsors) using `/verify` or `/approve`.
-4. **Server Economy & Participant Mapping:** To associate virtual server rewards (e.g., PRD Coin) with guild members.
+1. **Sticky Roles (leftover):** If left on, restore a member's previous non-admin roles after they leave and rejoin. Discord does not send old roles on leave, so Saki snapshots roles on join, on role change, and with a startup member-list backfill.
 
-#### Data Collected & Stored:
-* **Discord User ID** (`ulong` format)
-* **Discord Guild ID** (`ulong` format)
-* **Assigned Role IDs** (List of non-privileged role IDs; administrative and staff roles with elevated permissions are strictly excluded from automated restoration for security reasons)
-* **Timestamps** (Snapshot timestamp and leave timestamp)
+This intent is not used for support answers, `/ask`, mentions, or permission checks. Those use the member object on the interaction or a single-user REST lookup.
 
-#### What We Do NOT Collect:
-* We do not collect or store user passwords, personal profile biographies, phone numbers, or linked external personal accounts without explicit user submission.
+If sticky roles are turned off in production and the handlers are retired, this intent can be dropped.
+
+#### Data Collected & Stored (when sticky roles run):
+* **Discord User ID**
+* **Discord Guild ID**
+* **Non-privileged Role IDs**
+* **Timestamps**
+* Admin, Manage Server, Manage Roles, Manage Channels, Kick, Ban, and Moderate roles are never auto-restored. Lead Dev and Dev are also excluded.
+
+Admins can disable sticky roles with `/config stickyroles`.
 
 ---
 
 ### B. Message Content Intent (`MESSAGE_CONTENT`)
 
-#### Purpose & Usage:
-1. **Anti-Spam & Phishing/Scam Link Protection:** Real-time scanning of incoming messages to detect known phishing URLs, scam domains, token grabbers, and mass-spam patterns.
-2. **Automated Honeypot / Ban Trap Protection:** Real-time monitoring of designated honeypot channels (e.g., `#ban-trap`) to automatically detect, ban, and purge malicious raid bots and spam accounts.
-3. **AI Support Assistant & Support Threads (`/ask`, Support Flow):** Processing user questions and conversational context when users ask questions or reply within support threads handled by Saki (via local LLM / Ollama or the Rise support API).
-4. **Starboard System:** Retrieving message text, embeds, and attachments when messages reach the configured star reaction threshold so they can be reposted to the server's starboard channel.
-5. **Staff Bug Reporting (`/report-bug`):** Collecting recent messages and screenshot attachments in a designated support thread when an authorized staff member initiates an issue report to GitHub / Rise.
-6. **Command Handling & Media Utilities:** Inspecting URLs for transcoding/metadata operations (such as `yt-dlp` or `ffmpeg`) and handling configured automated community responses.
+Discord hides message text, embeds, and attachments on ordinary guild messages unless this intent is approved. Saki needs those fields to:
 
-#### Data Storage vs. Ephemeral Processing:
-* **Ephemeral Processing (In-Memory Only):**
-  * Anti-spam analysis, scam link checks, and regular chat inspection happen **strictly in-memory** during message transit.
-  * Message contents analyzed for spam classification (sent to the local/microservice ML spam classifier) are **never written to a persistent database or stored on disk**.
-* **Persistent Records Involving Messages:**
-  * **Starboard Entries:** Stored as mapping identifiers (`GuildId`, `SourceChannelId`, `SourceMessageId`, `StarboardChannelId`, `StarboardMessageId`). The content itself resides within the public Discord starboard channel.
-  * **Bug Reports:** Thread context selected for bug reports is forwarded to the designated GitHub issue tracker / Rise backend solely upon explicit staff command invocation.
-  * **No General Chat Logging:** The Bot does **NOT** maintain a persistent backlog or historical archive of user chat messages.
+1. **@Saki mentions:** Read the question on an @Saki mention (and optional images), open a thread, and send the question to Cider's Rise support API.
+2. **Support-thread follow-ups:** Read later messages from that user in the Saki thread and send them as follow-ups to the same Rise session.
+3. **Support-channel heads-up:** In the regulated support channel, notice a normal post, offer a heads-up, and (if the user replies to that heads-up) use the original message text as the question.
+
+`/ask` does not need this intent. The question is a slash-command option.
+
+Staff leftovers that also read message text if someone runs them: `/report-bug` (when enabled) and `/dump-forum`.
+
+#### What We Do Not Do as the Active Product:
+* We do not send chat to a spam classifier.
+* We do not send chat to a local language model. `/vibecheck` is not a supported product.
+* We do not run keyword auto-replies.
+* We do not keep a general chat archive in Saki's database.
+
+#### Data Handling:
+* Support questions, optional images, and metadata (Discord user id, username, channel/thread ids, a source tag) go to Cider's Rise support API.
+* Rise is Cider-hosted. Answers use Cider's knowledge base (retrieval plus inference). Discord messages are not used to train models in this bot.
+* Rise session retention is not defined in the Saki bot. `/deleteactivity` does not delete Rise sessions.
+* Thread session ids are held in memory for about 24 hours. Heads-up original text is held in memory for about 30 minutes.
+* Bot logs record command name, user id, and username, not general chat.
+* If staff confirm `/report-bug`, a transcript may be filed to GitHub via Rise.
 
 ---
 
 ## 3. Persistent Data Storage
 
-The Bot maintains a local SQLite database to store minimal operational data:
+Active support state lives on Rise, not in Saki's SQLite file.
 
-| Category | Stored Fields | Purpose |
-| :--- | :--- | :--- |
-| **User Timezones** | Discord User ID, IANA/System Timezone string, Update Timestamp | Used by the `/time` command to display localized times. |
-| **Donations / Supporter Records** | Discord User ID, Platform Name (e.g., OpenCollective), Timestamp, Staff Notes | Used to track supporter role eligibility and grant perks. |
-| **Server Configurations** | Guild ID, Channel IDs (Starboard, Mod Logs, Ban Trap), Role IDs, Feature Toggles, Domain Whitelist/Blacklist | Stores per-guild configuration set by server administrators. |
-| **Virtual Economy (Casino)** | Discord User ID, Guild ID, Virtual Balance, Bet Logs, Active Session States | Powers opt-in virtual mini-games (PRD Coin). |
-
-> **Note on `/verify`:** When users submit an email address with the `/verify` command to claim donor roles, the email is used ephemerally to query the donation platform API. Plaintext emails are **not** permanently stored in the Bot's database.
+The bot may still have leftover local tables from older features (timezones, donations, guild settings, casino, sticky-role snapshots). Those are not the support product. `/deleteactivity` can remove leftover local rows for your user id.
 
 ---
 
 ## 4. Third-Party Services & Data Sharing
 
-We do **not** sell, rent, trade, or monetize user data. Data is shared with third-party service providers solely to the extent necessary to deliver the bot's functionality:
+We do not sell, rent, trade, or monetize user data.
 
-* **Discord Inc.:** Gateway communication, interaction handling, and REST API calls under Discord's Terms of Service and Privacy Policy.
-* **ML Spam Classifier (Saki-ML):** Message text evaluated in-memory for spam scores.
-* **Ollama / Rise AI Support Backend:** Support queries and thread context sent for automated troubleshooting and GitHub issue generation.
-* **OpenCollective / Ko-fi / GitHub API:** Verification of supporter status for donor role allocation.
+* **Discord Inc.:** Gateway and REST under Discord's terms.
+* **Rise (Cider-hosted support API):** Questions, follow-ups, optional images, session metadata, and staff bug-report drafts if that tool is enabled.
+
+GitHub receives an issue only if staff confirm `/report-bug`.
 
 ---
 
 ## 5. Data Retention & Security
 
-* **Retention Policy:** 
-  * User data (such as sticky role snapshots, timezones, and virtual casino balances) is usually cleared when a user leaves with intent.
-  * Alternatively, stored data can be cleared at any time by the user using the `/deleteactivity` command, or by emailing us directly at [support@cider.sh](mailto:support@cider.sh) or [privacy@cider.sh](mailto:privacy@cider.sh) with their Discord User ID, which we will promptly act on deleting.
-  * Ephemeral message data analyzed for spam/phishing or support interactions is processed in-memory and discarded immediately after processing.
-* **Security Measures:** 
-  * Stored data is kept securely in an isolated SQLite database on our protected server infrastructure.
-  * Access is strictly restricted to authorized bot maintainers.
-  * Administrative credentials and Discord bot tokens are stored via encrypted environment variables.
+* **Retention Policy:**
+  * Rise decides how long a support session is kept. The Discord bot has no session-delete call and no published TTL.
+  * In-memory maps expire as noted above. That does not erase Rise.
+  * Leftover local rows can be cleared with `/deleteactivity`, or by emailing [privacy@cider.sh](mailto:privacy@cider.sh) / [support@cider.sh](mailto:support@cider.sh) with your Discord User ID.
+* **Security Measures:**
+  * Local data is on Cider-controlled infrastructure.
+  * Access is limited to authorized maintainers.
 
 ---
 
 ## 6. User Rights, Opt-Out, and Data Deletion
 
-Under applicable privacy regulations (including GDPR and CCPA) and Discord Developer Policies, you have the right to access, rectify, opt-out of, or delete any personal data associated with your Discord account.
+Under applicable privacy regulations (including GDPR and CCPA) and Discord Developer Policies, you have the right to access, rectify, opt-out of, or delete personal data associated with your Discord account.
 
-### How to Opt-Out
-* **Timezone Data:** You may clear or update your timezone at any time using `/time set`.
-* **Sticky Roles:** Server administrators can disable role restoration server-wide via `/config sticky-roles enable:False` or exclude specific roles with `/config sticky-roles exclude-role`.
-* **Bot Interaction:** You can choose not to interact with commands, support threads, or opt-in mini-games.
+### Active Support
+* There is no command that opts you out of AI processing if you @Saki or keep talking in a Saki thread.
+* You can choose not to use `/ask`, @Saki, or support-thread replies.
+* `/resolved` archives and locks your Saki thread. It does not delete the Rise session.
 
-### How to Request Data Deletion ("Right to be Forgotten")
-To request the complete deletion of all data associated with your Discord User ID (including timezone entries, role snapshots, donation logs, and casino ledger records), you have the following options:
+### Leftover Local Data
+* `/deleteactivity` clears timezone, sticky-role, donation, and casino rows only.
 
+### How to Request Data Deletion
 1. **Instant Self-Service Command:**
-   * Run the `/deleteactivity` slash command directly in any server with the bot or via direct interaction. The bot will present an ephemeral confirmation dialog displaying all your records and allow you to permanently purge your data instantly.
-
+   * Run `/deleteactivity` for leftover local rows. This is immediate for those rows.
 2. **Direct Email Request:**
-   * Email us directly at **[support@cider.sh](mailto:support@cider.sh)** or **[privacy@cider.sh](mailto:privacy@cider.sh)**.
+   * Email **[privacy@cider.sh](mailto:privacy@cider.sh)** or **[support@cider.sh](mailto:support@cider.sh)**.
    * **Subject Line:** `Discord Data Deletion Request - [Your Discord User ID]`
-   * **Required Details:** Include your **Discord User ID** (17–19 digit numeric ID) so our team can locate and purge all database records associated with your account. We will act on deleting your data upon receipt.
-
 3. **Discord Support Server / Ticket:**
-   * Join the official [Cider Collective Discord Server](https://discord.gg/applemusic) and open a support ticket with staff providing your Discord User ID.
-
+   * Open a ticket in the official [Cider Collective Discord Server](https://discord.gg/applemusic).
 4. **Processing Time:**
-   * `/deleteactivity` takes effect immediately. Email and ticket requests will be processed promptly (typically within 72 hours, and guaranteed within 30 days).
+   * `/deleteactivity` is immediate for local rows. Email and tickets are typically handled within 72 hours, and within 30 days. Rise session deletion needs a Rise-side action.
 
 ---
 
 ## 7. Changes to This Privacy Policy
 
-We may periodically update this Privacy Policy to reflect changes in bot features, legal requirements, or Discord policies. Any revisions will be published on this page with an updated "Last Updated" date. Continued use of the Bot after modifications constitutes acceptance of the updated policy.
+We may update this page when the bot, the law, or Discord's rules change. The "Last Updated" date will change. Continued use after an update means you accept the new policy.
 
 ---
 
@@ -143,5 +148,6 @@ If you have questions, feedback, or concerns regarding this Privacy Policy or ou
 
 * **Privacy Contact:** [privacy@cider.sh](mailto:privacy@cider.sh)
 * **General Support:** [support@cider.sh](mailto:support@cider.sh)
+* **Public Policy:** [https://cider.sh/legal/bot-privacy](https://cider.sh/legal/bot-privacy)
 * **Community Discord:** [https://discord.gg/applemusic](https://discord.gg/applemusic)
 * **Organization:** Cider Collective
