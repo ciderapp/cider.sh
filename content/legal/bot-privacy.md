@@ -30,6 +30,11 @@ Support questions are processed by a language model hosted on Cider-controlled h
 
 Saki also runs a starboard. When a message reaches the configured star reaction threshold, Saki copies its text and attachments into the server's starboard channel.
 
+* Ban-trap honeypot: a post in the designated ban-trap channel is deleted and the author is banned, with a 7-day message purge. The message text is not stored.
+* Domain lists: attachment and embed hosts are checked against a per-guild whitelist/blacklist (default on).
+* Scam-link filter: URLs in message text and attachment/embed hosts are checked against a public community domain list (default on). There is no Saki-ML spam classifier on this path.
+* Moderation alerts: if staff set an alert channel, a flagged scam-link hit posts an embed there with truncated original message text (about 1900 characters). That copy lives on Discord in the staff channel. It is not stored in Saki's database.
+
 Staff may also use leftover tools that are still in the bot (`/report-bug` when enabled, `/dump-forum`, `/forum`). Those are staff-only and are not the consumer product.
 
 ---
@@ -40,7 +45,7 @@ Discord "gateway intents" are permissions that tell Discord which events a bot i
 
 * **Guilds:** Lets Saki see the servers it is in and their channels, so it can run where it is invited.
 * **Guild Messages:** Lets Saki receive messages in those servers, including mentions and support-thread replies.
-* **Message Content:** Lets Saki read message text and attachments when you @Saki, reply in a Saki support thread, or when a message is copied to the starboard. Discord hides that text unless this intent is approved. `/ask` does not need it, because the question is typed into the slash command.
+* **Message Content:** Lets Saki read message text and attachments when you @Saki, reply in a Saki support thread, or when a message is copied to the starboard. It also lets Saki read ordinary guild messages to check URLs and attachment/embed hosts, and to detect posts in the ban-trap honeypot channel. Discord hides that text unless this intent is approved. `/ask` does not need it, because the question is typed into the slash command.
 * **Guild Message Reactions:** Lets Saki see star reactions so it can copy a message to the starboard when the threshold is reached.
 * **Server Members (Guild Members):** Lets sticky roles restore a member's previous non-admin roles if they leave and rejoin. Support answers do not use this intent.
 
@@ -72,6 +77,10 @@ Saki needs message text to:
 2. **Support-thread follow-ups:** Read later messages from that user in the Saki thread and send them as follow-ups to the same Rise session.
 3. **Support-channel heads-up:** In the designated support channel, notice a normal post and offer a heads-up. A reply to that heads-up is not sent to Rise. Ordinary chat is never forwarded. Use @Saki or `/ask` to start support.
 4. **Starboard:** When a message reaches the star threshold, copy its text and attachments into the starboard channel.
+5. **Ban-trap honeypot:** Detect a post in the ban-trap channel, delete it, and ban the author. The message text is not stored.
+6. **Domain lists:** Check attachment and embed hosts against the guild whitelist/blacklist.
+7. **Scam-link filter:** Check URLs in message text and hosts on attachments/embeds against a public scam-domain list. No Saki-ML classifier is used.
+8. **Moderation alerts:** If a staff alert channel is configured, post a truncated copy of flagged message text (about 1900 characters) in that Discord channel. That text is not stored in Saki's database.
 
 `/ask` does not need this intent. The question is a slash-command option.
 
@@ -95,11 +104,14 @@ Saki uses this intent for the starboard. When enough star reactions are added to
 * If staff confirm `/report-bug`, a transcript may be filed to GitHub via Rise.
 
 #### What We Do Not Do:
+* We do not run a Saki-ML spam classifier or send chat to Ollama.
+* Message text used for link, host, and ban-trap checks is not stored in Saki's database.
+* We do not keep a general chat archive in Saki's database.
+* If staff set an alert channel, truncated flagged text may appear in a staff embed on Discord.
 * We do not send leftover channel text to Rise when you reply to a heads-up.
 * We do not send your Discord username to Rise as session metadata.
 * We do not send support questions to third-party AI providers.
 * We do not use Discord messages to train models.
-* We do not keep a general chat archive in Saki's database.
 
 ---
 
@@ -107,7 +119,9 @@ Saki uses this intent for the starboard. When enough star reactions are added to
 
 Active support state lives on Rise, not in Saki's SQLite file.
 
-The bot may still have leftover local tables from older features (timezones, donations, guild settings, casino, sticky-role snapshots). Those are not the support product. `/deleteactivity` can remove leftover local rows for your user id.
+Guild settings for domain lists, the scam-link toggle, the alert channel, and an optional ban-trap public notify channel are live configuration.
+
+The bot may still have leftover local tables from older features (timezones, donations, casino, sticky-role snapshots). Those are not the support product. `/deleteactivity` can remove leftover local rows for your user id.
 
 Starboard mappings stored locally are Discord snowflake ids only (`GuildId`, source channel/message ids, starboard channel/message ids).
 
@@ -117,8 +131,9 @@ Starboard mappings stored locally are Discord snowflake ids only (`GuildId`, sou
 
 We do not sell, rent, trade, or monetize user data.
 
-* **Discord Inc.:** Gateway and REST under Discord's terms. Starboard copies remain on Discord.
+* **Discord Inc.:** Gateway and REST under Discord's terms. Starboard copies and staff alert embeds remain on Discord.
 * **Rise (Cider-hosted support API):** Questions, follow-ups, optional images, and session metadata (`source`, Discord user id, channel/thread/parent channel ids). Username is not sent. Rise processes those questions with a language model hosted on Cider-controlled hardware, inference only. Staff bug-report drafts if that tool is enabled.
+* **Discord-AntiScam scam-links list:** Saki downloads the public list.json from GitHub raw to match hosts. Message text is not sent to that project.
 
 GitHub receives an issue only if staff confirm `/report-bug`.
 
