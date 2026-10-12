@@ -5,7 +5,7 @@ description: "Privacy policy for Saki, Cider's Discord support bot: how support,
 
 # Discord Bot Privacy Policy
 
-**Last Updated:** October 12, 2026  
+**Last Updated:** October 11, 2026  
 **Effective Date:** October 12, 2026  
 
 This Privacy Policy applies to the **Saki** Discord bot (and related Cider Discord bots, together "the Bot", "we", "us", or "our"), operated by the **Cider Collective** ([cider.sh](https://cider.sh)).
@@ -72,6 +72,8 @@ Support answers use the person who ran the command. They do not use this permiss
 * Non-admin role IDs
 * When that copy was saved
 
+If someone leaves the server, Saki keeps that copy for 30 days so their roles can be given back if they rejoin. After 30 days from when they left, the copy is deleted automatically and is not used to restore roles. If they are still in the server, the copy is updated when their roles change.
+
 Admin and powerful roles (such as Administrator, Manage Server, Manage Roles, Kick, Ban, and Moderate) are never restored automatically. Staff and developer roles are also left out.
 
 Server admins can turn sticky roles off with `/config stickyroles`.
@@ -107,7 +109,7 @@ Saki uses this permission for the starboard. When enough people add a star to a 
 
 * Your question, any images you attach, and a small set of IDs (your Discord user ID and the channel or thread IDs) go to Cider's support service. Your Discord username is not sent with that request.
 * Cider's support service runs on Cider's own systems. A language model on computers Cider controls is used only to answer your question. Your Discord messages are not used to train models.
-* How long a support session is kept is set by Cider's support service, not by the Discord bot. `/deleteactivity` does not delete those sessions.
+* Cider's support service deletes a support session, including the question, follow-ups, and images, 30 days after the last activity in that session. The Discord bot does not delete those sessions. `/deleteactivity` does not delete them.
 * Saki remembers which support thread belongs to which conversation for about 24 hours, and remembers a recent how-to note for about 30 minutes so it can tell if someone replies to it. It does not store the original channel text from that note.
 * Starboard records in Saki's database are Discord IDs only. The copied text lives in the starboard channel on Discord.
 * Bot logs record the command name and your user ID and username. They do not record ordinary chat.
@@ -124,13 +126,13 @@ Saki uses this permission for the starboard. When enough people add a star to a 
 
 ## 3. What Saki Stores
 
-Active support conversations live in Cider's support service, not in the Discord bot's local database.
+Active support conversations live in Cider's support service, not in the Discord bot's local database. The support service deletes those sessions 30 days after the last activity. The Discord bot does not delete them.
 
 Saki's local database may store:
 
 * Server settings for site lists, the scam-link check, the staff alert channel, and an optional public notice channel for the ban-trap
 * Which messages were copied to the starboard (Discord IDs only)
-* Timezone, donation, mini-game, and sticky-role records if you used those features
+* Timezone, donation, mini-game, and sticky-role records if you used those features. A sticky-role copy for someone who has left is kept for 30 days after they leave, then deleted.
 
 `/deleteactivity` can remove timezone, sticky-role, donation, and mini-game records for your user ID. It does not remove server settings, starboard posts, or support sessions.
 
@@ -150,7 +152,8 @@ If staff confirm `/report-bug`, GitHub receives the issue they file.
 
 ## 5. How Long We Keep Data and How We Protect It
 
-* Cider's support service decides how long a support session is kept.
+* Cider's support service deletes a support session 30 days after the last activity in that session. The Discord bot cannot delete support sessions.
+* Sticky-role copies for people who have left are deleted 30 days after they leave.
 * The short-lived records described above expire on their own. They do not control the support session.
 * You can clear some local records with `/deleteactivity`, or by emailing [privacy@cider.sh](mailto:privacy@cider.sh) or [support@cider.sh](mailto:support@cider.sh) with your Discord user ID.
 * Local data is kept on systems Cider controls. Access is limited to people who maintain the bot.
