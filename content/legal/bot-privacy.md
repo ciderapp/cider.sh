@@ -5,8 +5,8 @@ description: "Privacy policy for Saki, Cider's Discord support bot: how support,
 
 # Discord Bot Privacy Policy
 
-**Last Updated:** October 11, 2026  
-**Effective Date:** October 11, 2026  
+**Last Updated:** October 12, 2026  
+**Effective Date:** October 12, 2026  
 
 This Privacy Policy applies to the **Saki** Discord bot (and related Cider Discord bots, together "the Bot", "we", "us", or "our"), operated by the **Cider Collective** ([cider.sh](https://cider.sh)).
 
@@ -23,12 +23,12 @@ Saki is Cider Collective's Discord support bot for Cider community servers. It h
 * Ask a question with the `/ask` command.
 * Mention @Saki, which can open a support thread.
 * Reply in that Saki support thread to continue the same question.
-* In the support channel, Saki may post a short note that you can get help by mentioning @Saki or using `/ask`. Replying to that note does not start a thread and does not send your earlier message to Cider's support service.
+* In the support channel, Saki may post a short note that you can get help by mentioning @Saki or using `/ask`. A reply to that note does not start a thread and does not send your earlier message to Cider's support service.
 * Close a Saki support thread with `/resolved`.
 
 The first message in a new support thread says that answers are written by AI through Cider's support service, that your messages are not used to train models, and how to stop (use `/resolved`, or stop replying).
 
-Support questions are processed by a language model hosted on computers Cider controls. That model is used only to answer your question. We do not send support questions to outside AI companies.
+Support questions are processed by a language model hosted on computers Cider controls. That model is used only to answer your question.
 
 **Starboard**
 
@@ -36,10 +36,10 @@ When a message gets enough star reactions, Saki copies its text and files into t
 
 **Safety tools**
 
-* **Ban-trap channel:** If someone posts in the server's ban-trap channel, that post is deleted and the poster is banned. Their messages from the last 7 days are also removed. The text of the trap post is not saved by Saki.
+* **Ban-trap channel:** If someone posts in the server's ban-trap channel, that post is deleted and the poster is banned. Their messages from the last 7 days are also removed. Saki does not store the text of that post.
 * **Allowed and blocked sites:** Links in files and link previews are checked against lists the server sets (on by default).
 * **Scam-link checks:** Web addresses in a message, and links in files and link previews, are checked against a public community list of known scam sites (on by default).
-* **Staff alerts:** If staff choose an alert channel, a flagged link can post a staff message there with a shortened copy of the original text (about 1900 characters). That copy stays in Discord. Saki does not save it in its own database.
+* **Staff alerts:** If staff choose an alert channel, a flagged link can post a staff message there with a shortened copy of the original text (about 1900 characters). The alert is posted in Discord. Saki's database does not store that copy.
 
 Staff can also use `/report-bug` to file a bug from a support thread, or export a forum with `/dump-forum` / `/forum`. Those tools are for staff only.
 
@@ -63,7 +63,7 @@ Saki does not track whether you are online.
 
 Sticky roles, if left on, give a member back their previous non-admin roles after they leave and rejoin. Discord does not send the old roles when someone leaves, so Saki saves a copy of their roles when they join, when their roles change, and when the bot starts.
 
-This permission is not used to answer support questions. Those use the person who ran the command.
+Support answers use the person who ran the command. They do not use this permission.
 
 **What is stored when sticky roles are on**
 
@@ -86,14 +86,14 @@ Saki reads message text to:
 2. **Support-thread replies:** Read later messages from you in that thread and send them as follow-ups.
 3. **Support-channel note:** Notice a post in the support channel and offer a short how-to. A reply to that note is not sent to Cider's support service. Use @Saki or `/ask` to start support.
 4. **Starboard:** Copy the text and files of a starred message into the starboard channel.
-5. **Ban-trap channel:** Notice a post there, delete it, and ban the author. That text is not saved.
+5. **Ban-trap channel:** Notice a post there, delete it, and ban the author. That text is not stored.
 6. **Site lists:** Check links in files and link previews against the server's allow and block lists.
 7. **Scam-link checks:** Check web addresses in the message and links in files and link previews against a public list of known scam sites.
-8. **Staff alerts:** If staff set an alert channel, post a shortened copy of a flagged message there (about 1900 characters). That copy is not saved in Saki's database.
+8. **Staff alerts:** If staff set an alert channel, post a shortened copy of a flagged message there (about 1900 characters). The copy is posted in Discord, not stored in Saki's database.
 
 `/ask` does not need this permission. The question is part of the command.
 
-Staff tools that also read messages if someone runs them: `/report-bug` and `/dump-forum`.
+Staff tools that read messages when used: `/report-bug` and `/dump-forum`.
 
 ---
 
@@ -107,8 +107,8 @@ Saki uses this permission for the starboard. When enough people add a star to a 
 
 * Your question, any images you attach, and a small set of IDs (your Discord user ID and the channel or thread IDs) go to Cider's support service. Your Discord username is not sent with that request.
 * Cider's support service runs on Cider's own systems. A language model on computers Cider controls is used only to answer your question. Your Discord messages are not used to train models.
-* How long Cider's support service keeps a session is set there, not in the Discord bot. `/deleteactivity` does not delete those sessions.
-* Saki remembers which support thread belongs to which conversation for about 24 hours, and remembers a recent how-to note for about 30 minutes so it can tell if someone replies to it. It does not save the original channel text from that note.
+* How long a support session is kept is set by Cider's support service, not by the Discord bot. `/deleteactivity` does not delete those sessions.
+* Saki remembers which support thread belongs to which conversation for about 24 hours, and remembers a recent how-to note for about 30 minutes so it can tell if someone replies to it. It does not store the original channel text from that note.
 * Starboard records in Saki's database are Discord IDs only. The copied text lives in the starboard channel on Discord.
 * Bot logs record the command name and your user ID and username. They do not record ordinary chat.
 * If staff confirm `/report-bug`, a copy of that thread may be filed as a GitHub issue through Cider's support service.
@@ -140,9 +140,9 @@ Saki's local database may store:
 
 We do not sell, rent, trade, or monetize user data.
 
-* **Discord:** Saki talks to Discord to receive events and send messages. Starboard copies and staff alerts stay on Discord.
-* **Cider's support service:** Your questions, follow-ups, optional images, and the IDs listed above. A language model on computers Cider controls answers those questions. Staff may also send a bug-report draft this way.
-* **Public scam-site list:** Saki downloads a public list of known scam websites and checks website names against it. Your message text is not sent to the people who publish that list.
+* **Discord:** Discord is the platform Saki runs on. Messages and bot actions pass through it. Starboard copies and staff alerts are posted in Discord channels.
+* **Cider's support service:** Support questions, follow-ups, optional images, and the IDs listed above are sent to Cider's own support service. A language model running on Cider-controlled computers writes the answer. Staff bug-report drafts also go this way.
+* **Public scam-site list:** Saki downloads a public list of known scam websites and compares link domains against it locally. Nothing from your messages is sent out for this check.
 
 If staff confirm `/report-bug`, GitHub receives the issue they file.
 
@@ -150,8 +150,8 @@ If staff confirm `/report-bug`, GitHub receives the issue they file.
 
 ## 5. How Long We Keep Data and How We Protect It
 
-* Cider's support service decides how long a support session is kept. The Discord bot cannot delete that session on its own.
-* The short memories described above expire on their own. That does not erase the support session.
+* Cider's support service decides how long a support session is kept.
+* The short-lived records described above expire on their own. They do not control the support session.
 * You can clear some local records with `/deleteactivity`, or by emailing [privacy@cider.sh](mailto:privacy@cider.sh) or [support@cider.sh](mailto:support@cider.sh) with your Discord user ID.
 * Local data is kept on systems Cider controls. Access is limited to people who maintain the bot.
 
@@ -169,7 +169,7 @@ To stop, do not mention the bot, do not use `/ask`, and do not reply in a Saki s
 
 To request deletion, email **[support@cider.sh](mailto:support@cider.sh)** or **[privacy@cider.sh](mailto:privacy@cider.sh)** with the subject `Discord Data Deletion Request - [Your Discord User ID]`, or open a ticket in the [Cider Collective Discord](https://discord.gg/applemusic).
 
-`/deleteactivity` takes effect right away for those local records. Email and tickets are usually handled within 72 hours, and within 30 days. Deleting a support session has to be done by Cider staff on the support service. The Discord bot cannot do that today.
+`/deleteactivity` takes effect right away for those local records. Email and tickets are usually handled within 72 hours, and within 30 days. Deleting a support session has to be done by Cider staff on the support service. The Discord bot cannot delete support sessions.
 
 ---
 
