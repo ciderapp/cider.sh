@@ -1,0 +1,27 @@
+diff --git a/dist/runtime/server/util/kit.js b/dist/runtime/server/util/kit.js
+index 186a7d829c4eeb8a84a5d655e315ca383aab7008..8cc43a4200fe1e288043e336269b7d5b0367b512 100644
+--- a/dist/runtime/server/util/kit.js
++++ b/dist/runtime/server/util/kit.js
+@@ -4,10 +4,20 @@ import { hash } from "ohash";
+ import { createRouter as createRadixRouter, toRouteMatcher } from "radix3";
+ import { withoutBase, withoutTrailingSlash } from "ufo";
+ export function fetchIsland(e, component, props) {
+-  const hashId = hash([component, props]).replaceAll("_", "-");
++  // Nuxt 3.21.10+ hashes [name, parsedProps, context, source] and strips -/_
++  // before validating /__nuxt_island/*.json. The 4.2.0 ohash([component, props])
++  // replica is rejected as 400 Invalid island request hash during OG prerender.
++  const serializedProps = JSON.stringify(props ?? {});
++  let parsed;
++  try {
++    parsed = JSON.parse(serializedProps);
++  } catch {
++    parsed = serializedProps;
++  }
++  const hashId = hash([component, parsed, {}, undefined]).replace(/[-_]/g, "");
+   return e.$fetch(`/__nuxt_island/${component}_${hashId}.json`, {
+     params: {
+-      props: JSON.stringify(props)
++      props: serializedProps
+     }
+   });
+ }
