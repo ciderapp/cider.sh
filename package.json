@@ -69,6 +69,9 @@
         "arm64"
       ]
     },
+    "overrides": {
+      "vue": "3.5.44"
+    },
     "patchedDependencies": {
       "nuxt-og-image@4.2.0": "patches/nuxt-og-image@4.2.0.patch"
     }
