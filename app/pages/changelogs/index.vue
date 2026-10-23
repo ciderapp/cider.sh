@@ -138,18 +138,26 @@
     version: string;
   }
 
-  const { data: changelogsList } = await useAsyncData("changelogs-list", () =>
-    $fetch<RiseChangelogListResponse>("/api/changelogs/list")
+  const freshness = payloadDuringHydration();
+
+  const { data: changelogsList } = await useAsyncData(
+    "changelogs-list",
+    () => $fetch<RiseChangelogListResponse>("/api/changelogs/list"),
+    freshness
   );
 
-  const { data: latestChangelog } = await useAsyncData("latest-changelog", async () => {
-    try {
-      return await $fetch<RiseChangelogDetail>("/api/changelogs/latest");
-    } catch (error) {
-      console.error("Failed to fetch latest changelog:", error);
-      return null;
-    }
-  });
+  const { data: latestChangelog } = await useAsyncData(
+    "latest-changelog",
+    async () => {
+      try {
+        return await $fetch<RiseChangelogDetail>("/api/changelogs/latest");
+      } catch (error) {
+        console.error("Failed to fetch latest changelog:", error);
+        return null;
+      }
+    },
+    freshness
+  );
 
   const releases = computed<Release[]>(() =>
     (changelogsList.value?.changelogs ?? []).map((changelog) => ({

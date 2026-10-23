@@ -1,16 +1,13 @@
-export default defineCachedEventHandler(async (event) => {
-  const riseApiBaseUrl = 'https://rise.cider.sh';
-  
+export default defineCachedEventHandler(async () => {
   try {
-    const response = await $fetch(`${riseApiBaseUrl}/api/v1/changelogs/latest`);
-    return response;
-  } catch (error) {
+    return await $fetch(riseChangelogUrl("latest"));
+  } catch {
     throw createError({
       statusCode: 500,
-      statusMessage: 'Failed to fetch latest changelog'
+      statusMessage: "Failed to fetch latest changelog",
     });
   }
 }, {
   name: "rise-changelog-latest",
-  maxAge: 60 * 5,
+  ...riseChangelogCacheOptions,
 });

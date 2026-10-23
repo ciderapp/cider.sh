@@ -1,16 +1,13 @@
-export default defineCachedEventHandler(async (event) => {
-  const riseApiBaseUrl = 'https://rise.cider.sh';
-  
+export default defineCachedEventHandler(async () => {
   try {
-    const response = await $fetch(`${riseApiBaseUrl}/api/v1/changelogs/list`);
-    return response;
-  } catch (error) {
+    return await $fetch(riseChangelogUrl("list"));
+  } catch {
     throw createError({
       statusCode: 500,
-      statusMessage: 'Failed to fetch changelogs list'
+      statusMessage: "Failed to fetch changelogs list",
     });
   }
 }, {
   name: "rise-changelog-list",
-  maxAge: 60 * 5,
+  ...riseChangelogCacheOptions,
 });

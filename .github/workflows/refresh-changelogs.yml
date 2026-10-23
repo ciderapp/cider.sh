@@ -1,0 +1,25 @@
+name: Refresh changelogs
+
+on:
+  schedule:
+    # Hourly. Rise only creates or updates rows on boot or POST /refresh.
+    - cron: "17 * * * *"
+  workflow_dispatch:
+  repository_dispatch:
+    types: [changelog-updated]
+
+jobs:
+  refresh:
+    name: Sync Rise and verify latest
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Refresh Rise from Cider-2 changelogs
+        env:
+          RISE_API_URL: ${{ vars.RISE_API_URL }}
+          RISE_MANAGEMENT_KEY: ${{ secrets.RISE_MANAGEMENT_KEY }}
+          CLOUDFLARE_PAGES_DEPLOY_HOOK: ${{ secrets.CLOUDFLARE_PAGES_DEPLOY_HOOK }}
+        run: node scripts/refresh-changelogs.mjs
