@@ -50,11 +50,9 @@ export default defineSitemapEventHandler(async (e) => {
   }
 
   try {
-    const config = useRuntimeConfig();
-    const riseApiBaseUrl = String(config.public.riseApiUrl || "https://rise.cider.sh");
     const changelogsResponse = await $fetch<{
       changelogs?: Array<{ version?: string; lastUpdated?: unknown }>;
-    }>(`${riseApiBaseUrl}/api/v1/changelogs/list`);
+    }>(riseChangelogUrl("list"));
 
     urls.push({
       loc: "/changelogs",

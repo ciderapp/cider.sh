@@ -144,9 +144,12 @@
   const formatDate = (timestamp: number) =>
     new Date(timestamp).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
 
+  const freshness = payloadDuringHydration();
+
   const { data: release, error } = await useAsyncData(
     () => `changelog-${version.value}`,
-    () => $fetch<RiseChangelogDetail>(`/api/changelogs/${version.value}`)
+    () => $fetch<RiseChangelogDetail>(`/api/changelogs/${version.value}`),
+    freshness
   );
   if (error.value || !release.value) {
     throw createError({
@@ -156,8 +159,10 @@
     });
   }
 
-  const { data: list } = await useAsyncData("changelogs-list", () =>
-    $fetch<RiseChangelogListResponse>("/api/changelogs/list")
+  const { data: list } = await useAsyncData(
+    "changelogs-list",
+    () => $fetch<RiseChangelogListResponse>("/api/changelogs/list"),
+    freshness
   );
 
   const title = computed(() => (release.value ? `Cider ${release.value.version}` : "Cider Changelog"));

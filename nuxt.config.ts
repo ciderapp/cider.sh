@@ -1,4 +1,5 @@
 import path from "path";
+import { changelogPrerenderIgnore, changelogRouteRules } from "./shared/changelog-freshness";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -15,6 +16,9 @@ export default defineNuxtConfig({
   nitro: {
     prerender: {
       autoSubfolderIndex: false,
+      // Changelog pages read Rise at request time. Baking them at build
+      // leaves /changelogs and the header strip stuck on the last deploy.
+      ignore: [...changelogPrerenderIgnore],
     },
   },
 
@@ -120,8 +124,7 @@ export default defineNuxtConfig({
     "/": { prerender: true },
     "/downloads": { redirect: "/downloads/client" },
     "/downloads/client": { prerender: true },
-    "/changelogs": { prerender: true },
-    "/changelogs/**": { isr: 60 },
+    ...changelogRouteRules,
     "/downloads/remote": { prerender: true },
     "/downloads/android": { prerender: true },
     "/learn-more": { prerender: true },
